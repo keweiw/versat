@@ -26,6 +26,31 @@ USE `versat`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `sysuser`;
+CREATE TABLE IF NOT EXISTS `sysuser` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `addr_line1` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `addr_line2` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `city` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `state` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `zip` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `cash` double NOT NULL DEFAULT '0',
+  `type` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `fund`
 --
 
@@ -50,7 +75,8 @@ CREATE TABLE IF NOT EXISTS `fund_price_history` (
   `price_date` datetime DEFAULT NULL,
   `price` float DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `fund_id` (`fund_id`)
+  KEY `fund_id` (`fund_id`),
+  CONSTRAINT `fund_price_history_ibfk_1` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -67,7 +93,9 @@ CREATE TABLE IF NOT EXISTS `position` (
   `shares` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
-  KEY `fund_id` (`fund_id`)
+  KEY `fund_id` (`fund_id`),
+  CONSTRAINT `position_ibfk_4` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `position_ibfk_3` FOREIGN KEY (`customer_id`) REFERENCES `sysuser` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -87,57 +115,10 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `unit_price` float DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `fund_id` (`fund_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `firstname` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lastname` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `addr_line1` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `addr_line2` varchar(128) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `city` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `state` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `zip` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `cash` double NOT NULL DEFAULT '0',
-  `type` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `fund_price_history`
---
-ALTER TABLE `fund_price_history`
-  ADD CONSTRAINT `fund_price_history_ibfk_1` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `position`
---
-ALTER TABLE `position`
-  ADD CONSTRAINT `position_ibfk_4` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `position_ibfk_3` FOREIGN KEY (`customer_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
--- Constraints for table `transaction`
---
-ALTER TABLE `transaction`
+  KEY `fund_id` (`fund_id`),
   ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `sysuser` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
