@@ -149,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `transaction` (
   `fund_hostory_id` int(11) DEFAULT NULL,
   `execute_date` datetime DEFAULT NULL,
   `shares` bigint(20) DEFAULT NULL,
+  `amount` bigint(20) DEFAULT NULL,
   `transaction_type` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),

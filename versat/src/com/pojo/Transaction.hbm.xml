@@ -20,6 +20,9 @@
         <property name="shares" type="java.lang.Long">
             <column name="shares" />
         </property>
+        <property name="amount" type="java.lang.Long">
+            <column name="amount" />
+        </property>
         <property name="transactionType" type="java.lang.Integer">
             <column name="transaction_type" />
         </property>

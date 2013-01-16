@@ -14,6 +14,7 @@ public class Transaction implements java.io.Serializable {
 	private FundPriceHistory fundPriceHistory;
 	private Date executeDate;
 	private Long shares;
+	private Long amount;
 	private Integer transactionType;
 	private Integer status;
 
@@ -21,11 +22,12 @@ public class Transaction implements java.io.Serializable {
 	}
 
 	public Transaction(Sysuser sysuser, FundPriceHistory fundPriceHistory,
-			Date executeDate, Long shares, Integer transactionType, Integer status) {
+			Date executeDate, Long shares, Long amount, Integer transactionType, Integer status) {
 		this.sysuser = sysuser;
 		this.fundPriceHistory = fundPriceHistory;
 		this.executeDate = executeDate;
 		this.shares = shares;
+		this.amount = amount;
 		this.transactionType = transactionType;
 		this.status = status;
 	}
@@ -86,4 +88,11 @@ public class Transaction implements java.io.Serializable {
 		this.status = status;
 	}
 
+	public Long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
 }

@@ -1,0 +1,302 @@
+/*--------------------
+----------------------*/
+td { padding: 0; margin: 0;} 
+th { padding: 0; margin: 0;} 
+blockquote { padding: 0; margin: 0;} 
+p { padding: 0; margin: 0;} 
+textarea { padding: 0; margin: 0;} 
+input { padding: 0; margin: 0;} 
+fieldset { padding: 0; margin: 0;} 
+form { padding: 0; margin: 0;} 
+pre { padding: 0; margin: 0;} 
+h6 { padding: 0; margin: 0;} 
+h5 { padding: 0; margin: 0;} 
+h4 { padding: 0; margin: 0;} 
+h3 { padding: 0; margin: 0;} 
+h2 { padding: 0; margin: 0;} 
+h1 { padding: 0; margin: 0;} 
+li { padding: 0; margin: 0;} 
+ol { padding: 0; margin: 0;} 
+ul { padding: 0; margin: 0;} 
+dd { padding: 0; margin: 0;} 
+dt { padding: 0; margin: 0;} 
+dl { padding: 0; margin: 0;} 
+div { padding: 0; margin: 0;} 
+body { padding: 0; margin: 0;} 
+table { border-collapse: collapse; border-spacing: 0;} 
+img { border: 0;} 
+fieldset { border: 0;} 
+var { font-weight: normal; font-style: normal;} 
+th { font-weight: normal; font-style: normal;} 
+strong { font-weight: normal; font-style: normal;} 
+em { font-weight: normal; font-style: normal;} 
+dfn { font-weight: normal; font-style: normal;} 
+code { font-weight: normal; font-style: normal;} 
+cite { font-weight: normal; font-style: normal;} 
+caption { font-weight: normal; font-style: normal;} 
+address { font-weight: normal; font-style: normal;} 
+ul { list-style: none;} 
+ol { list-style: none;} 
+th { text-align: left;} 
+caption { text-align: left;} 
+h6 { font-weight: normal; font-size: 100%;} 
+h5 { font-weight: normal; font-size: 100%;} 
+h4 { font-weight: normal; font-size: 100%;} 
+h3 { font-weight: normal; font-size: 100%;} 
+h2 { font-weight: normal; font-size: 100%;} 
+h1 { font-weight: normal; font-size: 100%;} 
+q:after { content:'';} 
+q:before { content:'';} 
+acronym { border: 0;}
+abbr { border: 0;}
+
+.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;} 
+.clearfix {display: inline-block;}
+/**//* Hides from IE-mac \*/
+* html .clearfix {height: 1%;} 
+.clearfix {display: block;} 
+/**//* End hide from IE-mac */
+
+
+body{
+font-size:12px;
+background:#fff;
+padding:0;
+text-align:center;
+color:#163b67;
+font-family:宋体, Arial, Helvetica, sans-serif
+}
+
+html{
+font-size:12px;
+background:#fff;
+padding:0;
+text-align:center;
+color:#163b67;
+font-family:宋体, Arial, Helvetica, sans-serif
+}
+dd {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+dt {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+dl {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+li {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+ul {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+img {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+form {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+div {
+margin: 0; 
+padding: 0; 
+border: 0;}
+
+img{
+border:0;
+}
+textarea{
+font-size:12px; 
+}
+td{
+font-size:12px; 
+}
+table{
+font-size:12px; 
+}
+/*link*/
+a:link{font-size:12px;text-decoration:none;color:#163b67;cursor:pointer;}
+a:visited{font-size:12px;text-decoration:none;color:#163b67;cursor:pointer;}
+a:hover{font-size:12px;text-decoration:underline;color:#163b67;cursor:pointer;}
+a:active{font-size:12px;text-decoration:none;color:#163b67;cursor:pointer;}
+
+
+
+/*font*/
+.font12b{color:#ffffff; font-size:12px; font-weight:bold;}
+.font14b{color:#163b67; font-size:14px; font-weight:bold;}
+.font12_normal{color:#364856; font-size:12px;}
+.font_bluehui{color:#7295bb;}
+.font_black{color:#000000;}
+.font_heigh{color:#9e0b0f;}
+.font_zhong{color:#0072bc;}
+.font_hui{color:#c2c2c2;}
+.font_14white{color:#ffffff;font-size:14px; }
+.font_b{font-weight:bold;}
+.font_red{color:#ff0000;}
+.font_hui1{color:#898989;}
+
+
+
+/*border*/
+.border_1{border:1px solid #b2b7bb;}
+.border_bottom1{border-bottom:1px solid #b7d2e5;}
+.border_table{border:1px solid #d9e3ed;}
+.border_table1{border-left:1px solid #e5e5e5;border-top:1px solid #e5e5e5;border-right:1px solid #e5e5e5;}
+.border_table2{border:1px solid #e5e5e5;}
+.border_line{border-right:1px solid #e5e5e5;}
+
+/*input*/
+textarea{
+border:1px #7f9db9 solid;
+}
+input[type="password"]{
+border:1px #7f9db9 solid;
+}
+input[type="text"]{
+border:1px #7f9db9 solid;
+}
+select{
+border:1px #7f9db9 solid;
+}
+.header_container{
+/*width:1003px;*/
+min-width:1000px;
+height:63px;
+margin:0 auto;
+line-height:63px;
+text-align:left;
+border-bottom:2px #d3d3d3 solid;
+background-color:#fbfbfb;
+}
+.headerbg_right{
+min-width:1000px;
+height:63px;
+line-height:63px;
+margin:0px;
+padding:0px;
+float:right;
+}
+.header_logo a{
+width:343px;
+height:63px;
+line-height:63px;
+display:block;
+text-indent:45px;
+font-size:22px;
+}
+.header_bz{
+height:20px;
+line-height:20px;
+margin:34px 0px 0px 0px;
+padding-right:10px;
+float:right;
+text-align:center;
+}
+.footer_bg{
+font-family: Arial, Helvetica, sans-serif;
+/*width:1003px;*/
+width:100%;
+min-width:1000px;
+padding:5px 0;
+color:#b2b2b2;
+line-height:26px;
+margin-top:10px;
+border-top:2px #d3d3d3 solid;
+background-color:#fbfbfb;
+float:left;
+}
+.content_left{
+width:170px;
+line-height:20px;
+margin:0px;
+padding:0px;
+float:left;
+border-top:2px #d3d3d3 solid;
+background-color:#fbfbfa;
+}
+.contentbg_top{
+width:170px;
+height:25px;
+line-height:25px;
+margin:0px;
+padding:0px;
+float:left;
+}
+.content_menubd{
+width:170px;
+height:20px;
+line-height:20px;
+margin:0px;
+padding:0px;
+font-size:0;
+float:left;
+border-top:1px #d3d3d3 solid;
+border-bottom:1px #d3d3d3 solid;
+background-color:#fbfbfa;
+}
+.content{
+/*width:1003px;*/
+width:100%;
+min-height:440px;
+float:right;
+margin-left:-180px;
+line-height:20px;
+text-align:left;
+}
+.content_right{
+/*width:825px;*/
+height:531px;
+margin-left:170px;
+line-height:20px;
+padding:0px 0px 10px 8px;
+border:2px #d3d3d3 solid;
+background-color:#fbfbfb;
+}
+.border_table{border-left:1px solid #e5e5e5;border-top:1px solid #e5e5e5;border-right:1px solid #e5e5e5;}
+.list_table{
+width:100%;
+}
+.list_table tbody tr:hover{
+background-color:#fcfedc;
+}
+.list_table .even{
+background-color:#f9f9f9;
+}
+.even{
+background-color:#f9f9f9;
+}
+.list_table .line_selected{
+background-color:#fcfedc;
+}
+.list_table td{
+border:1px #c6cfd8 solid;
+}
+.list_table td{
+border:1px #c6cfd8 solid;
+}
+.list_table th{
+border:1px #c6cfd8 solid;
+}
+
+.list_table th{
+height:28px;
+}
+
+.login_notice{
+font-size:12px;
+color:red;
+}
