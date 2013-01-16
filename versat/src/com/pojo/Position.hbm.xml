@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 15, 2013 9:10:07 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pojo.Position" table="position" catalog="versat">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <!--  many-to-one name="sysuser" class="com.pojo.Sysuser" fetch="select">
+            <column name="customer_id" />
+        </many-to-one-->
+        <property name="iduser" type="java.lang.Integer">
+            <column name="customer_id" />
+        </property>
+        <many-to-one name="fund" class="com.pojo.Fund" fetch="select">
+            <column name="fund_id" />
+        </many-to-one>
+        <property name="shares" type="java.lang.Long">
+            <column name="shares" />
+        </property>
+    </class>
+</hibernate-mapping>

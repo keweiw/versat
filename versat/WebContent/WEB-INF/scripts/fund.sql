@@ -20,7 +20,6 @@ SET time_zone = "+00:00";
 -- Database: `versat`
 --
 CREATE SCHEMA IF NOT EXISTS `versat` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-CREATE DATABASE `versat` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `versat`;
 
 -- --------------------------------------------------------
@@ -41,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `sysuser` (
   `city` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `state` varchar(32) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `zip` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
-  `cash` double NOT NULL DEFAULT '0',
+  `cash` bigint(20) NOT NULL DEFAULT '0',
   `type` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `type` (`type`)
@@ -71,9 +70,9 @@ CREATE TABLE IF NOT EXISTS `fund` (
 DROP TABLE IF EXISTS `fund_price_history`;
 CREATE TABLE IF NOT EXISTS `fund_price_history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `fund_id` int(11) DEFAULT NULL,
+  `fund_id` int(11) NOT NULL,
   `price_date` datetime DEFAULT NULL,
-  `price` float DEFAULT NULL,
+  `price` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fund_id` (`fund_id`),
   CONSTRAINT `fund_price_history_ibfk_1` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -90,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `position` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) DEFAULT NULL,
   `fund_id` int(11) DEFAULT NULL,
-  `shares` int(11) DEFAULT NULL,
+  `shares` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `customer_id` (`customer_id`),
   KEY `fund_id` (`fund_id`),
@@ -108,15 +107,15 @@ DROP TABLE IF EXISTS `transaction`;
 CREATE TABLE IF NOT EXISTS `transaction` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `fund_id` int(11) DEFAULT NULL,
+  `fund_hostory_id` int(11) DEFAULT NULL,
   `execute_date` datetime DEFAULT NULL,
-  `shares` int(11) DEFAULT NULL,
-  `transaction_type` tinyint(2) DEFAULT NULL,
-  `unit_price` float DEFAULT NULL,
+  `shares` bigint(20) DEFAULT NULL,
+  `transaction_type` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
-  KEY `fund_id` (`fund_id`),
-  CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`fund_id`) REFERENCES `fund` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  KEY `fund_hostory_id` (`fund_hostory_id`),
+  CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`fund_hostory_id`) REFERENCES `fund_price_history` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `sysuser` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
