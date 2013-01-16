@@ -1,0 +1,98 @@
+@charset "UTF-8";
+@import "fonts-min.css";
+
+a{text-decoration:none;cursor:pointer;}
+a:link{color:#771B61;}
+a:visited{color:#771B61;}
+a:hover{color:black;}
+
+body {
+	font-family: Helvetica, "Helvetica Neue", Georgia, sans-serif;
+	margin: 0;
+}
+
+div#container {
+	width:960px;
+	margin-left:auto;
+	margin-right:auto;
+	min-height: 600px;
+	border-left: 1px solid #CCCCCC;
+	border-right: 1px solid #CCCCCC;
+}
+
+div#header {
+	width: 910px;
+	height: 130px;
+	position: relative;
+}
+
+div#header img{
+	margin-left: 50px;
+	float: left;
+}
+
+div#status{
+	float: right;
+	padding-right: 5px;
+	margin-right: 0;
+}
+
+div#status span a:hover{
+	color:#434343;
+}
+
+div#splitter {
+	width: 960px;
+	height: 20px;
+	background-color: #006400;
+}
+
+div#left-container {
+	float: left;
+	width: 200px;
+	margin: auto 0;
+	padding: 0;
+	position: relative;
+}
+
+div#left-container p {
+	padding-left: 5px;
+	width: 200px;
+	text-align: left;
+}
+
+div#right-container {
+	float: right;
+	width: 760px;
+	height: 450px;
+	margin: 0px;
+	padding: auto 0px;
+	position: relative;
+}
+
+div#right-container h2{
+	margin: auto 0;
+	padding-left: 10px;
+	padding-top: 8px;
+	height: 35px;
+	font: 24px;
+	background-color: #BED875;
+}
+
+div#nav {
+	width: 200px;
+	height: 38px;
+	padding-top: 18px;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #CCCCCC;
+}
+
+/*footer*/
+#footer{
+	clear: both;
+	width: 960px;
+	margin: 0px;
+	text-align: center;
+}
+

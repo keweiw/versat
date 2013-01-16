@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="transaction-action" namespace="/employee/trans" extends="versat">
+        <action name="list" class="com.action.TransactionAction" method="list">
+            <result>/pages/transactionhistory.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.multipart.maxSize" value="1073741824" />
+    <constant name="struts.ui.theme" value="simple" />
+    <package name="versat" namespace="/" extends="struts-default">
+    	<default-action-ref name="index"></default-action-ref>
+    </package>
+    <package name="login-action" namespace="/" extends="versat">
+        <action name="index" class="com.action.LoginAction" method="index">
+            <result>/pages/login.jsp</result>
+            <result name="input" type="redirect"></result>
+        </action>
+        <action name="login" class="com.action.LoginAction" method="login">
+            <result name="error">/pages/login.jsp</result>
+            <result name="success" type="redirect">abc</result>
+            <result name="input" type="redirect">dce</result>
+        </action>
+        <action name="logout" class="com.action.LoginAction" method="logout">
+            <result name="success" type="redirect">index</result>
+        </action>
+    </package>
+    <include file="com/action/transaction.xml"></include>
+</struts>

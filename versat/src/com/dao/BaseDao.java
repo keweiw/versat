@@ -140,6 +140,35 @@ public abstract class BaseDao<T> {
 		}
 		return list;
 	}
+	
+	protected List<T> getList(List<Criterion> criterions) throws Exception {
+		List<T> list = null;
+		Session session = null;
+		try {
+			session = HibernateUtil.getSession();
+			session.setFlushMode(FlushMode.AUTO);
+			session.getTransaction().begin();
+
+			Criteria criteria = session.createCriteria(clazz);
+			if (criterions != null) {
+				for (Criterion criterion : criterions) {
+					criteria.add(criterion);
+				}
+			}
+			list = criteria.list();
+			session.flush();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			throw e;
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return list;
+	}
+	
+	
 	/**
 	 * 
 	 * 
