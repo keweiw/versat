@@ -17,7 +17,7 @@
     <div id="header">
         <a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund" /></a>
         <div id="status">
-            <p><a href="logout"> Logout </a></p>
+            <p><a href="../../logout"> Logout </a></p>
         </div>
     </div>
 <!-- Header end -->
@@ -35,10 +35,6 @@
 
     <div id="right-container">
         <h2>Transaction History</h2>
-        <p><a href="">Request Check</a></p>
-        <p><a href="">Make Deposit</a></p>
-        <p><a href="">Buy</a></p> 
-        <p><a href="">Sell</a></p>
         <table border ="1">
         <tr align="center">
             <th>Transaction Date</th>
@@ -52,11 +48,15 @@
         <s:iterator value="transactions" id="transaction">
         <tr align="center">
             <td><s:property value="#transaction.executeDate"/></td>
-            <td>pending</td>
+            <td><s:if test="%{#transaction.transactionType == 0}">Buy Fund</s:if>
+            <s:elseif test="%{#transaction.transactionType == 1}">Sell Fund</s:elseif>
+            <s:elseif test="%{#transaction.transactionType == 2}">Make Deposit</s:elseif>
+            <s:else>Request Check</s:else></td>
             <td><s:property value="#transaction.amount"/></td>
-            <td><s:property value="#transaction.fundPriceHistory"/></td>
-            <td><s:property value="#transaction.comments"/></td>
-            <td><s:property value="#transaction.comments"/></td>
+            <td><s:if test="%{#transaction.transactionType < 2}"><s:property value="#transaction.fundName"/></s:if></td>
+            <td><s:if test="%{#transaction.transactionType < 2}"><s:property value="#transaction.shares / 1000.0"/></s:if></td>
+            <td><s:if test="%{#transaction.transactionType < 2}"><s:property value="#transaction.unitPrice"/></s:if></td>
+            <td><s:if test="%{#transaction.status == 0}">pending</s:if><s:else>proceeded</s:else></td>
         </tr>
         </s:iterator>
         </table>

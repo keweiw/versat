@@ -13,6 +13,8 @@ public class Transaction implements java.io.Serializable {
 	public static final int TRANS_TYPE_SELL = 1;
 	public static final int TRANS_TYPE_DEPOSIT = 2;
 	public static final int TRANS_TYPE_WITHDREW = 3;
+	public static final int TRANS_STATUS_PENDING = 0;
+	public static final int TRANS_STATUS_FINISH = 1;
 	private Integer id;
 	private Sysuser sysuser;
 	private FundPriceHistory fundPriceHistory;
@@ -21,6 +23,8 @@ public class Transaction implements java.io.Serializable {
 	private Long amount;
 	private Integer transactionType;
 	private Integer status;
+	private String fundName;
+	private double unitPrice;
 
 	public Transaction() {
 	}
@@ -34,6 +38,26 @@ public class Transaction implements java.io.Serializable {
 		this.amount = amount;
 		this.transactionType = transactionType;
 		this.status = status;
+		if (this.fundPriceHistory != null) {
+			this.fundName = fundPriceHistory.getFund().getName();
+			this.unitPrice = fundPriceHistory.getPrice() / 100.0;
+		}
+	}
+
+	public String getFundName() {
+		return fundName;
+	}
+
+	public void setFundName(String fundName) {
+		this.fundName = fundName;
+	}
+
+	public double getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(double unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 
 	public Integer getId() {
@@ -58,6 +82,10 @@ public class Transaction implements java.io.Serializable {
 
 	public void setFundPriceHistory(FundPriceHistory fundPriceHistory) {
 		this.fundPriceHistory = fundPriceHistory;
+		if (this.fundPriceHistory != null) {
+			this.fundName = fundPriceHistory.getFund().getName();
+			this.unitPrice = fundPriceHistory.getPrice() / 100.0;
+		}
 	}
 
 	public Date getExecuteDate() {

@@ -9,4 +9,9 @@
             <result>/pages/transactionhistory.jsp</result>
         </action>
     </package>
+    <package name="transaction-customer-action" namespace="/customer/trans" extends="versat">
+        <action name="list" class="com.action.TransactionAction" method="listSelf">
+            <result>/pages/transactionhistory.jsp</result>
+        </action>
+    </package>
 </struts>
