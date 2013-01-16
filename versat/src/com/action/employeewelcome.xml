@@ -5,7 +5,7 @@
 
 <struts>
     <package name="employ-welcome-action" namespace="/employee" extends="versat">
-        <action name="employee-welcome" class="com.action.EmployeeWelcomeAction" method="welcome">
+        <action name="welcome" class="com.action.EmployeeWelcomeAction" method="welcome">
             <result>/pages/employee_welcome.jsp</result>
         </action>
     </package>

@@ -25,7 +25,7 @@
 
 <!-- Main part Begin -->
     <div id="left-container">
-        <div id="nav"><a href="">View Account</a></div>
+        <div id="nav">${sessionScope.USERTYPE}<a href="">View Account</a></div>
         <div id="nav"><a href="">Research Fund</a></div>
         <div id="nav"><a href="">Buy Fund</a></div>
         <div id="nav"><a href="">Sell Fund</a></div>

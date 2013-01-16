@@ -28,13 +28,13 @@
         <table cellspacing="0" cellpadding="0" class="login_table">
             <tr>
                 <td class="text_status">Username：</td>
-                <td><s:textfield name="username" /></td>
+                <td><s:textfield tabindex="1" name="username" /></td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td rowspan="2"><input type="submit" value="Sign In" /></td>
+                <td rowspan="2"><input tabindex="3" type="submit" value="Sign In" /></td>
             </tr>
             <tr>
                 <td class="text_status">Password：</td>
-                <td><s:password name="password" /></td>
+                <td><s:password tabindex="2" name="password" /></td>
             </tr>
         </table>
         </s:form>           

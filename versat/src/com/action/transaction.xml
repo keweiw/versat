@@ -13,5 +13,9 @@
         <action name="list" class="com.action.TransactionAction" method="listSelf">
             <result>/pages/transactionhistory.jsp</result>
         </action>
+        <action name="tobuy" class="com.action.TransactionAction" method="showBuy">
+            <result>/pages/buyfund.jsp</result>
+        </action>
+        
     </package>
 </struts>
