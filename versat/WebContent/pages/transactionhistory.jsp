@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>Welcome to Carnegie Financial Services</title>
-    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -15,7 +15,7 @@
 <div id="container">
 <!-- Header Begin -->
     <div id="header">
-        <a href="index.html"><img src="../images/versat.png" title="Versat Mutual Fund" /></a>
+        <a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund" /></a>
         <div id="status">
             <p><a href="logout"> Logout </a></p>
         </div>
