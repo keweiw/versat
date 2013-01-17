@@ -17,37 +17,44 @@ public class CustomerWelcome extends ActionSupport {
 	private String confirmPassword;
 	private Sysuser user;
 	
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
+	public Sysuser getUser() {
+		return user;
+	}
+
+	public void setUser(Sysuser user) {
+		this.user = user;
+	}
 
 	public String welcome() {
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		return SUCCESS;
 	}
-
-	public String getoldPassword() {
-		return oldPassword;
-	}
-
-	public void setoldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
-
-	public String getnewPassword() {
-		return newPassword;
-	}
-
-	public void setnewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-
-	public String getconfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setconfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
+	
 	public String changePassword(){
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
@@ -72,7 +79,7 @@ public class CustomerWelcome extends ActionSupport {
 				this.addActionError("Incorrect Oldpassword!");
 				return ERROR;
 			}else{
-				changePswUser.setPassword(oldPassword);
+				changePswUser.setPassword(newPassword);
 				try {
 					SysuserDao.getInstance().update(changePswUser);
 				} catch (Exception e) {

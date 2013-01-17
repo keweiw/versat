@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<form method="post" action="employee/changepassword" id="form">
+<form method="post" action="./changepassword" id="form">
 <div id="container">
 <!-- Header Begin -->
 	<div id="header">

@@ -20,7 +20,7 @@ public class AuthorizationFilter implements Filter {
 	private static final String HOST = "Host";
 	private static final String SEG = ";";
 
-	private static final String KEY_EXCEPTION_PAGE = "/noauth.action;/noauth;/error.action;/error;/login.action;/login;/logout.action;/logout;/css/*;/images/*;/js/*;";
+	private static final String KEY_EXCEPTION_PAGE = "/index;/noauth.action;/noauth;/error.action;/error;/login.action;/login;/logout.action;/logout;/css/*;/images/*;/js/*;";
 
 	private String[] exceptionUrls;
 	private boolean enable;
@@ -61,48 +61,44 @@ public class AuthorizationFilter implements Filter {
 				}
 				session = req.getSession(true);
 				Status flag = Status.ALLOW;
-				Sysuser user = (Sysuser) session
-						.getAttribute(LoginAction.SYSUSER);
-				if (null == user) {
-					if (!isExceptionUrl(redirectURL)) {
+				if (isExceptionUrl(redirectURL)) {
+					chain.doFilter(request, response);
+				} else {
+					Sysuser user = (Sysuser) session
+							.getAttribute(LoginAction.SYSUSER);
+					if (null == user) {
 						flag = Status.LOGIN;
+					} else if (!isAllow(user, redirectURL)) {
+						flag = Status.DENY;
+					} else if (redirectURL.equals(LOGIN_PAGE)) {
+						if (user.getType() == Sysuser.USER_TYPE_COSTOMER) {
+							res.sendRedirect(path + CUSTOMER_INDEX_PAGE);
+						} else {
+							res.sendRedirect(path + EMPLOYEE_INDEX_PAGE);
+						}
 					}
-				} else if ((!isExceptionUrl(redirectURL))
-						&& (!isAllow(user, redirectURL))) {
-					flag = Status.DENY;
-				} else if (redirectURL.equals(LOGIN_PAGE)) {
-					if (user.getType() == Sysuser.USER_TYPE_COSTOMER) {
-						res.sendRedirect(path + CUSTOMER_INDEX_PAGE);
-					} else {
-						res.sendRedirect(path + EMPLOYEE_INDEX_PAGE);
-					}
-				} else if (isExceptionUrl(redirectURL)
-						&& !redirectURL.matches("/logout.action")) {
-					chain.doFilter(request, response);
-					return;
-				}
 
-				switch (flag) {
-				case LOGIN: {
-					if (redirectURL.endsWith(LOGIN_PAGE)) {
+					switch (flag) {
+					case LOGIN: {
+						if (redirectURL.endsWith(LOGIN_PAGE)) {
+							chain.doFilter(request, response);
+						} else {
+							res.sendRedirect(path + LOGIN_PAGE);
+						}
+						break;
+					}
+					case DENY: {
+						res.sendRedirect(path + DENY_PAGE);
+						break;
+					}
+					case ALLOW: {
 						chain.doFilter(request, response);
-					} else {
-						res.sendRedirect(path + LOGIN_PAGE);
+						break;
 					}
-
-					break;
-				}
-				case DENY: {
-					res.sendRedirect(path + DENY_PAGE);
-					break;
-				}
-				case ALLOW: {
-					chain.doFilter(request, response);
-					break;
-				}
-				default: {
-					break;
-				}
+					default: {
+						break;
+					}
+					}
 				}
 			} else {
 				chain.doFilter(request, response);

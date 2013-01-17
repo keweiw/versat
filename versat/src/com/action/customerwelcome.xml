@@ -11,7 +11,7 @@
         </action>
         
         <action name="changepassword" class="com.action.CustomerWelcome" method="changePassword">
-            <result name="error">/pages/cutomerwelcome.jsp</result>
+            <result name="error">/pages/customerwelcome.jsp</result>
             <result name="success" type="redirect">/customer/welcome</result>
         </action>
         
