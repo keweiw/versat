@@ -18,8 +18,5 @@
     	<action name="researchfund" class="com.action.FundAction" method="showfund">
     		<result name="success">/pages/researchfund.jsp</result>
     	</action>
-    	<action name="listallfund" class="com.action.ListFundAction" method="listAllFund">
-    		<result name="success"></result>
-    	</action>
     </package>
 </struts>
