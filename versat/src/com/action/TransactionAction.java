@@ -68,4 +68,20 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String showSell() {
+		if (idFund  != null) {
+			try {
+				this.fund = FundDao.getInstance().getById(idFund);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+		}
+		return SUCCESS;
+	}
+	
+	public String showWithdraw() {
+		return SUCCESS;
+	}
+	
 }

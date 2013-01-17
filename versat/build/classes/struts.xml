@@ -23,6 +23,7 @@
         </action>
     </package>
     <include file="com/action/transaction.xml"></include>
+    <include file="com/action/fund.xml"></include>
     <include file="com/action/employeewelcome.xml"></include>
     <include file="com/action/account.xml"></include>
 </struts>
