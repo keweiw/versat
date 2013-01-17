@@ -8,5 +8,10 @@
         <action name="welcome" class="com.action.EmployeeWelcomeAction" method="welcome">
             <result>/pages/employee_welcome.jsp</result>
         </action>
+        
+        <action name="changepassword" class="com.action.EmployeeWelcomeAction" method="changePassword">
+            <result name="error">/pages/cutomerwelcome.jsp</result>
+            <result name="success" type="redirect">/employee/welcome</result>
+        </action>
     </package>
 </struts>

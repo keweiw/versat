@@ -1,30 +1,29 @@
 package com.action;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.dao.SysuserDao;
+import com.dao.TransactionDao;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Sysuser;
+import com.pojo.Transaction;
 
-public class EmployeeWelcomeAction extends ActionSupport{
-	public static final String SYSUSER = "SYSUSER";
-	private Sysuser user;
+public class CustomerWelcome extends ActionSupport {
+
 	private String oldPassword;
 	private String newPassword;
 	private String confirmPassword;
-	public void setUser(Sysuser user){
-		this.user=user;
-	}
-	public Sysuser getUser(){
-		return user;
-	}
-	public String welcome(){
+	private Sysuser user;
+	
+
+	public String welcome() {
 		Map session = ActionContext.getContext().getSession();
-		user=(Sysuser) session.get(this.SYSUSER);
+		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		return SUCCESS;
 	}
-	
+
 	public String getoldPassword() {
 		return oldPassword;
 	}
@@ -37,7 +36,7 @@ public class EmployeeWelcomeAction extends ActionSupport{
 		return newPassword;
 	}
 
-	public void setnewPassword(String newpassword) {
+	public void setnewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
 
@@ -48,7 +47,7 @@ public class EmployeeWelcomeAction extends ActionSupport{
 	public void setconfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
+
 	public String changePassword(){
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="customer-welcome-action" namespace="/customer" extends="versat">
+    
+        <action name="welcome" class="com.action.CustomerWelcome" method="welcome">
+            <result>/pages/customerwelcome.jsp</result>
+        </action>
+        
+        <action name="changepassword" class="com.action.CustomerWelcome" method="changePassword">
+            <result name="error">/pages/cutomerwelcome.jsp</result>
+            <result name="success" type="redirect">/customer/welcome</result>
+        </action>
+        
+    </package>
+</struts>

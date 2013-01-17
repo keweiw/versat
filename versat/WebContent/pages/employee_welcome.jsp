@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<form>
+<form method="post" action="employee/changepassword" id="form">
 <div id="container">
 <!-- Header Begin -->
 	<div id="header">
@@ -40,19 +40,19 @@
 			<td style="text-align:left;"><label for="old password">Old Password:</label></td>
 		</tr>
 		<tr>
-			<td><input type="text" id="1" value=""style="width:18em;"/></td>
+			<td><input type="text" name="oldPassword" id="1" value=""style="width:18em;"/></td>
 		</tr>
 		<tr>
 			<td style="text-align:left;"><label for="new password">New Password:</label></td>
 		</tr>
         <tr>
-        	<td><input type="text" id="2" value="" style="width:18em;"/></td>
+        	<td><input type="text" name="newPassword" id="2" value="" style="width:18em;"/></td>
         </tr>
         <tr>
         	<td style="text-align:left;"><label for="Reinput password">Confirm Password:</label></td>
         </tr>
         <tr>
-        	<td><input type="text" id="3" value=""  style="width:18em;"/></td>
+        	<td><input type="text" name="confirmPassword" id="3" value=""  style="width:18em;"/></td>
         </tr>
 		<tr>
 			<td style="text-align:left;"><input type="submit" value="Change Password"/></td>

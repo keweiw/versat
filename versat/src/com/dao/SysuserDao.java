@@ -25,5 +25,16 @@ public class SysuserDao extends BaseDao<Sysuser>{
 		criterions.add(criterion);
 		return super.get(criterions);
 	}
+	
+	public Sysuser getByUserId(int id) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("id", id);
+		criterions.add(criterion);
+		return super.get(criterions);
+	}
+	
+	public void update(Sysuser user) throws Exception {
+		super.update(user);
+	}
 
 }
