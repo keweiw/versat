@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <package name="transition-action" namespace="/employee/transition" extends="versat">
+        <action name="generate" class="com.action.TransitionAction" method="generate">
+            <result>/pages/transition.jsp</result>
+        </action>
+    </package>
+    
+</struts>
