@@ -79,28 +79,6 @@ div#right-container h2{
 	background-color: #BED875;
 }
 
-div#right-container button {
-	margin-left: 10px;
-}
-
-div#right-container #chart {
-	padding-left: 2px;
-	width: 740px;
-	height: 250px;
-}
-
-div#right-container #table {
-	padding-left: 50px;
-	padding-top: 20px;
-	text-align: left;
-}
-
-div#right-container #info{
-	padding-left: 70px;
-	padding-top: 20px;
-	text-align: left;
-}
-
 div#nav {
 	width: 200px;
 	height: 38px;
@@ -109,18 +87,6 @@ div#nav {
 	vertical-align: middle;
 	border: 1px solid #CCCCCC;
 }
-
-div#left-table {
-	float: left;
-	padding-left: 20px;
-	text-align: left;
-}
-
-div#right-table {
-	padding-left: 160px;
-	text-align: left;
-}
-
 
 /*footer*/
 #footer{
