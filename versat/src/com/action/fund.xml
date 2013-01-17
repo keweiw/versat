@@ -19,7 +19,7 @@
     		<result name="success">/pages/researchfund.jsp</result>
     	</action>
     	<action name="listallfund" class="com.action.ListFundAction" method="listAllFund">
-    		<result name="success">/pages/fund.jsp</result>
+    		<result name="success"></result>
     	</action>
     </package>
 </struts>
