@@ -37,15 +37,12 @@
         <div class="accountType"> 
         <p> <a href="../account/customerlist">Customer Account List</a> | <a href="../account/employeelist">Employee Account List</a></p>
         </div>
-        <p><input type="button" name="" value="Create Customer Account" /></p>
+        <p><input type="button" name="" value="Create Employee Account" /></p>
         <table border ="1">
             <tr align = "center">
-          <th> Customer Username </th>
-          <th> Customer Last Name </th>
-          <th> Customer First Name </th>
-          <th> Account Balance </th>
-          <th> Last Transaction Date </th>
-          <th> Operation </th>
+          <th> Employee Username </th>
+          <th> Employee Last Name </th>
+          <th> Employee First Name </th>
         </tr>
         
         <s:iterator value="users" id="user">
@@ -53,8 +50,6 @@
             <td><s:property value="#user.username"/></td>
             <td><s:property value="#user.lastname"/></td>
             <td><s:property value="#user.firstname"/></td>
-            <td><s:property value="#user.cash"/></td>
-            <td><s:property value="#user.cash"/></td>
         </tr>
         </s:iterator>
         </table>

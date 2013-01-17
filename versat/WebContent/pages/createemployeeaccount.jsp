@@ -34,30 +34,33 @@
 
     <div id="right-container">
         <h2>Manage Account</h2>
-        <div class="accountType"> 
-        <p> <a href="../account/customerlist">Customer Account List</a> | <a href="../account/employeelist">Employee Account List</a></p>
-        </div>
-        <p><input type="button" name="" value="Create Customer Account" /></p>
-        <table border ="1">
-            <tr align = "center">
-          <th> Customer Username </th>
-          <th> Customer Last Name </th>
-          <th> Customer First Name </th>
-          <th> Account Balance </th>
-          <th> Last Transaction Date </th>
-          <th> Operation </th>
+        <div class="createAccount">
+        <table>
+        <tr align = "left">
+          <th> Username: </th>
+          <td> <input type="text" name="" value=""/> </th>
         </tr>
-        
-        <s:iterator value="users" id="user">
-        <tr align="center">
-            <td><s:property value="#user.username"/></td>
-            <td><s:property value="#user.lastname"/></td>
-            <td><s:property value="#user.firstname"/></td>
-            <td><s:property value="#user.cash"/></td>
-            <td><s:property value="#user.cash"/></td>
+        <tr align ="left">
+          <th> Password: </th>
+          <td> <input type="text" name="" value=""/> </td>
         </tr>
-        </s:iterator>
+        <tr align ="left">
+          <th> Confirmed Password: </th>
+          <td> <input type="text" name="" value=""/> </td>
+        </tr>
+        <tr align = "left">
+          <th> Last Name: </th>
+          <td> <input type="text"  name="" value="Last Name"/></td>
+        </tr>
+        <tr align = "left">
+          <th> First Name: </th>
+          <td> <input type="text" name="" value="First Name"/></td>
+        </tr>
         </table>
+        <div class="create">
+        <p> <input type="button" name="" value="Create Account"/> </p>
+        </div>
+        </div>
     </div>
 <!-- Main part end -->
 
@@ -65,7 +68,6 @@
     <div id="footer">Copyright&nbsp;© 2012 - 2013 Versat. All Rights Reserved</div>
 <!-- Footer End -->
 </div>
-
 </form>
 </body>
 </html>
