@@ -10,7 +10,7 @@
         </action>
         
         <action name="changepassword" class="com.action.EmployeeWelcomeAction" method="changePassword">
-            <result name="error">/pages/customerwelcome.jsp</result>
+            <result name="error">/pages/employee_welcome.jsp</result>
             <result name="success" type="redirect">/employee/welcome</result>
         </action>
     </package>
