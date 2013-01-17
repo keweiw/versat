@@ -27,7 +27,7 @@
 <!-- Main part Begin -->
     <div id="left-container">
         <div id="nav"><a href="../account/customerlist">Manage Account</a></div>
-		<div id="nav"><a href="">Deposit Check</a></div>
+		<div id="nav"><a href="..">Deposit Check</a></div>
 		<div id="nav"><a href="">Create Fund</a></div>
 		<div id="nav"><a href="">Manage Transition</a></div>
     </div>

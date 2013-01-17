@@ -5,13 +5,13 @@
 
 <struts>
     <package name="createfund-action" namespace="/employee/fund" extends="versat">
-    	<action name="createfund" class="com.action.FundAction" method="createFund">
-    		<result name="success">/pages/createfund.jsp</result>
+    	<action name="tocreate" class="com.action.FundAction" method="showCreate">
+    		<result>/pages/createfund.jsp</result>
     	</action>
         <action name="create" class="com.action.FundAction" method="create">
             <result name="error">/pages/createfund.jsp</result>
-            <result name="success" type="redirect">/pages/createfund.jsp</result>
-            <result name="input" type="redirect">/pages/createfund.jsp</result>
+            <result name="success">/pages/createfund.jsp</result>
+            <result name="input">/pages/createfund.jsp</result>
         </action>
     </package>
     <package name="listfund-action" namespace="/customer/fund" extends="versat">

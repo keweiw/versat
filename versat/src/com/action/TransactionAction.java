@@ -84,4 +84,8 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String showDeposit() {
+		return SUCCESS;
+	}
+	
 }

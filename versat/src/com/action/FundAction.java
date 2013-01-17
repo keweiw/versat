@@ -23,18 +23,12 @@ public class FundAction extends ActionSupport{
 		this.symbol = symbol;
 	}
 	
-	public String creatFund() {
+	public String showCreate() {
 		return SUCCESS;
 	}
 	
 	public String create(){
-		name.trim();
-		symbol.trim();
-		if( name!=null && symbol != null){
-			return SUCCESS;
-		} else {
-			return INPUT;
-		}
+		return SUCCESS;
 	}
 	
 	public String showfund() {

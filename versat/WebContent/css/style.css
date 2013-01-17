@@ -79,7 +79,6 @@ div#right-container h2{
 	background-color: #BED875;
 }
 
-<<<<<<< HEAD
 
 div#right-container #chart {
 	padding-left: 2px;
@@ -99,8 +98,6 @@ div#right-container #info{
 	text-align: left;
 }
 
-=======
->>>>>>> refs/remotes/choose_remote_name/master
 div#nav {
 	width: 200px;
 	height: 38px;
@@ -109,10 +106,6 @@ div#nav {
 	vertical-align: middle;
 	border: 1px solid #CCCCCC;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/choose_remote_name/master
 /*footer*/
 #footer{
 	clear: both;

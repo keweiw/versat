@@ -8,6 +8,9 @@
         <action name="list" class="com.action.TransactionAction" method="list">
             <result>/pages/employee-transactionhistory.jsp</result>
         </action>
+        <action name="deposit" class="com.action.TransactionAction" method="showDeposit">
+            <result>/pages/depositcheck.jsp</result>
+        </action>
     </package>
     <package name="transaction-customer-action" namespace="/customer/trans" extends="versat">
         <action name="list" class="com.action.TransactionAction" method="listSelf">
