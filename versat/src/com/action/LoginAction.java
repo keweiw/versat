@@ -45,10 +45,10 @@ public class LoginAction extends ActionSupport {
 	}
 
 	public String login() {
-		username.trim();
-		password.trim();
 		Map session = ActionContext.getContext().getSession();
 		if (username != null && password != null) {
+			username.trim();
+			password.trim();
 			Sysuser loginUser = null;
 			try {
 				loginUser = SysuserDao.getInstance().getByUsername(username);

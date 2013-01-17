@@ -21,9 +21,16 @@
         <action name="logout" class="com.action.LoginAction" method="logout">
             <result name="success" type="redirect">index</result>
         </action>
+        <action name="noauth" class="com.action.LoginAction" method="noauth">
+            <result name="success">/pages/404.jsp</result>
+        </action>
+        <action name="error" class="com.action.LoginAction" method="error">
+            <result name="success">/pages/error.jsp</result>
+        </action>
     </package>
     <include file="com/action/transaction.xml"></include>
     <include file="com/action/fund.xml"></include>
     <include file="com/action/employeewelcome.xml"></include>
     <include file="com/action/account.xml"></include>
+    <include file="com/action/transition.xml"></include>
 </struts>
