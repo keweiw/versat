@@ -4,9 +4,29 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <package name="customer-account-list-action" namespace="/employee/account" extends="versat">
+    <package name="account-action" namespace="/employee/account" extends="versat">
+    
         <action name="customerlist" class="com.action.AccountAction" method="customerlist">
             <result>/pages/customeraccountlist.jsp</result>
         </action>
+        
+        <action name="employeelist" class="com.action.AccountAction" method="employeelist">
+            <result>/pages/employeeaccountlist.jsp</result>
+        </action>
+       
+        <action name="createcustomeraccount" class="com.action.AccountAction" method="createcustomer">
+            <result>/pages/createcustomeraccount.jsp</result>
+        </action>
+       
+        <action name="createemployeeaccount" class="com.action.AccountAction" method="createemployee">
+            <result>/pages/createemployeeaccount.jsp</result>
+        </action>
+       
+        <action name="accountinfo" class="com.action.AccountAction" method="viewaccount">
+            <result>/pages/accountinfo.jsp</result>
+        </action>
+        
     </package>
+    
+    
 </struts>

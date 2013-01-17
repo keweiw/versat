@@ -30,12 +30,28 @@ public class AccountAction extends ActionSupport {
 
 	
 	public String customerlist() {
+		return SUCCESS;
+	}
+	public String employeelist() {
+		
+	    return SUCCESS;
+	
+	}
+	public String createcustomer() {
 		
 		return SUCCESS;
 	}
 	
-	public String employeeList() {
+	public String createemployee() {
 		
 		return SUCCESS;
 	}
+	
+	public String viewaccount() {
+	
+	    return SUCCESS;
+	
+	}
+	
+	
 }
