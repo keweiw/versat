@@ -78,4 +78,12 @@ public class LoginAction extends ActionSupport {
 		session.invalidate();
 		return SUCCESS;
 	}
+	
+	public String error() {
+		return SUCCESS;
+	}
+	
+	public String noauth() {
+		return SUCCESS;
+	}
 }
