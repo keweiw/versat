@@ -18,7 +18,7 @@
     <div id="header">
         <a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund" /></a>
         <div id="status">
-            <p><a href="logout"> Logout </a></p>
+            <p><a href="/versat/logout"> Logout </a></p>
         </div>
     </div>
 <!-- Header end -->
@@ -28,7 +28,7 @@
     <div id="left-container">
         <div id="nav"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
         <div id="nav"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
-        <div id="nav"><a href="/versat/employee/fund/list">Manage Fund</a></div>
+        <div id="nav"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
         <div id="nav"><a href="/versat/employee/transition/generate">Manage Transition</a></div>
     </div>
 
