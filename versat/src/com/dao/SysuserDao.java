@@ -19,6 +19,13 @@ public class SysuserDao extends BaseDao<Sysuser>{
 		return instance;
 	}
 	
+	public ArrayList<Sysuser> getUsersByType(int type) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("type", type);
+		criterions.add(criterion);
+		return (ArrayList<Sysuser>) super.getList(criterions);
+	}
+	
 	public Sysuser getByUsername(String username) throws Exception {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion = Restrictions.eq("username", username);
