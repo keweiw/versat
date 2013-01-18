@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +14,7 @@
 	<div id="header">
 		<a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"/></a>
 		<div id="status">
-    		<p><a href="index.html"> Logout </a></p>
+    		<p><a href=""> Logout </a></p>
  		</div>
 	</div>
 <!-- Header end -->
@@ -36,14 +37,16 @@
 		<table width="400">
 			<tr>
 				<th>Fund Name</th>
-				<th>Fund Symble</th>
+				<th>Fund Symbol</th>
 				<th></th>
 			</tr>
+			<s:iterator value="funds" id="fund">
 			<tr>
-				<td>Google</td>
-				<td>GOOG</td>
+				<td><s:property value="#fund.name"/></td>
+				<td><s:property value="#fund.symbol"/><td>
 				<td><a href="">Buy Fund</a></td>
 			</tr>
+			</s:iterator>
 		</table>
 		</div>
 	</div>

@@ -25,4 +25,8 @@ public class FundDao extends BaseDao<Fund>{
 		criterions.add(criterion);
 		return super.get(criterions);
 	}
+
+	public ArrayList<Fund> getAllList() throws Exception{
+		return (ArrayList<Fund>) super.getList();
+	}
 }
