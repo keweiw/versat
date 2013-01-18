@@ -10,13 +10,13 @@
 </head>
 
 <body>
-<form method="post" action="customer/changepassword" id="form" >
+<form method="post" action="/versat/customer/changepassword" id="form" >
 <div id="container">
 <!-- Header Begin -->
 	<div id="header">
 		<a href="index.html"><img src="../images/versat.png" title="Versat Mutual Fund"></a>
 		<div id="status">
-    		<p><a href="index.html"> Logout </a></p>
+    		<p><a href="/versat/logout"> Logout </a></p>
  		</div>
 	</div>
 <!-- Header end -->
@@ -24,12 +24,12 @@
 
 <!-- Main part Begin -->
 	<div id="left-container">
-		<div id="nav"><a href="">View Account</a></div>
-		<div id="nav"><a href="">Research Fund</a></div>
-		<div id="nav"><a href="">Buy Fund</a></div>
-		<div id="nav"><a href="">Sell Fund</a></div>
-		<div id="nav"><a href="">Transaction History</a></div>
-		<div id="nav"><a href="">Request Check</a></div>
+		<div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
+		<div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
+		<div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
+		<div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
+		<div id="nav"><a href="/versat/customer/trans/listSelf">Transaction History</a></div>
+		<div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
 	</div>
 
 	<div id="right-container">
@@ -57,6 +57,9 @@
 							<tr><td style="font-size:x-small;"><a href="">Forgot your password?</a></td></tr>
 							<tr></tr></tbody></table>
 	</div>
+	<div class="login_notice">
+             <s:actionerror />
+    </div>
     
 <!-- Header end -->
 

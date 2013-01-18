@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,14 +21,13 @@
 
 <!-- Main part Begin -->
 	<div id="left-container">
-		<div id="nav"><a href="">View Account</a></div>
-		<div id="nav"><a href="">Research Fund</a></div>
-		<div id="nav"><a href="">Buy Fund</a></div>
-		<div id="nav"><a href="">Sell Fund</a></div>
-		<div id="nav"><a href="">Transaction History</a></div>
-		<div id="nav"><a href="">Request Check</a></div>
-		<div id="nav"><a href="">Change Password</a></div>
-	</div>
+        <div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
+        <div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
+        <div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
+        <div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
+        <div id="nav"><a href="/versat/customer/trans/listSelf">Transaction History</a></div>
+        <div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+    </div>
 
 	<div id="right-container">
 		<h2>Fund List</h2>
