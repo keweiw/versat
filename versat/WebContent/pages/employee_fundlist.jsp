@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Carnegie Financial Service | Request Check</title>
+<title>Carnegie Financial Service | Fund List</title>
 <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 	<div id="header">
 		<a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"/></a>
 		<div id="status">
-    		<p><a href="/versat/logout"> Logout </a></p>
+    		 <p><a href="/versat/logout"> Logout </a></p>
  		</div>
 	</div>
 <!-- Header end -->
@@ -21,31 +21,29 @@
 
 <!-- Main part Begin -->
 	<div id="left-container">
-        <div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
-        <div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/listSelf">Transaction History</a></div>
-        <div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+        <div id="nav"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
+        <div id="nav"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
+        <div id="nav"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
+        <div id="nav"><a href="/versat/employee/transition/generate">Manage Transition</a></div>
     </div>
 
 	<div id="right-container">
-		<h2>Request Check</h2>
+		<h2>Fund List</h2>
 		<div id="table">
-		<s:form action="withdraw" namespace="/" method="post" id="form">
 		<table width="400">
 			<tr>
-				<th>Cash Balance:</th>
-				<th>$0.00</th>
+				<th>Fund Name</th>
+				<th>Fund Symbol</th>
+				<th></th>
 			</tr>
+			<s:iterator value="funds" id="fund">
 			<tr>
-				<td>Amount:</td>
-				<td><input type="text" size="20"/></td>
+				<td><s:property value="#fund.name"/></td>
+				<td><s:property value="#fund.symbol"/><td>
+				<td><a href="">Buy Fund</a></td>
 			</tr>
+			</s:iterator>
 		</table>
-		<input type="submit" value="Request"/>
-		<input type="button" value="Cancle"/>
-		</s:form>
 		</div>
 	</div>
 <!-- Header end -->

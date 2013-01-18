@@ -15,7 +15,7 @@
     <div id="header">
         <a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"/></a>
         <div id="status">
-            <p><a href="../../logout"> Logout </a></p>
+            <p><a href="/versat/logout"> Logout </a></p>
         </div>
     </div>
 <!-- Header end -->
@@ -23,14 +23,14 @@
 
 <!-- Main part Begin -->
     <div id="left-container">
-        <div id="nav"><a href="">View Account</a></div>
-        <div id="nav"><a href="">Research Fund</a></div>
-        <div id="nav"><a href="">Buy Fund</a></div>
-        <div id="nav"><a href="">Sell Fund</a></div>
-        <div id="nav"><a href="">Transaction History</a></div>
-        <div id="nav"><a href="">Request Check</a></div>
+        <div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
+        <div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
+        <div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
+        <div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
+        <div id="nav"><a href="/versat/customer/trans/list">Transaction History</a></div>
+        <div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
     </div>
-
+    
     <div id="right-container">
         <h2>Buy Fund</h2><br>
         <p>Cash Balance $</p>
