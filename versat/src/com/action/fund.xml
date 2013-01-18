@@ -21,7 +21,7 @@
     	<action name="researchfund" class="com.action.FundAction" method="showfund">
     		<result name="success">/pages/researchfund.jsp</result>
     	</action>
-    	<action name="listallfund" class="com.action.FundAction" method="listAllFund">
+    	<action name="listallfund" class="com.action.FundAction" method="listFundByUserId">
     		<result name="success">/pages/customer_fundlist.jsp</result>
     	</action>
     </package>

@@ -51,9 +51,9 @@ public class Position implements java.io.Serializable {
 
 	public void setFund(Fund fund) {
 		this.fund = fund;
-	if(fund.getName()!=null && fund.getSymbol()!=null){
-			this.fundName=fund.getName();
-			this.fundSymbol=fund.getSymbol();
+		if(fund.getName()!=null && fund.getSymbol()!=null){
+				this.fundName=fund.getName();
+				this.fundSymbol=fund.getSymbol();
 		}
 	}
 

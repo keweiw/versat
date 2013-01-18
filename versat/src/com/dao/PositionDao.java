@@ -20,7 +20,7 @@ public class PositionDao extends BaseDao<Position>{
 	
 	public ArrayList<Position> getPositionByCostomerId(int id) throws Exception{
 		List<Criterion> criterions = new ArrayList<Criterion>();
-		Criterion criterion = Restrictions.eq("customer_id", id);
+		Criterion criterion = Restrictions.eq("iduser", id);
 		criterions.add(criterion);
 		return (ArrayList<Position>) super.getList(criterions);
 	}
