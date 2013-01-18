@@ -11,6 +11,7 @@ public class AuthorizationFilter implements Filter {
 
 	public static final String REDIRECT_URL = "redirectUrl";
 	public static final String LOGIN_PAGE = "/index";
+	public static final String LOGIN_ACTION = "/login";
 	public static final String DENY_PAGE = "/noauth";
 	public static final String ERROR_PAGE = "/error";
 	public static final String CUSTOMER_INDEX_PAGE = "/customer/welcome";
@@ -20,7 +21,7 @@ public class AuthorizationFilter implements Filter {
 	private static final String HOST = "Host";
 	private static final String SEG = ";";
 
-	private static final String KEY_EXCEPTION_PAGE = "/index;/noauth.action;/noauth;/error.action;/error;/login.action;/login;/logout.action;/logout;/css/*;/images/*;/js/*;";
+	private static final String KEY_EXCEPTION_PAGE = "/noauth.action;/noauth;/error.action;/error;/logout.action;/logout;/css/*;/images/*;/js/*;";
 
 	private String[] exceptionUrls;
 	private boolean enable;
@@ -70,17 +71,18 @@ public class AuthorizationFilter implements Filter {
 						flag = Status.LOGIN;
 					} else if (!isAllow(user, redirectURL)) {
 						flag = Status.DENY;
-					} else if (redirectURL.equals(LOGIN_PAGE)) {
+					} else if (redirectURL.equals(LOGIN_PAGE) || redirectURL.equals(LOGIN_ACTION)) {
 						if (user.getType() == Sysuser.USER_TYPE_COSTOMER) {
 							res.sendRedirect(path + CUSTOMER_INDEX_PAGE);
 						} else {
 							res.sendRedirect(path + EMPLOYEE_INDEX_PAGE);
 						}
+						return;
 					}
 
 					switch (flag) {
 					case LOGIN: {
-						if (redirectURL.endsWith(LOGIN_PAGE)) {
+						if (redirectURL.endsWith(LOGIN_ACTION) || redirectURL.endsWith(LOGIN_PAGE)) {
 							chain.doFilter(request, response);
 						} else {
 							res.sendRedirect(path + LOGIN_PAGE);
@@ -112,6 +114,9 @@ public class AuthorizationFilter implements Filter {
 
 	private boolean isAllow(Sysuser user, String redirectURL) {
 		// TODO Auto-generated method stub
+		if (redirectURL.equals(LOGIN_PAGE) || redirectURL.equals(LOGIN_ACTION)) {
+			return true;
+		}
 		if (user.getType() == Sysuser.USER_TYPE_COSTOMER
 				&& redirectURL.startsWith("/customer/")) {
 			return true;
@@ -124,7 +129,6 @@ public class AuthorizationFilter implements Filter {
 
 	private boolean isExceptionUrl(String url) {
 		boolean flag = false;
-
 		if (contains(exceptionUrls, url)) {
 			flag = true;
 		} else {

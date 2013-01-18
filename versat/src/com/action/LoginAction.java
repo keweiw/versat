@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Sysuser;
 
 public class LoginAction extends ActionSupport {
-	public static final String USER_NAME = "NAMENAME";
+	public static final String USER_NAME = "NAME";
 	public static final String SYSUSER = "SYSUSER";
 	public static final String USER_TYPE = "USERTYPE";
 	private String username;
@@ -60,7 +60,7 @@ public class LoginAction extends ActionSupport {
 				session.put(LoginAction.USER_TYPE, loginUser.getType());
 				session.put(LoginAction.SYSUSER, loginUser);
 				session.put(LoginAction.USER_NAME, loginUser.getFirstname()
-						+ ", " + loginUser.getLastname());
+						+ " " + loginUser.getLastname());
 				if (loginUser.getType() == Sysuser.USER_TYPE_COSTOMER) {
 					return SUCCESS;
 				} else {

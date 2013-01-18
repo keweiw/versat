@@ -1,72 +1,121 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-<meta charset="utf-8">
-	<title>Versat Mutual Fund | Customer Welcome</title>
-	<link href="../css/style.css" rel="stylesheet" type="text/css" >
-	<script src=""></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>Carnegie Financial Service | Profile</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/detail.css" rel="stylesheet" type="text/css" />
+<link href="../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+ $(".btn_sprites").click(function() {
+  $(this).blur();
+ });
+});
+</script>
 </head>
 
 <body>
-<form method="post" action="/versat/customer/changepassword" id="form" >
-<div id="container">
-<!-- Header Begin -->
-	<div id="header">
-		<a href="index.html"><img src="../images/versat.png" title="Versat Mutual Fund"></a>
-		<div id="status">
-    		<p><a href="/versat/logout"> Logout </a></p>
- 		</div>
-	</div>
-<!-- Header end -->
-	<div id="splitter"></div>
-
-<!-- Main part Begin -->
-	<div id="left-container">
-		<div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
-		<div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
-		<div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
-		<div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
-		<div id="nav"><a href="/versat/customer/trans/list <p><a href="/versat/logout"> Logout </a></p>">Transaction History</a></div>
-		<div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
-	</div>
-
-	<div id="right-container">
-		<h2>Welcome,${user.username}!</h2>
-        <table style="padding:10px 10px 20px 50px;">
-							<tbody>
-                            <tr><td style="text-align:left; font-weight: bold; font-size:20px">Customer Information: </td></tr>
-                            <tr><td style="text-align:left;">Username </td></tr>
-                            <tr><td style="text-align:left;">${user.username}</td></tr>
-                            <tr><td style="text-align:left;">Firstname: </td></tr>
-                            <tr><td style="text-align:left;">${user.firstname}</td></tr>
-                            <tr><td style="text-align:left;">Lastname: </td></tr>
-                            <tr><td style="text-align:left;">${user.lastname}</td></tr>
-                            <tr><td style="text-align:left;">Address: </td></tr>
-                            <tr><td style="text-align:left;">${user.addrLine1},${user.addrLine1},${user.city},${user.state},${user.zip}</td></tr>
-                            <tr><td><br></td></tr>
-                            <tr><td style="text-align:left; font-weight: bold; font-size:20px">Change Password: </td></tr>
-                            <tr><td style="text-align:left;"><label for="old password">Old Password:</label></td></tr>
-							<tr><td><input type="text" name="oldPassword" id="1" value=""style="width:18em;"></td></tr>
-							<tr><td style="text-align:left;"><label for="new password">New Password:</label></td></tr>
-                            <tr><td><input type="text" name="newPassword" id="2" value="" style="width:18em;"></td></tr>
-                            <tr><td style="text-align:left;"><label for="Reinput password">Confirm Password:</label></td></tr>
-                            <tr><td><input type="text" name="confirmPassword" id="3" value=""  style="width:18em;"></td></tr>
-							<tr><td style="text-align:left;"><input type="submit" value="Change Password"></td></tr>
-							<tr><td style="font-size:x-small;"><a href="">Forgot your password?</a></td></tr>
-							<tr></tr></tbody></table>
-	</div>
-	<div class="login_notice">
-             <s:actionerror />
-    </div>
-    
-<!-- Header end -->
-
-<!-- Footer Begin -->
-	<div id="footer">&copy; 2013 Versat.</div>
-<!-- Footer End -->
+<!--header begin-->
+<div class="header_container">
+<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<!--header right-->
+<div class="headerbg_right"></div>
+<!--header help-->
+<div class="header_help">
+<div class="header_bz"><a href="/versat/logout">Log out</a></div>
+<div class="header_image"><img src="../images/back.gif" title="退出" /></div>
+<div class="header_ues">Welcome, ${sessionScope.NAME} </div>
 </div>
+</div>
+<!--header end-->
+
+<!--content start-->
+<div class="content">
+<!--content功能展现-->
+<div class="content_right2">
+<form action="" method="post">
+
+<!--Alert start-->
+<div class="success_area">Editing success!</div>
+<!--Alert end-->
+<!--Create new user start-->
+<div class="new_user">
+<div class="new_user_title">Profile</div>
+<table cellspacing="0" cellpadding="0" class="http_content_detail">
+  <tbody>
+    <tr>
+        <td class="detail_left">Username:</td>
+        <td class="detail_right">${user.username}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">First Name:</td>
+        <td class="detail_right">${user.firstname}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">Last Name:</td>
+        <td class="detail_right">${user.lastname}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">Address (line 1):</td>
+        <td class="detail_right">${user.addrLine1}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">Address (line 2):</td>
+        <td class="detail_right">${user.addrLine2}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">City</td>
+        <td class="detail_right">${user.city}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">State：</td>
+        <td class="detail_right">${user.state}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">Zipcode：</td>
+        <td class="detail_right">${user.zip}</td>
+    </tr>
+    <tr>
+        <td class="detail_left">Cash Balance：</td>
+        <td class="detail_right">${user.cashes}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="mail_search">
+    <div class="new_user_save_button"><a class="btn_sprites" href="#" name="password"><span>Change Password</span></a></div>                    
+</div>
+</div>
+<!--Create New customer-->          
 </form>
+</div>
+<!--content function end-->
+</div>
+<!--content end-->
+<!--content menu-->
+ <div class="content_left">
+  <h2 class="contentbg_top">Menu</h2>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu5 " id="sellLink"><a href="#">Sell Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu4" id="researchLink"><a href="#">Research Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu1 " id="historyLink"><a href="#">Transaction History</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu7" id="requestLink"><a href="#">Request Check</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menubd"></div>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu_88 font14b" id="profileLink"><a href="#">Profile</a></div>
+  </div>
+<!--floter start-->
+<div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
+<!--floter end-->
 </body>
 </html>

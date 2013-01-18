@@ -20,6 +20,7 @@ public class Sysuser implements java.io.Serializable {
 	private String state;
 	private String zip;
 	private long cash;
+	private double cashes;
 	private int type;
 //	private Set positions = new HashSet(0);
 //	private Set transactions = new HashSet(0);
@@ -36,6 +37,7 @@ public class Sysuser implements java.io.Serializable {
 		this.zip = zip;
 		this.cash = cash;
 		this.type = type;
+		this.cashes = this.cash / 100.00;
 	}
 
 	public Sysuser(String username, String password, String firstname,
@@ -52,6 +54,7 @@ public class Sysuser implements java.io.Serializable {
 		this.zip = zip;
 		this.cash = cash;
 		this.type = type;
+		this.cashes = this.cash / 100.00;
 	}
 
 	public Integer getId() {
@@ -140,6 +143,7 @@ public class Sysuser implements java.io.Serializable {
 
 	public void setCash(long cash) {
 		this.cash = cash;
+		this.cashes = this.cash / 100.00;
 	}
 
 	public int getType() {
@@ -150,4 +154,11 @@ public class Sysuser implements java.io.Serializable {
 		this.type = type;
 	}
 
+	public double getCashes() {
+		return cashes;
+	}
+
+	public void setCashes(double cashes) {
+		this.cashes = cashes;
+	}
 }

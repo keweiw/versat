@@ -43,5 +43,9 @@ public class SysuserDao extends BaseDao<Sysuser>{
 	public void update(Sysuser user) throws Exception {
 		super.update(user);
 	}
+	
+	public void create(Sysuser user) throws Exception {
+		super.create(user);
+	}
 
 }
