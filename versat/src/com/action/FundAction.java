@@ -3,14 +3,17 @@ package com.action;
 import java.util.ArrayList;
 
 import com.dao.FundDao;
+import com.dao.PositionDao;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Fund;
+import com.pojo.Position;
 import com.pojo.Sysuser;
 
 public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
-	ArrayList<Fund> funds;
+	private ArrayList<Fund> funds;
+	private ArrayList<Position> positions;
 	
 	public ArrayList<Fund> getFunds(){
 		return funds;
@@ -45,7 +48,6 @@ public class FundAction extends ActionSupport{
 	}
 	
 	public String listAllFund(){
-		//Map session = ActionContext.getContext().getSession();
 		try {
 			funds=FundDao.getInstance().getAllList();
 		} catch (Exception e) {
@@ -56,6 +58,12 @@ public class FundAction extends ActionSupport{
 	}
 	
 	public String listFundByUserId(int userId){
+		try{
+			positions=PositionDao.getInstance().getPositionByCostomerId(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return SUCCESS;
 	}
 }

@@ -40,10 +40,10 @@
 				<th>Fund Symbol</th>
 				<th></th>
 			</tr>
-			<s:iterator value="funds" id="fund">
+			<s:iterator value="positions" id="position">
 			<tr>
-				<td><s:property value="#fund.name"/></td>
-				<td><s:property value="#fund.symbol"/><td>
+				<td><s:property value="#position.fundName"/></td>
+				<td><s:property value="#position.fundSymbol"/><td>
 				<td><a href="">Buy Fund</a></td>
 			</tr>
 			</s:iterator>
