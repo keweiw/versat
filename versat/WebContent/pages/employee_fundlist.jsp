@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Carnegie Finance Service | Create Fund</title>
+<title>Carnegie Financial Service | Fund List</title>
 <link rel="stylesheet" href="../../css/style.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
 	<div id="header">
 		<a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"/></a>
 		<div id="status">
-    		<p><a href="/versat/logout"> Logout </a></p>
+    		 <p><a href="/versat/logout"> Logout </a></p>
  		</div>
 	</div>
 <!-- Header end -->
@@ -28,26 +28,28 @@
     </div>
 
 	<div id="right-container">
-		<h2>Create Fund</h2>
-		<s:form action="create" namespace="/" method="post" id="form">
+		<h2>Fund List</h2>
+		<div id="table">
 		<table width="400">
 			<tr>
-				<td>Fund Name:</td>
-				<td><input type="text" size="20"/></td>
+				<th>Fund Name</th>
+				<th>Fund Symbol</th>
+				<th></th>
 			</tr>
+			<s:iterator value="funds" id="fund">
 			<tr>
-				<td>Ticker:</td>
-				<td><input type="text" size="20"/></td>
+				<td><s:property value="#fund.name"/></td>
+				<td><s:property value="#fund.symbol"/><td>
+				<td><a href="">Buy Fund</a></td>
 			</tr>
+			</s:iterator>
 		</table>
-		<input type="submit" value="Create"/>
-		<input type="button" value="Cancle"/>
-		</s:form>
+		</div>
 	</div>
 <!-- Header end -->
 
 <!-- Footer Begin -->
-	<div id="footer">&copy; 2013 Versat. All Rights Reserved</div>
+	<div id="footer">&copy; 2013 Versat.</div>
 <!-- Footer End -->
 </div>
 
