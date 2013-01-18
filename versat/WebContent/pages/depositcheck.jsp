@@ -14,7 +14,7 @@
 	<div id="header">
 		<a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"></a>
 		<div id="status">
-    		<p><a href="index.html"> Logout </a></p>
+    		 <p><a href="/versat/logout"> Logout </a></p>
  		</div>
 	</div>
 <!-- Header end -->

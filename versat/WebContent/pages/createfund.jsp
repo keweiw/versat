@@ -21,14 +21,11 @@
 
 <!-- Main part Begin -->
 	<div id="left-container">
-		<div id="nav"><a href="">View Account</a></div>
-		<div id="nav"><a href="">Research Fund</a></div>
-		<div id="nav"><a href="">Buy Fund</a></div>
-		<div id="nav"><a href="">Sell Fund</a></div>
-		<div id="nav"><a href="">Transaction History</a></div>
-		<div id="nav"><a href="">Request Check</a></div>
-		<div id="nav"><a href="">Change Password</a></div>
-	</div>
+        <div id="nav"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
+        <div id="nav"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
+        <div id="nav"><a href="/versat/employee/fund/list">Manage Fund</a></div>
+        <div id="nav"><a href="/versat/employee/transition/generate">Manage Transition</a></div>
+    </div>
 
 	<div id="right-container">
 		<h2>Create Fund</h2>
