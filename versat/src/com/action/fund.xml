@@ -13,6 +13,9 @@
             <result name="success">/pages/createfund.jsp</result>
             <result name="input">/pages/createfund.jsp</result>
         </action>
+        <action name="listallfund" class="com.action.FundAction" method="listAllFund">
+            <result name="success">/pages/employee_fundlist.jsp</result>
+        </action>
     </package>
     <package name="listfund-action" namespace="/customer/fund" extends="versat">
     	<action name="researchfund" class="com.action.FundAction" method="showfund">
