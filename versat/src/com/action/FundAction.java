@@ -1,17 +1,28 @@
 package com.action;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.dao.FundDao;
+import com.dao.PositionDao;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Fund;
+import com.pojo.Position;
 import com.pojo.Sysuser;
 
 public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
-	ArrayList<Fund> funds;
+	private ArrayList<Fund> funds;
+	private ArrayList<Position> positions;
 	
+	
+
+	public ArrayList<Position> getPositions() {
+		return positions;
+	}
+
 	public ArrayList<Fund> getFunds(){
 		return funds;
 	}
@@ -20,7 +31,7 @@ public class FundAction extends ActionSupport{
 		return name;
 	}
 	
-	public void setName() {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -28,7 +39,7 @@ public class FundAction extends ActionSupport{
 		return symbol;
 	}
 	
-	public void setSymbol() {
+	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
 	
@@ -45,7 +56,6 @@ public class FundAction extends ActionSupport{
 	}
 	
 	public String listAllFund(){
-		//Map session = ActionContext.getContext().getSession();
 		try {
 			funds=FundDao.getInstance().getAllList();
 		} catch (Exception e) {
@@ -55,7 +65,23 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	public String listFundByUserId(int userId){
+	public String listFundByUserId(){
+		Sysuser user;
+		Map session = ActionContext.getContext().getSession();
+		user = (Sysuser) session.get(LoginAction.SYSUSER);
+		int userId = user.getId();
+		try{
+			positions=PositionDao.getInstance().getPositionByCostomerId(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return SUCCESS;
+	}
+	
+	public String createFund(){
+		name.trim();
+		symbol.trim();
+		
 		return SUCCESS;
 	}
 }

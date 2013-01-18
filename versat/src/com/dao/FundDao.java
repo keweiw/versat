@@ -19,6 +19,10 @@ public class FundDao extends BaseDao<Fund>{
 		super(Fund.class);
 	}
 	
+	public void createFund(String name,String symbol){
+		
+	}
+	
 	public Fund getById(Integer id) throws Exception {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion = Restrictions.eq("id", id);

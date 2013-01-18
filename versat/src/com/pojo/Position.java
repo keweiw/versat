@@ -11,6 +11,8 @@ public class Position implements java.io.Serializable {
 	private Integer iduser;
 	private Fund fund;
 	private Long shares;
+	private String fundName;
+	private String fundSymbol;
 
 	public Position() {
 	}
@@ -20,7 +22,13 @@ public class Position implements java.io.Serializable {
 		this.fund = fund;
 		this.shares = shares;
 	}
+	public String getFundName() {
+		return fundName;
+	}
 
+	public String getFundSymbol() {
+		return fundSymbol;
+	}
 	public Integer getId() {
 		return this.id;
 	}
@@ -43,6 +51,10 @@ public class Position implements java.io.Serializable {
 
 	public void setFund(Fund fund) {
 		this.fund = fund;
+		if(fund.getName()!=null && fund.getSymbol()!=null){
+				this.fundName=fund.getName();
+				this.fundSymbol=fund.getSymbol();
+		}
 	}
 
 	public Long getShares() {
