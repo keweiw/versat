@@ -15,6 +15,7 @@ public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
 	private int fundId;
+	private double shares;
 	public int getFundId() {
 		return fundId;
 	}
@@ -50,6 +51,13 @@ public class FundAction extends ActionSupport{
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+	public double getShares() {
+		return shares;
+	}
+
+	public void setShares(double shares) {
+		this.shares = shares;
+	}
 	
 	public String showCreate() {
 		return SUCCESS;
@@ -63,7 +71,7 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-
+	
 
 	public String listAllFund(){
 		try {
@@ -114,4 +122,17 @@ public class FundAction extends ActionSupport{
 		symbol=f.getSymbol();
 		return SUCCESS;
 	}
+	public String sellFund() throws Exception{
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		int userId = user.getId();
+		//--query by userId and fundId--//
+		Position p= PositionDao.getInstance().getByCustomerIdFundId(userId, fundId);
+		name=p.getFundName();
+		symbol=p.getFundSymbol();
+		shares=p.getShares()/100.0;
+		return SUCCESS;
+	}
+
+
 }

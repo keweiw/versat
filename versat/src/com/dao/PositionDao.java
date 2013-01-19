@@ -24,4 +24,12 @@ public class PositionDao extends BaseDao<Position>{
 		criterions.add(criterion);
 		return (ArrayList<Position>) super.getList(criterions);
 	}
+	public Position getByCustomerIdFundId(int customerId, int fundId) throws Exception{
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("iduser", customerId);
+		Criterion criterion2 = Restrictions.eq("fund.id", customerId);
+		criterions.add(criterion);
+		criterions.add(criterion2);
+		return super.get(criterions);
+	}
 }

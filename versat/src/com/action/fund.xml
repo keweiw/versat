@@ -24,5 +24,11 @@
     	<action name="funddetail" class="com.action.FundAction" method="showFundDetail">
     		<result name="success">/pages/fund_detail.jsp</result>
     	</action>
+    	<action name="listownedfund" class="com.action.FundAction" method="listFundByUserId">
+    		<result name="success">/pages/customer_sell.jsp</result>
+    	</action>
+    	<action name="sellfund" class="com.action.FundAction" method="sellFund">
+    		<result name="success">/pages/customer_sell2.jsp</result>
+    	</action>
     </package>
 </struts>
