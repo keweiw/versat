@@ -78,10 +78,24 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	public String createFund(){
-		name.trim();
-		symbol.trim();
-		
+	public String createFund() throws Exception{
+		name=name.trim();
+		symbol=symbol.trim();
+		Fund f1 = new Fund();
+		f1.setName(name);
+		//check if there is a fund already had the same name
+		if(FundDao.getInstance().isExist(f1)==true){
+			this.addActionError("The fund name already existed");
+			return ERROR;
+		}
+		Fund f2 = new Fund();
+		f2.setSymbol(symbol);
+		//
+		if(FundDao.getInstance().isExist(f2)==true){
+			this.addActionError("The fund name already existed");
+			return ERROR;
+		}
+		FundDao.getInstance().createFund(name, symbol);
 		return SUCCESS;
 	}
 }
