@@ -16,6 +16,7 @@ public class CustomerWelcome extends ActionSupport {
 	private String newPassword;
 	private String confirmPassword;
 	private Sysuser user;
+	private int isSuccess;
 	
 	public String getOldPassword() {
 		return oldPassword;
@@ -49,21 +50,39 @@ public class CustomerWelcome extends ActionSupport {
 		this.user = user;
 	}
 
+	public int getIsSuccess() {
+		return isSuccess;
+	}
+
+	public void setIsSuccess(int isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+
 	public String welcome() {
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		return SUCCESS;
 	}
 	
-	public String changePassword(){
+	public String changePassword() {
+		this.isSuccess = 0;
+		return SUCCESS;
+	}
+	
+	public String submit(){
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		if (oldPassword != null && newPassword != null && confirmPassword != null) {
 			oldPassword.trim();
 			newPassword.trim();
 			confirmPassword.trim();
-			if(!newPassword.equals(confirmPassword)){
+			if (newPassword.equals("")) {
+				this.addActionError("Password can not be empty, or only space!");
+				this.isSuccess = -1;
+				return ERROR;
+			} else if(!newPassword.equals(confirmPassword)){
 				this.addActionError("Confirm password is not same as new password!");
+				this.isSuccess = -1;
 				return ERROR;
 			}
 			Sysuser changePswUser = null;
@@ -76,7 +95,8 @@ public class CustomerWelcome extends ActionSupport {
 			}
 			
 			if(!oldPassword.equals(changePswUser.getPassword())){
-				this.addActionError("Incorrect Oldpassword!");
+				this.addActionError("Current password is Incorrect!");
+				this.isSuccess = -1;
 				return ERROR;
 			}else{
 				changePswUser.setPassword(newPassword);
@@ -86,10 +106,12 @@ public class CustomerWelcome extends ActionSupport {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				this.isSuccess = 1;
 				return SUCCESS;
 			}			
 		}
-		this.addActionError("Input shouldn't be empty.");
+		this.addActionError("Password shouldn't be empty.");
+		this.isSuccess = -1;
 		return ERROR;
 	}
 }
