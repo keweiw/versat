@@ -21,7 +21,7 @@ $(document).ready(
             $("#submit_change").click(
                     function() {
                             $("#form").attr("action",
-                                    "/versat/customer/changesubmit");
+                                    "/versat/employee/changesubmit");
                             $("#form").submit();
                     });
         }
@@ -46,6 +46,7 @@ $(document).ready(
 
 <!--content start-->
 <div class="content">
+<!--content功能展现-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
 
@@ -87,13 +88,13 @@ $(document).ready(
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5 " id="sellLink"><a href="#">Sell Fund</a></div>
+   <div class="content_menu5 " id="sellLink"><a href="#">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="#">Research Fund</a></div>
+   <div class="content_menu4" id="researchLink"><a href="#">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1 " id="historyLink"><a href="#">Transaction History</a></div>
+   <div class="content_menu7 " id="historyLink"><a href="#">Deposit Check</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7" id="requestLink"><a href="#">Request Check</a></div>
+   <div class="content_menu1" id="requestLink"><a href="#">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>

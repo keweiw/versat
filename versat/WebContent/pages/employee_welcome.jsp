@@ -42,7 +42,7 @@ $(document).ready(function() {
 <form action="" method="post">
 
 <!--Alert start-->
-<div class="success_area">Editing success!</div>
+<s:if test='isSuccess == 1'><div class="success_area">Password Changed!</div></s:if>
 <!--Alert end-->
 <!--Create new user start-->
 <div class="new_user">
@@ -64,7 +64,7 @@ $(document).ready(function() {
   </tbody>
 </table>
 <div class="mail_search">
-    <div class="new_user_save_button"><a class="btn_sprites" href="#" name="password"><span>Change Password</span></a></div>                    
+    <div class="new_user_save_button"><a class="btn_sprites" href="/versat/employee/changepassword" name="password"><span>Change Password</span></a></div>                    
 </div>
 </div>
 <!--Create New customer-->          
