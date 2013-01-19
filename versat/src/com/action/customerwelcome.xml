@@ -11,8 +11,12 @@
         </action>
         
         <action name="changepassword" class="com.action.CustomerWelcome" method="changePassword">
-            <result name="error">/pages/customerwelcome.jsp</result>
-            <result name="success" type="redirect">/customer/welcome</result>
+            <result>/pages/customer_changepwd.jsp</result>
+        </action>
+        
+        <action name="changesubmit" class="com.action.CustomerWelcome" method="submit">
+            <result name="error">/pages/customer_changepwd.jsp</result>
+            <result name="success" type="redirect">/customer/welcome?isSuccess=1</result>
         </action>
         
     </package>

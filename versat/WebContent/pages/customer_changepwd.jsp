@@ -10,12 +10,22 @@
 <link href="../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../css/display.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../js/new_user.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
-});
+$(document).ready(
+        function() {
+            $(".btn_sprites").click(function() {
+                  $(this).blur();
+                 });
+         
+            $("#submit_change").click(
+                    function() {
+                            $("#form").attr("action",
+                                    "/versat/customer/changesubmit");
+                            $("#form").submit();
+                    });
+        }
+);
 </script>
 </head>
 
@@ -29,7 +39,7 @@ $(document).ready(function() {
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../images/back.gif" title="退出" /></div>
-<div class="header_ues">Welcome, ${sessionScope.NAME} </div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
 <!--header end-->
@@ -38,56 +48,33 @@ $(document).ready(function() {
 <div class="content">
 <!--content功能展现-->
 <div class="content_right2">
-<form action="" method="post">
+<form action="" method="post" id="form" name="form">
 
 <!--Alert start-->
-<s:if test='isSuccess == 1'><div class="success_area">Password Changed!</div></s:if>
+<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 <!--Create new user start-->
 <div class="new_user">
-<div class="new_user_title">Profile</div>
+<div class="new_user_title">Change Password</div>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
-        <td class="detail_left">Username:</td>
-        <td class="detail_right">${user.username}</td>
+        <td class="detail_left">Old Password:</td>
+        <td class="detail_right"><input name="oldPassword" type="password" class="list_text_width_normal" value="${oldPassword}"/></td>
     </tr>
     <tr>
-        <td class="detail_left">First Name:</td>
-        <td class="detail_right">${user.firstname}</td>
+        <td class="detail_left">New Password：</td>
+        <td class="detail_right"><input name="newPassword" type="password" class="list_text_width_normal" value="${newPassword}"/></td>
     </tr>
     <tr>
-        <td class="detail_left">Last Name:</td>
-        <td class="detail_right">${user.lastname}</td>
-    </tr>
-    <tr>
-        <td class="detail_left">Address (line 1):</td>
-        <td class="detail_right">${user.addrLine1}</td>
-    </tr>
-    <tr>
-        <td class="detail_left">Address (line 2):</td>
-        <td class="detail_right">${user.addrLine2}</td>
-    </tr>
-    <tr>
-        <td class="detail_left">City</td>
-        <td class="detail_right">${user.city}</td>
-    </tr>
-    <tr>
-        <td class="detail_left">State：</td>
-        <td class="detail_right">${user.state}</td>
-    </tr>
-    <tr>
-        <td class="detail_left">Zipcode：</td>
-        <td class="detail_right">${user.zip}</td>
-    </tr>
-    <tr>
-        <td class="detail_left">Cash Balance：</td>
-        <td class="detail_right">${user.cashes}</td>
+        <td class="detail_left">Confirm Password：</td>
+        <td class="detail_right"><input name="confirmPassword" type="password" class="list_text_width_normal" value="${confirmPassword}"/></td>
     </tr>
   </tbody>
 </table>
 <div class="mail_search">
-    <div class="new_user_save_button"><a class="btn_sprites" href="/versat/customer/changepassword" name="password"><span>Change Password</span></a></div>                    
+    <div class="new_user_save_button"><a class="btn_sprites" id="submit_change" href="#" name="password"><span>Change Password</span></a></div>                    
 </div>
 </div>
 <!--Create New customer-->          
