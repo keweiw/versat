@@ -3,12 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    <title>Welcome to Carnegie Financial Services</title>
-    <link href="../../css/style.css" rel="stylesheet" type="text/css" />
-
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>Carnegie Financial Service | Transaction History</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../js/animation.js" language="javascript"></script>
+<script type="text/javascript" language="javascript">
+$(document).ready(function() {
+ $(".btn_sprites").click(function() {
+  $(this).blur();
+ });
+});
+</script>
 </head>
 
 <body>
