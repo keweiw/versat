@@ -36,29 +36,41 @@
         <h2>Manage Account</h2>
         <div class="createAccount">
         <table>
-        <tr align = "left">
+   <tr align = "left">
           <th> Username: </th>
-          <td> <input type="text" name="" value=""/> </th>
+          <td> <input type="text" name="user.username" value=""/> </th>
         </tr>
         <tr align ="left">
           <th> Password: </th>
-          <td> <input type="text" name="" value=""/> </td>
+          <td> <input type="text" name="user.password" value=""/> </td>
         </tr>
         <tr align ="left">
           <th> Confirmed Password: </th>
-          <td> <input type="text" name="" value=""/> </td>
+          <td> <input type="text" name="user.confirmPassword" value=""/> </td>
         </tr>
         <tr align = "left">
           <th> Last Name: </th>
-          <td> <input type="text"  name="" value="Last Name"/></td>
+          <td> <input type="text"  name="user.lastname" value="Last Name"/></td>
         </tr>
         <tr align = "left">
           <th> First Name: </th>
-          <td> <input type="text" name="" value="First Name"/></td>
+          <td> <input type="text" name="user.firstname" value="First Name"/></td>
+        </tr>
+        <tr align ="left">
+          <th> Address Line1: </th>
+          <td> <input type="text" name="user.addrLine1" value=""/> </td>
+        </tr>
+        <tr align ="left">
+          <th> Address Line2: </th>
+          <td> <input type="text" name="user.addrLine2" value=""/> </td>
+        </tr>
+        <tr align ="left">
+          <th> Initial Cash Deposit: </th>
+          <td> <input type="text" name="user.cash" value=""/> </td>
         </tr>
         </table>
         <div class="create">
-        <p> <input type="button" name="" value="Create Account"/> </p>
+        <p> <input type="button" name="create" value="Create Account"/> </p>
         </div>
         </div>
     </div>

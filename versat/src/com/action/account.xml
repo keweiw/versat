@@ -7,24 +7,34 @@
     <package name="account-action" namespace="/employee/account" extends="versat">
     
         <action name="customerlist" class="com.action.AccountAction" method="customerlist">
-            <result>/pages/customeraccountlist.jsp</result>
+            <result>/pages/employee_mngaccount.jsp</result>
         </action>
         
         <action name="employeelist" class="com.action.AccountAction" method="employeelist">
-            <result>/pages/employeeaccountlist.jsp</result>
+            <result>/pages/employee_mngempaccount.jsp</result>
         </action>
        
         <action name="createcustomeraccount" class="com.action.AccountAction" method="createcustomer">
-            <result>/pages/createcustomeraccount.jsp</result>
+            <result name="success" type="redirect">/employee/account/customerlist</result>
+            <result name="error">/pages/employee_createcustomer.jsp</result>
         </action>
        
         <action name="createemployeeaccount" class="com.action.AccountAction" method="createemployee">
-            <result>/pages/createemployeeaccount.jsp</result>
+            <result name="success" type="redirect">/employee/account/employeelist</result>
+             <result name="error">/pages/employee_createemployee.jsp</result>
         </action>
        
-        <action name="accountinfo" class="com.action.AccountAction" method="viewaccount">
-            <result>/pages/accountinfo.jsp</result>
+        <action name="viewcustomeraccount" class="com.action.AccountAction" method="viewAccount">
+            <result>pages/employee_viewcustomeracct</result>
         </action>
+        
+        <action name="viewemployeeaccount" class="com.action.AccountAction" method="viewAccount">
+            <result>pages/employee_viewempacct</result>
+        </action>
+        
+        <action name="customeraccountsearch" class="com.action.AccountAction" method="accountsearch">
+            <result></result>
+        </action>     
         
     </package>
     

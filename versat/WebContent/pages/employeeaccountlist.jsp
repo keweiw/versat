@@ -37,7 +37,7 @@
         <div class="accountType"> 
         <p> <a href="../account/customerlist">Customer Account List</a> | <a href="../account/employeelist">Employee Account List</a></p>
         </div>
-        <p><input type="button" name="" value="Create Employee Account" /></p>
+        <p><a href="/versat/employee/account/createcustomeraccount"><input type="button" name="" value="Create Employee Account" /></a></p>
         <table border ="1">
             <tr align = "center">
           <th> Employee Username </th>
