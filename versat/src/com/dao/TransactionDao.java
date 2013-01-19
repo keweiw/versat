@@ -34,7 +34,7 @@ public class TransactionDao extends BaseDao<Transaction> {
 		return super.get(criterions);
 	}
 	
-	public void createTransaction(){
-		
+	public void createTransaction(Transaction transaction) throws Exception{
+		super.create(transaction);
 	}
 }
