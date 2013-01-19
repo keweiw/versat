@@ -36,7 +36,6 @@ $(document).ready(function() {
 
 <!--content start-->
 <div class="content">
-<!--content功能展现-->
 <div class="content_right2">
 <form action="" method="post">
 

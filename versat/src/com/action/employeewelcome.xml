@@ -10,8 +10,12 @@
         </action>
         
         <action name="changepassword" class="com.action.EmployeeWelcomeAction" method="changePassword">
-            <result name="error">/pages/employee_welcome.jsp</result>
-            <result name="success" type="redirect">/employee/welcome</result>
+            <result>/pages/employee_changepwd.jsp</result>
+        </action>
+        
+        <action name="changesubmit" class="com.action.EmployeeWelcomeAction" method="submit">
+            <result name="error">/pages/employee_changepwd.jsp</result>
+            <result name="success" type="redirect">/employee/welcome?isSuccess=1</result>
         </action>
     </package>
 </struts>
