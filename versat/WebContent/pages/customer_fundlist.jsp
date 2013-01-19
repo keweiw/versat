@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Fund List</title>
-<link href="../css/common.css" rel="stylesheet" type="text/css" />
-<link href="../css/display.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
-<script type="text/javascript" src="../js/animation.js" language="javascript"></script>
+<link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
 $(document).ready(function() {
  $(".btn_sprites").click(function() {
@@ -27,8 +27,8 @@ $(document).ready(function() {
 <div class="headerbg_right"></div>
 <!--header help-->
 <div class="header_help">
-<div class="header_bz"><a href="#">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="" /></div>
+<div class="header_bz"><a href="/versat/logout">Log out</a></div>
+<div class="header_image"><img src="../../images/back.gif" title="" /></div>
 <div class="header_ues">Welcome </div>
 </div>
 </div>
@@ -74,11 +74,12 @@ $(document).ready(function() {
 		</tr>
 	 </thead>
 	 <tbody>
-	   <s:iterator value="positions" id="position">
+	 <!-- list all fund this customer owned -->
+	   <s:iterator value="funds" id="fund">
 			<tr>
-				<td><s:property value="#position.fundName"/></td>
-				<td><s:property value="#position.fundSymbol"/></td>
-				<td><a href="">Buy Fund</a></td>
+				<td><a href="/versat/customer/fund/funddetail?fundId=${fund.id}">${fund.name}</a></td>
+				<td>${fund.symbol}</td>
+				<td><a href="#">Buy Fund</a></td>
 			</tr>
 		</s:iterator>
 	 </tbody>

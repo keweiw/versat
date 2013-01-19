@@ -18,11 +18,11 @@
         </action>
     </package>
     <package name="listfund-action" namespace="/customer/fund" extends="versat">
-    	<action name="researchfund" class="com.action.FundAction" method="showfund">
-    		<result name="success">/pages/researchfund.jsp</result>
-    	</action>
-    	<action name="listallfund" class="com.action.FundAction" method="listFundByUserId">
+    	<action name="listallfund" class="com.action.FundAction" method="listAllFund">
     		<result name="success">/pages/customer_fundlist.jsp</result>
+    	</action>
+    	<action name="funddetail" class="com.action.FundAction" method="showFundDetail">
+    		<result name="success">/pages/fund_detail.jsp</result>
     	</action>
     </package>
 </struts>

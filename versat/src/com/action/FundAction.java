@@ -14,6 +14,14 @@ import com.pojo.Sysuser;
 public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
+	private int fundId;
+	public int getFundId() {
+		return fundId;
+	}
+
+	public void setFundId(int fundId) {
+		this.fundId = fundId;
+	}
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 	
@@ -55,6 +63,8 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+
+
 	public String listAllFund(){
 		try {
 			funds=FundDao.getInstance().getAllList();
@@ -96,6 +106,12 @@ public class FundAction extends ActionSupport{
 			return ERROR;
 		}
 		FundDao.getInstance().createFund(name, symbol);
+		return SUCCESS;
+	}
+	public String showFundDetail() throws Exception{
+		Fund f=FundDao.getInstance().getById(fundId);
+		name=f.getName();
+		symbol=f.getSymbol();
 		return SUCCESS;
 	}
 }
