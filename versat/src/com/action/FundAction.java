@@ -181,16 +181,20 @@ public class FundAction extends ActionSupport{
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		
-		this.addActionError("test here");
-		return ERROR;
+	//	this.addActionError("test here");
+	//	return ERROR;
 		
 		//--transaction needs to be filled in--//
-		/*
+		
 		Transaction t = new Transaction();
-		TransitionDay.getInstance().newTransaction(user.getId(), t);
+		long s = (long) (shares*1000);
+		t.setShares(s);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_SELL);	
+		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
 		
 		return SUCCESS;
-		*/
+		
 	}
 	public String showBuyFund() throws Exception{
 		//--get user id from session--//
