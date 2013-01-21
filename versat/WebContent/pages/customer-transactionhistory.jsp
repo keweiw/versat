@@ -125,7 +125,7 @@ $(document).ready(
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5 " id="sellLink"><a href="#">Sell Fund</a></div>
+   <div class="content_menu5 " id="sellLink"><a href="/versat/customer/">Sell Fund</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="#">Research Fund</a></div>
    <div class="content_menubd"></div>
