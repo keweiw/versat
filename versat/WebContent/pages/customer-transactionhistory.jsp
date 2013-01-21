@@ -6,75 +6,142 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Transaction History</title>
-<link href="../css/common.css" rel="stylesheet" type="text/css" />
-<link href="../css/display.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
-<script type="text/javascript" src="../js/animation.js" language="javascript"></script>
+<link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
-});
+$(document).ready(
+        function() {
+            $(".btn_sprites").click(function() {
+                  $(this).blur();
+                 });
+         
+            $("#submit_change").click(
+                    function() {
+                            $("#form").attr("action",
+                                    "/versat/customer/trans/list");
+                            $("#form").submit();
+                    });
+        }
+);
 </script>
 </head>
 
 <body>
-<div id="container">
-<!-- Header Begin -->
-    <div id="header">
-        <a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund" /></a>
-        <div id="status">
-             <p><a href="/versat/logout"> Logout </a></p>
-        </div>
-    </div>
-<!-- Header end -->
-    <div id="splitter"></div>
+<!--header begin-->
+<div class="header_container">
+<h1 class="header_logo"><a href="versat/customer/welcome">Carnegie Financial Service</a></h1>
+<!--header right-->
+<div class="headerbg_right"></div>
+<!--header help-->
+<div class="header_help">
+<div class="header_bz"><a href="versat/logout">Log out</a></div>
+<div class="header_image"><img src="../../images/back.gif" title="" /></div>
+<div class="header_ues">Welcome, ${sessionScope.NAME} !</div>
+</div>
+</div>
+<!--header end-->
 
-<!-- Main part Begin -->
-    <div id="left-container">
-        <div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
-        <div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/list">Transaction History</a></div>
-        <div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
-    </div>
-
-    <div id="right-container">
-        <h2>Transaction History</h2>
-        <table border ="1">
-        <tr align="center">
-            <th>Transaction Date</th>
-            <th>Type</th>
-            <th>Dollar Amount</th>
-            <th>Fund Name</th>
-            <th>Number of Shares</th>
-            <th>Share Price</th>
-            <th>Status</th>
-        </tr>
-        <s:iterator value="transactions" id="transaction">
-        <tr align="center">
-            <td><s:property value="#transaction.executeDate"/></td>
-            <td><s:if test="%{#transaction.transactionType == 0}">Buy Fund</s:if>
-            <s:elseif test="%{#transaction.transactionType == 1}">Sell Fund</s:elseif>
-            <s:elseif test="%{#transaction.transactionType == 2}">Make Deposit</s:elseif>
-            <s:else>Request Check</s:else></td>
-            <td><s:property value="#transaction.amount"/></td>
-            <td><s:if test="%{#transaction.transactionType < 2}"><s:property value="#transaction.fundName"/></s:if></td>
-            <td><s:if test="%{#transaction.transactionType < 2}"><s:property value="#transaction.shares / 1000.0"/></s:if></td>
-            <td><s:if test="%{#transaction.transactionType < 2}"><s:property value="#transaction.unitPrice"/></s:if></td>
-            <td><s:if test="%{#transaction.status == 0}">pending</s:if><s:else>proceeded</s:else></td>
-        </tr>
-        </s:iterator>
-        </table>
-    </div>
-<!-- Main part end -->
-
-<!-- Footer Begin -->
-    <div id="footer">Copyright&nbsp;© 2012 - 2013 Versat. All Rights Reserved</div>
-<!-- Footer End -->
+<!--content start-->
+<div class="content">
+<!--content feature-->
+<div class="content_right2">
+<form action="" method="post" id="form" name="form">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
 </div>
 
+<!-- Alert -->
+<div class="success_area">Success!</div>
+<div class="warning">Error!</div>
+<!-- Alert -->
+
+<div class="new_user_title">Transaction History</div>
+
+<!-- Search -->
+<div class="list_search clearfix">
+	<div class="search">
+		<a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search History</span></a>
+	</div>
+</div>
+<div class="search_detail clearfix"> 	
+	<table cellspacing="0" cellpadding="0" class="search_detail_list">
+	<tr>
+		<td>&nbsp;</td>
+		<td>
+		  <select id="select_trans_type">
+		    <option value="${transactionType}"selected="selected">Buy</option>
+		    <option value="${transactionType}">Sell</option>
+		    <option value="${transactionType}">Deposit</option>
+		    <option value="${transactionType}">Withdraw</option>
+		  </select>
+		</td>
+		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
+	</tr>
+	</table>
+</div>
+<!-- Search -->
+
+<!-- Account List -->
+<div class="mail_table">
+	<table class="list_table list_table_choose">
+	 <thead>
+		<tr>
+			<th class="row_4">Status</th>
+			<th class="row_4">Operation</th>
+			<th class="row_4">Fund Name</th>
+            <th class="row_1">Number of Share</th>
+            <th class="row_1">Share Price</th>
+            <th class="row_1">Dollar Amount</th>
+			<th class="row_4">Date</th>
+		</tr>
+	 </thead>
+	 <tbody>
+	   <s:iterator value="transactions" id="transaction">
+        <tr align="center">
+            <td><s:property value="#transaction.status"/></td>
+            <td><s:property value="#transaction.transactionType"/></td>
+            <td><s:property value="#transaction.fundName"/></td>
+            <td><s:property value="#transaction.shares"/></td>
+            <td><s:property value="#transaction.unitPrice"/></td>
+            <td><s:property value="#transaction.amount"/></td>
+            <td><s:property value="#transaction.executeDate"/></td>
+        </tr>
+        </s:iterator>
+	 </tbody>
+    </table>
+</div>
+<!--Account list-->
+		
+</form>
+</div>
+<!--content fearture-->
+</div>
+<!--content end-->
+
+<!--content menu start-->
+ <div class="content_left">
+  <h2 class="contentbg_top">Menu</h2>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu5 " id="sellLink"><a href="#">Sell Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu4" id="researchLink"><a href="#">Research Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu_11 font14b" id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu7" id="requestLink"><a href="#">Request Check</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menubd"></div>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
+  </div>
+<!--content menu end-->
+
+<!--floter begin-->
+<div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
+<!--floter end--><!--floter end-->
 </body>
 </html>
