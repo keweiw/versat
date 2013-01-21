@@ -14,27 +14,27 @@
             <result>/pages/employee_mngempaccount.jsp</result>
         </action>
        
-        <action name="createcustomeraccount" class="com.action.AccountAction" method="createcustomer">
-            <result name="success" type="redirect">/employee/account/customerlist</result>
+        <action name="createcustomeraccount" class="com.action.AccountAction" method="createCustomer">
+            <result name="success" type="redirect">/employee/account/customerlist?isSuccess=1</result>
             <result name="error">/pages/employee_createcustomer.jsp</result>
         </action>
        
-        <action name="createemployeeaccount" class="com.action.AccountAction" method="createemployee">
-            <result name="success" type="redirect">/employee/account/employeelist</result>
+        <action name="createemployeeaccount" class="com.action.AccountAction" method="createEmployee">
+            <result name="success" type="redirect">/employee/account/employeelist?isSuccess=1</result>
              <result name="error">/pages/employee_createemployee.jsp</result>
         </action>
        
         <action name="viewcustomeraccount" class="com.action.AccountAction" method="viewAccount">
-            <result>pages/employee_viewcustomeracct</result>
+            <result>/pages/employee_viewcustomeracct.jsp</result>
         </action>
-        
+       
         <action name="viewemployeeaccount" class="com.action.AccountAction" method="viewAccount">
-            <result>pages/employee_viewempacct</result>
+            <result>/pages/employee_viewempacct.jsp</result>
         </action>
         
-        <action name="customeraccountsearch" class="com.action.AccountAction" method="accountsearch">
-            <result></result>
-        </action>     
+        <action name="resetpassword" class="com.action.AccountAction" method="resetPassword">
+             <result name="success" type="redirect">/employee/account/employeelist?isSuccess=2</result>
+        </action>  
         
     </package>
     

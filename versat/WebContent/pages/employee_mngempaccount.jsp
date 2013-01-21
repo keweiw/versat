@@ -11,11 +11,17 @@
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
-});
+
+
+	$(document).ready(function() {
+		$(".btn_sprites").click(function() {
+			$(this).blur();
+		});
+		$("#search").click(function() {
+			$("#form").attr("action", "/versat/employee/account/employeelist");
+			$("#form").submit();
+		});
+	});
 </script>
 </head>
 
@@ -38,7 +44,7 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form action="/versat/account/accountsearch" method="post">
+<form>
 <div class="mail_tab_nav">
 	<ul class="straight_line_nav">
 		<li><a href="/versat/employee/account/employeelist" class="current">Employee</a></li>
@@ -47,8 +53,8 @@ $(document).ready(function() {
 </div>
 
 <!-- Alert -->
-<div class="success_area">Create Employee Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == 1'><div class="success_area"> Create Employee Success!</div></s:if>
+<s:if test='isSuccess == 2'><div class="success_area"> Reset Password Success!</div></s:if>
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">

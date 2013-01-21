@@ -42,56 +42,56 @@ $(document).ready(function() {
 <form action="/versat/employee/account/createcustomeraccount"  method="post" id="form">
 <div class="mail_tab_nav">
   <ul class="straight_line_nav">
-    <li><a href="#fragment-1">Employee</a></li>
-    <li><a href="#fragment-2" class="current">Customer</a></li>
+    <li><a href="/versat/employee/account/createemployeeaccount">Employee</a></li>
+    <li><a href="/versat/employee/account/createcustomeraccount" class="current">Customer</a></li>
   </ul>
 </div>
 <!--Alert start-->
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
 <!--Change password start-->
 <div class="new_user">
 <div class="new_user_title">Create New Customer</div>
-</table>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
-    <td class="detail_left">Username:</td>
-    <td class="detail_right"><input name="user.username" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*Username:</td>
+    <td class="detail_right"><input name="user.username"  value="${user.username}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">First Name:</td>
-    <td class="detail_right"><input name="user.firstname" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*First Name:</td>
+    <td class="detail_right"><input name="user.firstname"value="${user.firstname}"  class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">Last Name:</td>
-    <td class="detail_right"><input name="user.lastname" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*Last Name:</td>
+    <td class="detail_right"><input name="user.lastname" value="${user.lastname}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">Address (Line1):</td>
-    <td class="detail_right"><input name="user.addrLine1" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_right"><input name="user.addrLine1"  class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">Address (Line2):</td>
-    <td class="detail_right"><input name="user.addrLine2" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_right"><input name="user.addrLine2"  class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">City:</td>
-    <td class="detail_right"><input name="user.city" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_right"><input name="user.city"  class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">State:</td>
-    <td class="detail_right"><input name="user.state" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_right"><input name="user.state" class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">Zip:</td>
-    <td class="detail_right"><input name="user.zip" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_right"><input name="user.zip" class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">Cash Balance:</td>
-    <td class="detail_right"><input name="cash" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_right">
+    <input name="cash"class="list_text_width_normal" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"> 
+    </td>
   </tr>
   </tbody>
 </table>
@@ -99,9 +99,7 @@ $(document).ready(function() {
   <div class="new_user_save_button"><input type="submit" name="create" value="Create Account"/></div>          
 </div>
 </div>
-<div class="login_notice">
-                <font size="4"><s:actionerror /></font>
-        </div>
+
 <!--Change password end-->  
     
 </form>

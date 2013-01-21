@@ -42,13 +42,12 @@ $(document).ready(function() {
 <form action="" method="post">
 <div class="mail_tab_nav">
   <ul class="straight_line_nav">
-    <li><a href="#" class="current" >Employee</a></li>
-    <li><a href="#" >Customer</a></li>
+    <li><a href="/versat/employee/account/createemployeeaccount" class="current" >Employee</a></li>
+    <li><a href="/versat/employee/account/createcustomeraccount" >Customer</a></li>
   </ul>
 </div>
 <!--Alert start-->
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
 <!--Change password start-->
@@ -58,16 +57,16 @@ $(document).ready(function() {
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
-    <td class="detail_left">Username:</td>
-    <td class="detail_right"><input name="user.username" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*Username:</td>
+    <td class="detail_right"><input name="user.username" value="${user.username}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">First Name:</td>
-    <td class="detail_right"><input name="user.firstname" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*First Name:</td>
+    <td class="detail_right"><input name="user.firstname" value="${user.firstname}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">Last Name:</td>
-    <td class="detail_right"><input name="user.lastname" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*Last Name:</td>
+    <td class="detail_right"><input name="user.lastname" value="${user.lastname}" class="list_text_width_normal" /></td>
   </tr>
   </tbody>
 </table>
@@ -75,9 +74,7 @@ $(document).ready(function() {
   <div class="new_user_save_button"><input type="submit" name="create" value="Create Account"/> </div>          
 </div>
 </div>
-<div class="login_notice">
-                <font size="4"><s:actionerror /></font>
-        </div>
+
 <!--Change password end-->  
     
 </form>
