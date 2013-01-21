@@ -15,8 +15,9 @@ public class AccountAction extends ActionSupport {
 	public Sysuser user;
 	public double cash;
 	private int isSuccess = 0;
-	public String optionC;
+	public String optionC="";
 	public String searchKeyC;
+	public String searchKeyE;
 
 
 
@@ -27,7 +28,7 @@ public class AccountAction extends ActionSupport {
 			} catch (Exception e) {
 				e.printStackTrace();
 				this.addActionError("Can't find this user!");
-				isSuccess = -1;
+				isSuccess = -2;
 				return SUCCESS;
 			}
 			return SUCCESS;
@@ -38,7 +39,7 @@ public class AccountAction extends ActionSupport {
 			} catch (Exception e) {
 				e.printStackTrace();
 				this.addActionError("Can't find this user!");
-				isSuccess = -1;
+				isSuccess = -2;
 				return SUCCESS;
 			}
 			return SUCCESS;
@@ -49,7 +50,7 @@ public class AccountAction extends ActionSupport {
 			} catch (Exception e) {
 				e.printStackTrace();
 				this.addActionError("Can't find this user!");
-				isSuccess = -1;
+				isSuccess = -2;
 				return SUCCESS;
 			}
 			return SUCCESS;
@@ -68,17 +69,50 @@ public class AccountAction extends ActionSupport {
 		
 	}
 	public String employeelist() {
-		try {
-			this.users = SysuserDao.getInstance().getUsersByType(Sysuser.USER_TYPE_EMPLOYEE);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(optionC.equals("username")){
+			try {
+				users = SysuserDao.getInstance().getUsersByUsername(searchKeyE,1);
+			} catch (Exception e) {
+				e.printStackTrace();
+				this.addActionError("Can't find this user!");
+				isSuccess = -2;
+				return SUCCESS;
+			}
+			return SUCCESS;
 		}
-		if (this.users == null) {
-			this.users = new ArrayList<Sysuser>();
+		if(optionC.equals("firstname")){
+			try {
+				users = SysuserDao.getInstance().getUsersByFirstname(searchKeyE,1);
+			} catch (Exception e) {
+				e.printStackTrace();
+				this.addActionError("Can't find this user!");
+				isSuccess = -2;
+				return SUCCESS;
+			}
+			return SUCCESS;
 		}
-	    return SUCCESS;
-	
+		if(optionC.equals("lastname")){
+			try {
+				users = SysuserDao.getInstance().getUsersByLastname(searchKeyE,1);
+			} catch (Exception e) {
+				e.printStackTrace();
+				this.addActionError("Can't find this user!");
+				isSuccess = -2;
+				return SUCCESS;
+			}
+			return SUCCESS;
+		}else{
+			try {
+				this.users = SysuserDao.getInstance().getUsersByType(Sysuser.USER_TYPE_EMPLOYEE);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (this.users == null) {
+				this.users = new ArrayList<Sysuser>();
+			}
+			return SUCCESS;
+		}
 	}
 
 	public String createCustomer() {

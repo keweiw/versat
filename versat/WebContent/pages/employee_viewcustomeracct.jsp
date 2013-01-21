@@ -43,9 +43,7 @@ $(document).ready(function() {
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"></div>
 </div>
-<!--Alert start-->
-<div class="success_area">Editing success!</div>
-<!--Alert end-->
+
 <!--Create new user start-->
 <div class="new_user">
 <div class="new_user_title">View Customer Account</div>
@@ -90,7 +88,7 @@ $(document).ready(function() {
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="/versat/employee/account/resetpassword?userId=${user.id}"  name="password"><span>Reset Password</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="/versat/employee/account/resetcustomerpassword?userId=${user.id}"  name="password"><span>Reset Password</span></a></div>					
 </div>
 </div>
 <!--Create New customer-->			

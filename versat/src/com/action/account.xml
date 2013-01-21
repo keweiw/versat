@@ -32,9 +32,12 @@
             <result>/pages/employee_viewempacct.jsp</result>
         </action>
         
-        <action name="resetpassword" class="com.action.AccountAction" method="resetPassword">
+        <action name="resetcustomerpassword" class="com.action.AccountAction" method="resetPassword">
+             <result name="success" type="redirect">/employee/account/customerlist?isSuccess=2</result>
+        </action> 
+        <action name="resetemployeepassword" class="com.action.AccountAction" method="resetPassword">
              <result name="success" type="redirect">/employee/account/employeelist?isSuccess=2</result>
-        </action>  
+        </action>   
         
     </package>
     
