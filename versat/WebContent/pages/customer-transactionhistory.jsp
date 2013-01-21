@@ -129,14 +129,14 @@ $(document).ready(
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
+   <div class="content_menu_11 font14b" id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu7" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_88 font14b" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
   </div>
 <!--content menu end-->
 

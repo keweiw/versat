@@ -15,7 +15,7 @@ public class AccountAction extends ActionSupport {
 	public Sysuser user;
 	public double cash;
 	private int isSuccess = 0;
-	public String optionC;
+	public String optionC="";
 	public String searchKeyC;
 
 

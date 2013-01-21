@@ -83,7 +83,7 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_menu5 " id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
+   <div class="content_menu_44 font14b" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
@@ -92,7 +92,7 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_88 font14b" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
   </div>
 <!--content menu end-->
 

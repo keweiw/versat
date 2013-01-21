@@ -48,7 +48,9 @@ $(document).ready(
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post">
-
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
+</div>
 <!--Alert start-->
 <div class="success_area">Success!</div>
 <div class="warning">Error!</div>
@@ -114,7 +116,7 @@ $(document).ready(
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5" id="sellLink"><a href="/versat/employee/customerlist">Manage Account</a></div>
+   <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
@@ -125,7 +127,7 @@ $(document).ready(
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="/versat/emoloyee/welcome">Profile</a></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
  </div>
 <!--content menu end-->
 

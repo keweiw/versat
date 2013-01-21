@@ -105,7 +105,7 @@ $(document).ready(function() {
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5 " id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
    <div class="content_menubd"></div>
@@ -116,7 +116,7 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_88 font14b" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
   </div>
 <!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>

@@ -93,12 +93,12 @@ $(document).ready(
    <div class="content_menubd"></div>
    <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+   <div class="content_menu_77 font14b" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_88 font14b" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
   </div>
 <!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
