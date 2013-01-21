@@ -32,7 +32,7 @@ public class TransitionDay {
 	public static TransitionDay getInstance() {
 		return instance;
 	}
-	
+
 	public synchronized boolean getAndSetinTransition() {
 		if (inTransition) {
 			return false;
@@ -115,20 +115,24 @@ public class TransitionDay {
 				Fund fundToLink = new Fund();
 				for (Fund commitFund : commitFunds) {
 					try {
-						FundPriceHistory fundPriceHistoryCur = getCurHistory(commitFund.getId());
+						FundPriceHistory fundPriceHistoryCur = getCurHistory(commitFund
+								.getId());
 						fundPriceHistoryCur.setPriceDate(date);
-						fundPriceHistoryCur.setPrice((long) (commitFund.getCur() * 100));
-						FundPriceHistoryDao.getInstance().update(fundPriceHistoryCur);
+						fundPriceHistoryCur.setPrice((long) (commitFund
+								.getCur() * 100));
+						FundPriceHistoryDao.getInstance().update(
+								fundPriceHistoryCur);
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+
 					FundPriceHistory fundPriceHistorynew = new FundPriceHistory();
 					fundToLink.setId(commitFund.getId());
 					fundPriceHistorynew.setFund(fundToLink);
 					try {
-						FundPriceHistoryDao.getInstance().create(fundPriceHistorynew);
+						FundPriceHistoryDao.getInstance().create(
+								fundPriceHistorynew);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -171,6 +175,7 @@ public class TransitionDay {
 					} else {
 						transaction.setSysuser(user);
 						transaction.setFundPriceHistory(fph);
+						transaction.setExecuteDate(fph.getPriceDate());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -188,6 +193,9 @@ public class TransitionDay {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+		if (retryTime == 0) {
+			return RETRY;
 		}
 		return ret;
 	}
@@ -204,6 +212,7 @@ public class TransitionDay {
 						ret = FAILED;
 					} else {
 						transaction.setSysuser(user);
+						transaction.setExecuteDate(getLastTransitionDay());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -222,19 +231,50 @@ public class TransitionDay {
 				e.printStackTrace();
 			}
 		}
+		if (retryTime == 0) {
+			return RETRY;
+		}
 		return ret;
 	}
-	
+
+	public static class TransitionProcessing extends Thread {
+		private Date date;
+		private long money;
+		public TransitionProcessing(Date date, long money) {
+			this.date = date;
+			this.money = money;
+		}
+
+		@Override
+		public void run() {
+			try {
+				Sysuser user = SysuserDao.getInstance().getByUserId(2);
+				System.out.println("save:" + this.money + "org:" + user.getCash());
+				user.setCash(this.money);
+				System.out.println("set:" + this.money +"set to"+ user.getCash());
+				Thread.sleep(2000);
+				System.out.println("weak:"+ this.money + " now:" + user.getCash());
+				SysuserDao.getInstance().update(user);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			// TODO Auto-generated method stub
+
+		}
+	}
+
 	public static void main(String argv[]) {
-		Fund fund = new Fund();
-		fund.setId(1);
-		FundPriceHistory fph = new FundPriceHistory();
-		fph.setFund(fund);
+		TransitionProcessing tp1 = new TransitionProcessing(null, 1000);
+		TransitionProcessing tp2 = new TransitionProcessing(null, 100);
+		tp1.start();
 		try {
-			FundPriceHistoryDao.getInstance().create(fph);
-		} catch (Exception e) {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		tp2.start();
 	}
 }

@@ -5,16 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<title>Carnegie Financial Service | Fund List</title>
+<title>Carnegie Financial Service | Sell Fund</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
 $(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
+ 	$(".btn_sprites").click(function() {
+  		$(this).blur();
+	});
+	$("#submit_change").click(
+    	function() {
+        	$("#form").attr("action","/versat/customer/fund/sell");
+            $("#form").submit();
+	});
 });
 </script>
 </head>
@@ -27,72 +33,66 @@ $(document).ready(function() {
 <div class="headerbg_right"></div>
 <!--header help-->
 <div class="header_help">
-<div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../../images/back.gif" title="" /></div>
-<div class="header_ues">Welcome </div>
+<div class="header_bz"><a href="#">Log out</a></div>
+<div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
+<div class="header_ues">Welcome</div>
 </div>
 </div>
 <!--header end-->
 
 <!--content start-->
 <div class="content">
-<!--content feature-->
+<!--content features-->
 <div class="content_right2">
-<form action="" method="post">
-<div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
-</div>
+<form action="" method="post" id="form" name="form">
 
-<!-- Alert -->
+<!--Alert start-->
 <div class="success_area">Success!</div>
-<div class="warning">Error!</div>
-<!-- Alert -->
-<!-- Search -->
-<div class="list_search clearfix">
-	<div class="search"><a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a></div>
-</div>
-<div class="search_detail clearfix">	
-	<table cellspacing="0" cellpadding="0" class="search_detail_list">
-	<tr>
-		<td>&nbsp;</td>
-		<td>
-		<input name="title0" type="text" class="list_text_width_normal" value="fund name" /></td>
-		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
-	</tr>
-	</table>	
-</div>
-<!-- Search -->
+<div class="warning"><s:actionerror /></div>
+<!--Alert end-->
 
-<!-- Account List -->
-<div class="mail_table">
-	<table class="list_table list_table_choose">
-	 <thead>
-		<tr>
-			<th class="row_4">Fund Name</th>
-			<th class="row_4">Fund Symbol</th>
-			<th class="row_4">Action</th>
-		</tr>
-	 </thead>
-	 <tbody>
-	 <!-- list all fund this customer owned -->
-	   <s:iterator value="funds" id="fund">
-			<tr>
-				<td><a href="/versat/customer/fund/funddetail?fundId=${fund.id}">${fund.name}</a></td>
-				<td>${fund.symbol}</td>
-				<td><a href="/versat/customer/fund/buyfund?fundId=${fund.id}">Buy Fund</a></td>
-			</tr>
-		</s:iterator>
-	 </tbody>
-	</table>
+
+
+
+<!--Sell fund start-->
+<div class="new_user">
+<div class="new_user_title">Buy Fund</div>
+
+<table cellspacing="0" cellpadding="0" class="http_content_detail">
+	
+  <tbody>
+  	<tr>
+		<td class="detail_left">Fund Name:</td>
+		<td class="detail_right">${name}</td>
+	</tr>
+	<tr>
+		<td class="detail_left">Fund Symbol:</td>
+		<td class="detail_right">${symbol}</td>
+	</tr>
+	<tr>
+		<td class="detail_left">Shares owned:</td>
+		<td class="detail_right">${shares}</td>
+	</tr>
+	<tr>
+		<td class="detail_left">Amount:</td>
+		<td class="detail_right"><input name="share" type="text" class="list_text_width_normal"/></td>
+	</tr>
+  </tbody>
+</table>
+<div class="mail_search">
+	<div class="sell_button"><a class="btn_sprites" href="#" id="submit_change" name="password"><span>Buy Fund</span></a></div>					
 </div>
-<!--Account list-->
-		
+<!-- hidden field put here -->
+<input name="fundId" type="text" class="list_text_width_normal" value="${fundId}" readonly />
+</div>
+<!--Sell fund end-->	
+
 </form>
 </div>
-<!--content fearture-->
+<!--content function end-->
 </div>
 <!--content end-->
-<!--content menu start-->
+<!--content menu-->
  <div class="content_left">
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
@@ -110,10 +110,8 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_menu8" id="profileLink"><a href="#">Profile</a></div>
   </div>
-<!--content menu end-->
-
-<!--floter begin-->
+<!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
-<!--floter end--><!--floter end-->
+<!--floter end-->
 </body>
 </html>
