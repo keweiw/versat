@@ -171,6 +171,7 @@ public class TransitionDay {
 					} else {
 						transaction.setSysuser(user);
 						transaction.setFundPriceHistory(fph);
+						transaction.setExecuteDate(fph.getPriceDate());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -204,6 +205,7 @@ public class TransitionDay {
 						ret = FAILED;
 					} else {
 						transaction.setSysuser(user);
+						transaction.setExecuteDate(getLastTransitionDay());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
