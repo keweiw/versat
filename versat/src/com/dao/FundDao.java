@@ -19,8 +19,9 @@ public class FundDao extends BaseDao<Fund>{
 		super(Fund.class);
 	}
 	
-	public void createFund(String name,String symbol){
-		
+	public void createFund(String name,String symbol) throws Exception{
+		Fund f = new Fund(name,symbol);
+		super.create(f);
 	}
 	
 	public Fund getById(Integer id) throws Exception {
@@ -32,5 +33,12 @@ public class FundDao extends BaseDao<Fund>{
 
 	public ArrayList<Fund> getAllList() throws Exception{
 		return (ArrayList<Fund>) super.getList();
+	}
+	
+	public boolean isExist(Fund f) throws Exception{
+		if(super.retrieve(f)==null)
+			return false;
+		else
+			return true;
 	}
 }

@@ -14,6 +14,15 @@ import com.pojo.Sysuser;
 public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
+	private int fundId;
+	private double shares;
+	public int getFundId() {
+		return fundId;
+	}
+
+	public void setFundId(int fundId) {
+		this.fundId = fundId;
+	}
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 	
@@ -42,6 +51,13 @@ public class FundAction extends ActionSupport{
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+	public double getShares() {
+		return shares;
+	}
+
+	public void setShares(double shares) {
+		this.shares = shares;
+	}
 	
 	public String showCreate() {
 		return SUCCESS;
@@ -55,6 +71,8 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	
+
 	public String listAllFund(){
 		try {
 			funds=FundDao.getInstance().getAllList();
@@ -78,10 +96,43 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
-	public String createFund(){
-		name.trim();
-		symbol.trim();
-		
+	public String createFund() throws Exception{
+		name=name.trim();
+		symbol=symbol.trim();
+		Fund f1 = new Fund();
+		f1.setName(name);
+		//check if there is a fund already had the same name
+		if(FundDao.getInstance().isExist(f1)==true){
+			this.addActionError("The fund name already existed");
+			return ERROR;
+		}
+		Fund f2 = new Fund();
+		f2.setSymbol(symbol);
+		//
+		if(FundDao.getInstance().isExist(f2)==true){
+			this.addActionError("The fund name already existed");
+			return ERROR;
+		}
+		FundDao.getInstance().createFund(name, symbol);
 		return SUCCESS;
 	}
+	public String showFundDetail() throws Exception{
+		Fund f=FundDao.getInstance().getById(fundId);
+		name=f.getName();
+		symbol=f.getSymbol();
+		return SUCCESS;
+	}
+	public String sellFund() throws Exception{
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		int userId = user.getId();
+		//--query by userId and fundId--//
+		Position p= PositionDao.getInstance().getByCustomerIdFundId(userId, fundId);
+		name=p.getFundName();
+		symbol=p.getFundSymbol();
+		shares=p.getShares()/100.0;
+		return SUCCESS;
+	}
+
+
 }

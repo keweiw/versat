@@ -49,15 +49,9 @@ q:before { content:'';}
 acronym { border: 0;}
 abbr { border: 0;}
 
-/*---消除浮动 b---*/
 .clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;} /* 这是对Firefox进行的处理，因为Firefox支持生成元素，而IE所有版本都不支持生成元素.  :after 伪元素在元素内容之后插入内容。 */
-.clearfix {display: inline-block;}/* 这是对 Mac 上的IE浏览器进行的处理 */
-/**//* Hides from IE-mac \*/
-* html .clearfix {height: 1%;} /* 这是对win上的IE浏览器进行的处理 */
-.clearfix {display: block;} /* 这是对display: inline-block;进行的修改，重置为区块元素*/
-/**//* End hide from IE-mac */
-/*---消除浮动 e---*/
-/*--------------------------Add in 08072009    up--------------------*/
+/*.clearfix {display: inline-block;}*/
+* html .clearfix {height: 1%;} 
 
 body{
 font-size:12px;
@@ -165,7 +159,6 @@ a:active{font-size:12px;text-decoration:none;color:#163b67;cursor:pointer;}
 .font_hui1{color:#898989;}
 
 
-
 /*border*/
 .border_1{border:1px solid #b2b7bb;}
 .border_bottom1{border-bottom:1px solid #b7d2e5;}
@@ -212,6 +205,7 @@ margin-top:10px;
 border-top:2px #d3d3d3 solid;
 background-color:#fbfbfb;
 float:left;
+text-align: center;
 }
 
 /*index*/
@@ -245,7 +239,6 @@ background-position:bottom;
 }
 .index_bg3{
 }
-
 
 
 /*header*/
@@ -608,7 +601,7 @@ background-image:url(../images/menubg_8hover.jpg);
 background-repeat:no-repeat;
 background-position:bottom right;
 }
-/*content_right鍔熻兘灞曠ず*/
+/*content_right*/
 .content_right{
 width:825px;
 height:531px;
@@ -616,7 +609,13 @@ margin-left:170px;
 line-height:20px;
 padding:0px 0px 10px 8px;
 }
-/*淇℃伅灞曠ず*/
+
+.trade_day{
+font:bold;
+font-size: 13px;
+padding:0 10px 5px 10px;
+}
+
 .info{
 width:263px;
 height:250px;
@@ -949,6 +948,20 @@ height:27px;
 width:175px;
 line-height:27px;
 padding:15px 0 0 63px;
+float:left;
+}
+.submit_button {
+float: right;
+height:27px;
+width:175px;
+line-height:27px;
+padding: 15px 20px 0 0;
+}
+.sell_button {
+height:27px;
+width:175px;
+line-height:27px;
+padding:15px 0 0 110px;
 float:left;
 }
 .mail_select{
