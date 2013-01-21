@@ -16,6 +16,9 @@
         <action name="listallfund" class="com.action.FundAction" method="listAllFund">
             <result name="success">/pages/employee_fundlist.jsp</result>
         </action>
+        <action name="search" class="com.action.FundAction" method="searchFundByName">
+            <result name="success">/pages/employee_fundlist.jsp</result>
+        </action>
     </package>
     <package name="listfund-action" namespace="/customer/fund" extends="versat">
     	<action name="listallfund" class="com.action.FundAction" method="listAllFund">
@@ -27,8 +30,21 @@
     	<action name="listownedfund" class="com.action.FundAction" method="listFundByUserId">
     		<result name="success">/pages/customer_sell.jsp</result>
     	</action>
-    	<action name="sellfund" class="com.action.FundAction" method="sellFund">
+    	<action name="showsellfund" class="com.action.FundAction" method="showSellFund">
+    		<result name="error">/pages/customer_sell2.jsp</result>
     		<result name="success">/pages/customer_sell2.jsp</result>
+    	</action>
+    	<action name="sell" class="com.action.FundAction" method="sell">
+    		<result name="error">/pages/customer_sell2.jsp</result>
+    		<result name="success">/pages/customer_sell.jsp</result>
+    	</action>
+    	<action name="searchownedfund" class="com.action.FundAction" method="searchFundByFundNameUserId">
+    		<result name="error">/pages/customer_sell.jsp</result>
+    		<result name="success">/pages/customer_sell.jsp</result>
+    	</action>
+    	<action name="buyfund" class="com.action.FundAction" method="showBuyFund">
+    		<result name="success">/pages/customer_buy.jsp</result>
+    		
     	</action>
     </package>
 </struts>

@@ -30,9 +30,15 @@ public class FundDao extends BaseDao<Fund>{
 		criterions.add(criterion);
 		return super.get(criterions);
 	}
-
+	
 	public ArrayList<Fund> getAllList() throws Exception{
 		return (ArrayList<Fund>) super.getList();
+	}
+	public ArrayList<Fund> getByName(String name) throws Exception{
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("name", name);
+		criterions.add(criterion);
+		return (ArrayList<Fund>) super.getList(criterions);
 	}
 	
 	public boolean isExist(Fund f) throws Exception{
