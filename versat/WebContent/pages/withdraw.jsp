@@ -3,57 +3,105 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Request Check</title>
-<link rel="stylesheet" href="../../css/style.css">
+<link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
+<link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
+<script type="text/javascript" language="javascript">
+$(document).ready(
+        function() {
+            $(".btn_sprites").click(function() {
+                  $(this).blur();
+                 });
+         
+            $("#submit_change").click(
+                    function() {
+                            $("#form").attr("action",
+                                    "/versat/employee//withdraw");
+                            $("#form").submit();
+                    });
+        }
+);
+</script>
 </head>
+
 <body>
-<div id="container">
-<!-- Header Begin -->
-	<div id="header">
-		<a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"/></a>
-		<div id="status">
-    		<p><a href="/versat/logout"> Logout </a></p>
- 		</div>
-	</div>
-<!-- Header end -->
-	<div id="splitter"></div>
+<!--header begin-->
+<div class="header_container">
+<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<!--header right-->
+<div class="headerbg_right"></div>
+<!--header help-->
+<div class="header_help">
+<div class="header_bz"><a href="/versat/logout">Log out</a></div>
+<div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</a></div>
+</div>
+</div>
+<!--header end-->
 
 <!-- Main part Begin -->
-	<div id="left-container">
-        <div id="nav"><a href="/versat/customer/welcome">Change Password</a></div>
-        <div id="nav"><a href="/versat/customer/fund/researchfund">Research Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/tobuy">Buy Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/tosell">Sell Fund</a></div>
-        <div id="nav"><a href="/versat/customer/trans/listSelf">Transaction History</a></div>
-        <div id="nav"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
-    </div>
+	
+<!--content start-->
+<div class="content">
+<!--content features-->
+<div class="content_right2">
+<form action="" method="post" id="form" name="form">
 
-	<div id="right-container">
-		<h2>Request Check</h2>
-		<div id="table">
-		<s:form action="withdraw" namespace="/" method="post" id="form">
-		<table width="400">
-			<tr>
-				<th>Cash Balance:</th>
-				<th>$0.00</th>
-			</tr>
-			<tr>
-				<td>Amount:</td>
-				<td><input type="text" size="20"/></td>
-			</tr>
-		</table>
-		<input type="submit" value="Request"/>
-		<input type="button" value="Cancle"/>
-		</s:form>
-		</div>
-	</div>
-<!-- Header end -->
-
-<!-- Footer Begin -->
-	<div id="footer">&copy; 2013 Versat.</div>
-<!-- Footer End -->
+<!--Alert start-->
+<s:if test='isSuccess == 1'><div class="success_area">Request check success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
+<!--Alert end-->
+<!--start-->
+<div class="new_user">
+<div class="new_user_title">Request Check</div>
+<table cellspacing="0" cellpadding="0" class="http_content_detail">
+<tbody>
+  	<tr>
+		<td class="detail_left">Cash Balance:</td>
+		<td class="detail_right">$${user.cash}</td>
+	</tr>
+	<tr>
+		<td class="detail_left">Withdraw Amount:</td>
+		<td class="detail_right"><input name="withdrawAmount" type="text" class="list_text_width_normal" /></td>
+	</tr>
+</tbody>
+</table>
+<div class="mail_search">
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw"><span>Withdraw</span></a></div>					
 </div>
+</div>
+<!--Withdraw end-->	
+</form>
+</div>
+<!--content function end-->
+</div>
+<!--content end-->
 
+<!--content menu-->
+<div class="content_left">
+  <h2 class="contentbg_top">Menu</h2>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu5 " id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu_77 font14b" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menubd"></div>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
+  </div>
+<!--floter start-->
+<div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
+<!--floter end-->
 </body>
 </html>

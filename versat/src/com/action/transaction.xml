@@ -25,8 +25,8 @@
         <action name="withdraw" class="com.action.TransactionAction" method="showWithdraw">
             <result>/pages/withdraw.jsp</result>
         </action>
-        <action name="withdraw" class="com.action.TransactionAction" method="displayByTransactionType">
-            <result>/pages/withdraw.jsp</result>
+        <action name="sort" class="com.action.TransactionAction" method="displayByTransactionType">
+            <result>/pages/customer-transactionhistory.jsp</result>
         </action>
     </package>
 </struts>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.dao.FundDao;
+import com.dao.SysuserDao;
 import com.dao.TransactionDao;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,6 +18,8 @@ public class TransactionAction extends ActionSupport {
 	public ArrayList<Transaction> transactions;
 	public Integer idFund;
 	public Fund fund;
+	public Sysuser user;
+	private int isSuccess;
 
 	public Integer getUserId() {
 		return userId;
@@ -82,14 +85,60 @@ public class TransactionAction extends ActionSupport {
 	}
 	
 	public String showWithdraw() {
+		Map session = ActionContext.getContext().getSession();
+		user = (Sysuser) session.get(LoginAction.SYSUSER);
+		this.isSuccess = 1;
 		return SUCCESS;
+		/*if (oldPassword != null && newPassword != null && confirmPassword != null) {
+			oldPassword.trim();
+			newPassword.trim();
+			confirmPassword.trim();
+			if (newPassword.equals("")) {
+				this.addActionError("Password can not be empty, or only space!");
+				this.isSuccess = -1;
+				return ERROR;
+			} else if(!newPassword.equals(confirmPassword)){
+				this.addActionError("Confirm password is not same as new password!");
+				this.isSuccess = -1;
+				return ERROR;
+			}
+			Sysuser changePswUser = null;
+			
+			try {
+				changePswUser =SysuserDao.getInstance().getByUserId(user.getId());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(!oldPassword.equals(changePswUser.getPassword())){
+				this.addActionError("Current password is Incorrect!");
+				this.isSuccess = -1;
+				return ERROR;
+			}else{
+				changePswUser.setPassword(newPassword);
+				try {
+					SysuserDao.getInstance().update(changePswUser);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.isSuccess = 1;
+				return SUCCESS;
+			}			
+		}
+		this.addActionError("Password shouldn't be empty.");
+		this.isSuccess = -1;
+		return ERROR;*/
 	}
+
 	
 	public String showDeposit() {
 		return SUCCESS;
 	}
 	
 	public String displayByTransactionType() {
+		Map session = ActionContext.getContext().getSession();
 		if (userId == null || transactionType == null) {
 			userId = 0;
 		}

@@ -84,23 +84,23 @@ $(document).ready(
 </div>
 <!--content end-->
 <!--content menu-->
- <div class="content_left">
+<div class="content_left">
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5 " id="sellLink"><a href="#">Manage Account</a></div>
+   <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="#">Manage Fund</a></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7 " id="historyLink"><a href="#">Deposit Check</a></div>
+   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1" id="requestLink"><a href="#">Transition Day</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_88 font14b" id="profileLink"><a href="#">Profile</a></div>
-  </div>
+   <div class="content_menu_88 font14b" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
+ </div>
 <!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
 <!--floter end-->
