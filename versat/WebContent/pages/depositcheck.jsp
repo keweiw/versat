@@ -1,52 +1,138 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Carnegie Financial Service | Deposit Check</title>
-<link rel="stylesheet" href="../../css/style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>Carnegie Financial Service | Request Check</title>
+<link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
+<link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
+<script type="text/javascript" language="javascript">
+$(document).ready(
+        function() {
+            $(".btn_sprites").click(function() {
+                  $(this).blur();
+                 });
+         
+            $("#submit_change").click(
+                    function() {
+                            $("#form").attr("action",
+                                    "/versat/employee/trans/deposit");
+                            $("#form").submit();
+                    });
+        }
+);
+</script>
 </head>
+
 <body>
-<s:form action="">
-<div id="container">
-<!-- Header Begin -->
-	<div id="header">
-		<a href="index.html"><img src="../../images/versat.png" title="Versat Mutual Fund"></a>
-		<div id="status">
-    		 <p><a href="/versat/logout"> Logout </a></p>
- 		</div>
-	</div>
-<!-- Header end -->
-	<div id="splitter"></div>
-
-<!-- Main part Begin -->
-	<div id="left-container">
-        <div id="nav"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
-        <div id="nav"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
-        <div id="nav"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
-        <div id="nav"><a href="/versat/employee/transition/generate">Manage Transition</a></div>
-    </div>
-
-	<div id="right-container">
-		<h2>Deposit Check</h2>
-          <table style="padding:10px 10px 20px 50px;">
-                            <tr><td style="text-align:left;">Customer ID: </td></tr>
-                            <tr><td style="text-align:left;">*****</td></tr>
-							<tbody><tr><td style="text-align:left;">Balance:</td></tr>
-                            <tr><td style="text-align:left;">*****</td></tr>
-							<tr><td style="text-align:left;"><label for="new password">Deposit Check:</label></td></tr>
-                            <tr><td><input type="text" name="Deposit Check" id="1" value="" style="width:18em;"></td></tr>
-                            <tr><td style="text-align:left;"><input type="submit" value="Submit"></td></tr>
-                            <tr></tr></tbody></table>
-	</div>
-<!-- Header end -->
-
-<!-- Footer Begin -->
-	<div id="footer">&copy; 2013 Versat.</div>
-<!-- Footer End -->
+<div class="header_container">
+<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<!--header right-->
+<div class="headerbg_right"></div>
+<!--header help-->
+<div class="header_help">
+<div class="header_bz"><a href="/versat/logout">Log out</a></div>
+<div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
+<div class="header_ues">Welcome,${sessionScope.NAME}</a></div>
 </div>
+</div>
+<!--header end-->
 
-</s:form>
+<!--content start-->
+<div class="content">
+<!--content features-->
+<div class="content_right2">
+<form action="" method="post">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
+</div>
+<!--Alert start-->
+<div class="success_area">Success!</div>
+<div class="warning">Error!</div>
+<!--Alert end-->
+
+<!--Find Customer start-->
+<div class="new_user">
+<div class="new_user_title">Find Customer</div>
+<table class="http_content_detail">
+    <tr>
+      <td class="detail_left">Customer Username:</td>
+      <td class="detail_right"><input type="text"/></td>
+      <td class="detail_right">
+        <div><a class="btn_sprites" href="#" name="password"><span>Find Customer</span></a>
+      </td>
+    </tr>
+</table>
+</div>
+<!--Find Customer end-->
+
+<!--Deposit start-->
+<div class="new_user">
+<div class="new_user_title">Deposit Check</div>
+</table>
+<table cellspacing="0" cellpadding="0" class="http_content_detail">
+  <tbody>
+  	<tr>
+		<td class="detail_left">Customer Username:</td>
+		<td class="detail_right"></td>
+	</tr>
+	<tr>
+		<td class="detail_left">Customer First Name:</td>
+		<td class="detail_right"></td>
+	</tr>
+  <tr>
+    <td class="detail_left">Customer Last Name:</td>
+    <td class="detail_right"></td>
+  </tr>
+	<tr>
+    <td class="detail_left">Cash Balance:</td>
+    <td class="detail_right"></td>
+  </tr>
+  <tr>
+    <td class="detail_left">Deposit Amount:</td>
+    <td class="detail_right"><input name="depositAmount" type="text" value="$" class="list_text_width_normal"/></td>
+  </tr>
+  </tbody>
+</table>
+<div class="mail_search">
+	<div class="sell_button"><a class="btn_sprites" href="#" name="password"><span>Deposit</span></a></div>					
+</div>
+</div>
+<!--Deposit end-->	
+		
+</form>
+</div>
+<!--content function end-->
+</div>
+<!--content end-->
+
+<!--content menu start-->
+ <div class="content_left">
+  <h2 class="contentbg_top">Menu</h2>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu_77 font14b" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
+   <div class="content_menubd"></div>
+   <div class="content_menubd"></div>
+   <div class="content_line"></div>
+   <div class="content_menubd"></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
+ </div>
+<!--content menu end-->
+
+<!--floter start-->
+<div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
+<!--floter end-->
 </body>
 </html>

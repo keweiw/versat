@@ -12,11 +12,17 @@
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
-});
+
+	$(document).ready(function() {
+		$(".btn_sprites").click(function() {
+			$(this).blur();
+		});
+        $("#search").click(
+                function() {
+                        $("#form").attr("action", "/versat/employee/account/customerlist");
+                        $("#form").submit();
+                });
+	});
 </script>
 </head>
 
@@ -30,7 +36,7 @@ $(document).ready(function() {
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="??" /></div>
-<div class="header_ues">Welcome </div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
 <!--header end-->
@@ -39,7 +45,7 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form action="/versat/account/accountsearch" method="post">
+<form id="form">
 <div class="mail_tab_nav">
 	<ul class="straight_line_nav">
 		<li><a href="/versat/employee/account/employeelist">Employee</a></li>
@@ -48,8 +54,9 @@ $(document).ready(function() {
 </div>
 
 <!-- Alert -->
-<div class="success_area">Create Customer Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == 1'><div class="success_area"> Create Customer Success!</div></s:if>
+<s:if test='isSuccess == 2'><div class="success_area"> Reset Password Success!</div></s:if>
+
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">
@@ -61,9 +68,13 @@ $(document).ready(function() {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="searchKeyC" type="text" class="list_text_width_normal" value="" /></td>
-		<td><select class="list_text_width_normal" ><option>Username</option><option>First Name</option><option>Last Name</option></select></td>
-<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
+		<input name="searchKeyC" type="text" class="list_text_width_normal" value="${searchKeyC}" /></td>
+		<td><select class="list_text_width_normal" name="optionC" >
+			<option value="default"  ><s:if test='optionC=="default"'>Search By:</s:if></option>
+			<option value="username" ><s:if test='optionC=="username"'>Username</s:if></option>
+			<option value="firstname"><s:if test='optionC=="fistname"'>First Name</s:if></option>
+			<option value="lastname"><s:if test='optionC=="lastname"'>Last Name</s:if></option></select></td>
+		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
 </div>
@@ -92,6 +103,13 @@ $(document).ready(function() {
 				&nbsp;&nbsp;<a href="/versat/employee/trans/deposit?userId=${user.id}">Deposit Check</a></td>
 		</tr>
 	</s:iterator>
+	
+	<td>${userSearch.username}</td>
+			<td>${userSearch.firstname}</td>
+			<td>${userSearch.lastname}</td>
+			<td>${userSearch.cash}</td>
+			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${userSearch.id}">View Account</a>
+				&nbsp;&nbsp;<a href="/versat/employee/trans/deposit?userId=${userSearch.id}">Deposit Check</a></td>
 	</tbody>
 	</table>
 </div>
@@ -107,19 +125,19 @@ $(document).ready(function() {
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_55 font14b" id="sellLink"><a href="#">Manage Account</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="#">Manage Fund</a></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7 " id="historyLink"><a href="#">Deposit Check</a></div>
+   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1" id="requestLink"><a href="#">Transition Day</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="#">Profile</a></div>
-  </div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
+ </div>
 <!--floter begin-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
 <!--floter end--><!--floter end-->

@@ -33,9 +33,9 @@ $(document).ready(function() {
 <div class="headerbg_right"></div>
 <!--header help-->
 <div class="header_help">
-<div class="header_bz"><a href="#">Log out</a></div>
+<div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
-<div class="header_ues">Welcome</a></div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</a></div>
 </div>
 </div>
 <!--header end-->
@@ -105,18 +105,18 @@ $(document).ready(function() {
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5 " id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1 " id="historyLink"><a href="#">Transaction History</a></div>
+   <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7" id="requestLink"><a href="#">Request Check</a></div>
+   <div class="content_menu7" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="#">Profile</a></div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
   </div>
 <!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>

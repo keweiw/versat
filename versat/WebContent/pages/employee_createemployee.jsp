@@ -30,7 +30,7 @@ $(document).ready(function() {
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
-<div class="header_ues">Welcome</a></div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</a></div>
 </div>
 </div>
 <!--header end-->
@@ -42,13 +42,12 @@ $(document).ready(function() {
 <form action="" method="post">
 <div class="mail_tab_nav">
   <ul class="straight_line_nav">
-    <li><a href="#" class="current" >Employee</a></li>
-    <li><a href="#" >Customer</a></li>
+    <li><a href="/versat/employee/account/createemployeeaccount" class="current" >Employee</a></li>
+    <li><a href="/versat/employee/account/createcustomeraccount" >Customer</a></li>
   </ul>
 </div>
 <!--Alert start-->
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
 <!--Change password start-->
@@ -58,16 +57,16 @@ $(document).ready(function() {
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
-    <td class="detail_left">Username:</td>
-    <td class="detail_right"><input name="user.username" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*Username:</td>
+    <td class="detail_right"><input name="user.username" value="${user.username}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">First Name:</td>
-    <td class="detail_right"><input name="user.firstname" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*First Name:</td>
+    <td class="detail_right"><input name="user.firstname" value="${user.firstname}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">Last Name:</td>
-    <td class="detail_right"><input name="user.lastname" type="password" class="list_text_width_normal" /></td>
+    <td class="detail_left">*Last Name:</td>
+    <td class="detail_right"><input name="user.lastname" value="${user.lastname}" class="list_text_width_normal" /></td>
   </tr>
   </tbody>
 </table>
@@ -75,9 +74,7 @@ $(document).ready(function() {
   <div class="new_user_save_button"><input type="submit" name="create" value="Create Account"/> </div>          
 </div>
 </div>
-<div class="login_notice">
-                <font size="4"><s:actionerror /></font>
-        </div>
+
 <!--Change password end-->  
     
 </form>
@@ -90,19 +87,19 @@ $(document).ready(function() {
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_55 font14b" id="sellLink"><a href="#">Manage Account</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="#">Manage Fund</a></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7 " id="historyLink"><a href="#">Deposit Check</a></div>
+   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1" id="requestLink"><a href="#">Transition Day</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="#">Profile</a></div>
-  </div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
+ </div>
 <!--content menu end-->
 <!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>

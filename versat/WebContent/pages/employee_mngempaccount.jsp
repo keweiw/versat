@@ -11,11 +11,17 @@
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
-});
+
+
+	$(document).ready(function() {
+		$(".btn_sprites").click(function() {
+			$(this).blur();
+		});
+		$("#search").click(function() {
+			$("#form").attr("action", "/versat/employee/account/employeelist");
+			$("#form").submit();
+		});
+	});
 </script>
 </head>
 
@@ -29,7 +35,7 @@ $(document).ready(function() {
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="??" /></div>
-<div class="header_ues">Welcome </div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
 <!--header end-->
@@ -38,7 +44,7 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form action="/versat/account/accountsearch" method="post">
+<form>
 <div class="mail_tab_nav">
 	<ul class="straight_line_nav">
 		<li><a href="/versat/employee/account/employeelist" class="current">Employee</a></li>
@@ -47,8 +53,8 @@ $(document).ready(function() {
 </div>
 
 <!-- Alert -->
-<div class="success_area">Create Employee Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == 1'><div class="success_area"> Create Employee Success!</div></s:if>
+<s:if test='isSuccess == 2'><div class="success_area"> Reset Password Success!</div></s:if>
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">
@@ -104,19 +110,19 @@ $(document).ready(function() {
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_55 font14b" id="sellLink"><a href="#">Manage Account</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="#">Manage Fund</a></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7 " id="historyLink"><a href="#">Deposit Check</a></div>
+   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1" id="requestLink"><a href="#">Transition Day</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="#">Profile</a></div>
-  </div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
+ </div>
 <!--content menu end-->
 
 <!--floter begin-->
