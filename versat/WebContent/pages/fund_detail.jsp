@@ -29,7 +29,7 @@ $(document).ready(function() {
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="" /></div>
-<div class="header_ues">Welcome </div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
 <!--header end-->
@@ -85,14 +85,14 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1 " id="historyLink"><a href="#">Transaction History</a></div>
+   <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7" id="requestLink"><a href="#">Request Check</a></div>
+   <div class="content_menu7" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="#">Profile</a></div>
+   <div class="content_menu_88 font14b" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
   </div>
 <!--content menu end-->
 
