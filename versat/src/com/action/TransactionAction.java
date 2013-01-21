@@ -13,6 +13,7 @@ import com.pojo.Transaction;
 
 public class TransactionAction extends ActionSupport {
 	public Integer userId;
+	public Integer transactionType;
 	public ArrayList<Transaction> transactions;
 	public Integer idFund;
 	public Fund fund;
@@ -88,4 +89,17 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String displayByTransactionType() {
+		if (userId == null || transactionType == null) {
+			userId = 0;
+		}
+		try {
+			transactions = TransactionDao.getInstance().displayByOperation(userId, transactionType);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+	
+
 }

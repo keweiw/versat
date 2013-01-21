@@ -34,7 +34,19 @@ public class TransactionDao extends BaseDao<Transaction> {
 		return super.get(criterions);
 	}
 	
+	
+	public ArrayList<Transaction> displayByOperation(int userId, int operation) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion1 = Restrictions.eq("sysuser.id", userId);
+		criterions.add(criterion1);
+		Criterion criterion2 = Restrictions.eq("transactionType", operation);
+		criterions.add(criterion2);
+		return (ArrayList<Transaction>) super.getList(criterions);	
+	}
+	
 	public void createTransaction(Transaction transaction) throws Exception{
 		super.create(transaction);
+
 	}
+	
 }
