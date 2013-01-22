@@ -103,6 +103,14 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 		
 	}
+	
+	public String showWithdraw() {
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+
+		return SUCCESS;
+		
+	}
 
 	
 	public String showDepositByUserId() {

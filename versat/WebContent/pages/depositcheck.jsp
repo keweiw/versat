@@ -52,7 +52,7 @@ $(document).ready(function() {
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"></div>
 </div>
-<!--Alert start-->
+<!--Alert start-
 <div class="success_area">Success!</div>
 <div class="warning">Error!</div>
 <!--Alert end-->
