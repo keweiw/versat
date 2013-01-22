@@ -52,7 +52,7 @@ $(document).ready(
 	<div class="straight_line_nav"></div>
 </div>
 
-<!-- Alert -->
+<!-- Alert 
 <div class="success_area">Success!</div>
 <div class="warning">Error!</div>
 <!-- Alert -->
