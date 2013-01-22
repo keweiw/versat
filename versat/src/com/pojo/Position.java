@@ -11,8 +11,10 @@ public class Position implements java.io.Serializable {
 	private Integer iduser;
 	private Fund fund;
 	private Long shares;
+	
 	private String fundName;
 	private String fundSymbol;
+	
 
 	public Position() {
 	}

@@ -47,8 +47,8 @@ $(document).ready(function() {
 <form action="" method="post" id="form">
 
 <!--Alert start-->
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
 
@@ -79,6 +79,9 @@ $(document).ready(function() {
     <tr>
       <th class="row_4">Fund Name</th>
       <th class="row_4">Fund Symbol</th>
+      <th class="row_4">Shares</th>
+      <th class="row_4">Recent Price</th>
+      <th class="row_4">Share Value</th>
       <th class="row_4">Action</th>
     </tr>
    </thead>
@@ -87,6 +90,9 @@ $(document).ready(function() {
 			<tr>
 				<td><s:property value="#position.fundName"/></td>
 				<td><s:property value="#position.fundSymbol"/></td>
+				<td><s:property value="#position.shares"/></td>
+				<td><s:property value="#position.shares"/></td>
+				<td><s:property value="#position.shares"/></td>
 				<td><a href="/versat/customer/fund/showsellfund?fundId=${fund.id}">Sell Fund</a></td>
 			</tr>
 			</s:iterator>

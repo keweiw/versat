@@ -8,13 +8,17 @@
     	<action name="tocreate" class="com.action.FundAction" method="showCreate">
     		<result>/pages/createfund.jsp</result>
     	</action>
-        <action name="create" class="com.action.FundAction" method="create">
+    	<action name="create" class="com.action.FundAction" method="createFund">
             <result name="error">/pages/createfund.jsp</result>
             <result name="success">/pages/createfund.jsp</result>
             <result name="input">/pages/createfund.jsp</result>
         </action>
+        <action name="showCreate" class="com.action.FundAction" method="showCreate">
+            <result name="success">/pages/createfund.jsp</result>
+        </action>
         <action name="listallfund" class="com.action.FundAction" method="listAllFund">
             <result name="success">/pages/employee_fundlist.jsp</result>
+        	<!--     <result type= "json"></result> -->
         </action>
         <action name="search" class="com.action.FundAction" method="searchFundByName">
             <result name="success">/pages/employee_fundlist.jsp</result>
@@ -39,7 +43,7 @@
     		<result name="success">/pages/customer_sell.jsp</result>
     	</action>
     	<action name="searchownedfund" class="com.action.FundAction" method="searchFundByFundNameUserId">
-    		<result name="error">/pages/customer_sell.jsp</result>
+    		<result name="error">/pages/customer_sell.jsp?isSuccess=-1</result>
     		<result name="success">/pages/customer_sell.jsp</result>
     	</action>
     	<action name="buyfund" class="com.action.FundAction" method="showBuyFund">

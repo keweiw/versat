@@ -47,8 +47,8 @@ $(document).ready(function() {
 <form action="" method="post" id="form" name="form">
 
 <!--Alert start-->
-<div class="success_area">Success!</div>
-<div class="warning"><s:actionerror /></div>
+<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
 
@@ -61,7 +61,7 @@ $(document).ready(function() {
   <tbody>
   	<tr>
 		<td class="detail_left">Fund Name:</td>
-		<td class="detail_right"><input name="name" type="text" class="list_text_width_normal" value="${name}" readonly/></td>
+		<td class="detail_right">${name}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Fund Symbol:</td>
