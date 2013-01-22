@@ -70,11 +70,12 @@ $(document).ready(
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		  <select id="select_trans_type">
-		    <option value="${transactionType}"selected="selected">Buy</option>
-		    <option value="${transactionType}">Sell</option>
-		    <option value="${transactionType}">Deposit</option>
-		    <option value="${transactionType}">Withdraw</option>
+		  <select id="select_trans_type" name=transactionType >
+		    <option value="all">All</option>
+		    <option value="buy">Buy</option>
+		    <option value="sell">Sell</option>
+		    <option value="deposit">Deposit</option>
+		    <option value="withdraw">Withdraw</option>
 		  </select>
 		</td>
 		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>

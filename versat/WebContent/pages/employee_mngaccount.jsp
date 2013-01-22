@@ -106,7 +106,7 @@
 			<td>${user.lastname}</td>
 			<td>${user.cash}</td>
 			<td><a href="/versat/employee/fund/customerfund?userId=${user.id}">Owned Fund</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/deposit?userId=${user.id}">Deposit Check</a>
+				&nbsp;&nbsp;<a href="/versat/employee/trans/accountdeposit?userId=${user.id}">Deposit Check</a>
 				&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}">Transaction History</a></td>
 		</tr>
 	</s:iterator>

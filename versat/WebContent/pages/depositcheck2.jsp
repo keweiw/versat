@@ -12,21 +12,20 @@
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
-	$(".btn_sprites").click(function() {
-		$(this).blur();
-	});
-    $("#search").click(
-            function() {
-                    $("#form").attr("action", "/versat/employee/trans/deposit");
-                    $("#form").submit();
-    });
-    $("#deposit").click(
-            function() {
-                    $("#form").attr("action", "/versat/employee/trans/deposit");
-                   
-    });
-});
+$(document).ready(
+        function() {
+            $(".btn_sprites").click(function() {
+                  $(this).blur();
+                 });
+         
+            $("#submit_change").click(
+                    function() {
+                            $("#form").attr("action",
+                                    "/versat/employee/trans/deposit");
+                            $("#form").submit();
+                    });
+        }
+);
 </script>
 </head>
 
@@ -57,20 +56,6 @@ $(document).ready(function() {
 <div class="warning">Error!</div>
 <!--Alert end-->
 
-<!--Find Customer start-->
-<div class="new_user">
-<div class="new_user_title">Find Customer</div>
-<table class="http_content_detail">
-    <tr>
-      <td class="detail_left">Customer Username:</td>
-      <td class="detail_right"><input type="text"/></td>
-      <td class="detail_right">
-        <div><a class="btn_sprites" href="#" name="password"><span>Find Customer</span></a>
-      </td>
-    </tr>
-</table>
-</div>
-<!--Find Customer end-->
 
 <!--Deposit start-->
 <div class="new_user">
@@ -80,19 +65,19 @@ $(document).ready(function() {
   <tbody>
   	<tr>
 		<td class="detail_left">Customer Username:</td>
-		<td class="detail_right"></td>
+		<td class="detail_right">${user.username}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Customer First Name:</td>
-		<td class="detail_right"></td>
+		<td class="detail_right">${user.firstname}</td>
 	</tr>
   <tr>
     <td class="detail_left">Customer Last Name:</td>
-    <td class="detail_right"></td>
+    <td class="detail_right">${user.lastname}</td>
   </tr>
 	<tr>
     <td class="detail_left">Cash Balance:</td>
-    <td class="detail_right"></td>
+    <td class="detail_right">${user.cash}</td>
   </tr>
   <tr>
     <td class="detail_left">Deposit Amount:</td>
@@ -117,11 +102,12 @@ $(document).ready(function() {
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_77 font14b" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
+   <div class="content_menu
+   7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>

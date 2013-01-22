@@ -11,6 +11,9 @@
         <action name="deposit" class="com.action.TransactionAction" method="showDeposit">
             <result>/pages/depositcheck.jsp</result>
         </action>
+         <action name="accountdeposit" class="com.action.TransactionAction" method="showDepositByUserId">
+            <result>/pages/depositcheck2.jsp</result>
+        </action>
     </package>
     <package name="transaction-customer-action" namespace="/customer/trans" extends="versat">
         <action name="list" class="com.action.TransactionAction" method="listSelf">
