@@ -17,10 +17,10 @@ $(document).ready(
                   $(this).blur();
                  });
          
-            $("#submit_change").click(
+            $("#search").click(
                     function() {
                             $("#form").attr("action",
-                                    "/versat/customer/changesubmit");
+                                    "/versat/employee/trans/list");
                             $("#form").submit();
                     });
         }
@@ -58,7 +58,7 @@ $(document).ready(
 <!-- Alert -->
 
 <div class="new_user_title">Transaction History</div>
-
+<input type="hidden" name="hdField" value=userId/> 
 <!-- Search -->
 <div class="list_search clearfix">
 	<div class="search">
@@ -70,9 +70,15 @@ $(document).ready(
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<select><option>Buy</option><option>Sell</option><option>Deposit</option><option>Withdraw</option></select>
+		 <select id="select_trans_type" name=transactionType >
+		    <option value=-1>All</option>
+		    <option value=0>Buy</option>
+		    <option value=1>Sell</option>
+		    <option value=2>Deposit</option>
+		    <option value=3>Withdraw</option>
+		  </select>
 		</td>
-		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
+		<td><a href=# title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
 </div>

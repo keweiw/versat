@@ -14,7 +14,7 @@ import com.pojo.Transaction;
 
 public class TransactionAction extends ActionSupport {
 	public Integer userId;
-	public Integer transactionType;
+	public Integer transactionType=-1;
 	public ArrayList<Transaction> transactions;
 	public Integer idFund;
 	public Fund fund;
@@ -40,11 +40,19 @@ public class TransactionAction extends ActionSupport {
 	}
 
 	public String list() {
-		if (userId == null) {
+		userId=this.getUserId();
+		
+		if (userId == null || transactionType==null) {
 			userId = 0;
 		}
 		try {
-			transactions = TransactionDao.getInstance().getListByUserId(userId);
+			if(transactionType==-1){
+				transactions = TransactionDao.getInstance().getListByUserId(userId);
+			}else {
+				System.out.println(userId);
+				
+				transactions = TransactionDao.getInstance().displayByOperation(userId, transactionType);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,7 +63,11 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		try {
-			transactions = TransactionDao.getInstance().getListByUserId(user.getId());
+			if(transactionType==-1){
+				transactions = TransactionDao.getInstance().getListByUserId(user.getId());
+			}else {
+				transactions = TransactionDao.getInstance().displayByOperation(user.getId(), transactionType);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,18 +119,6 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String displayByTransactionType() {
-		Map session = ActionContext.getContext().getSession();
-		if (userId == null || transactionType == null) {
-			userId = 0;
-		}
-		try {
-			transactions = TransactionDao.getInstance().displayByOperation(userId, transactionType);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return SUCCESS;
-	}
+}
 	
 
-}

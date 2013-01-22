@@ -17,7 +17,7 @@ $(document).ready(
                   $(this).blur();
                  });
          
-            $("#submit_change").click(
+            $("#search").click(
                     function() {
                             $("#form").attr("action",
                                     "/versat/customer/trans/list");
@@ -62,7 +62,7 @@ $(document).ready(
 <!-- Search -->
 <div class="list_search clearfix">
 	<div class="search">
-		<a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search History</span></a>
+		<a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button" ><span>Search History</span></a>
 	</div>
 </div>
 <div class="search_detail clearfix"> 	
@@ -71,14 +71,14 @@ $(document).ready(
 		<td>&nbsp;</td>
 		<td>
 		  <select id="select_trans_type" name=transactionType >
-		    <option value="all">All</option>
-		    <option value="buy">Buy</option>
-		    <option value="sell">Sell</option>
-		    <option value="deposit">Deposit</option>
-		    <option value="withdraw">Withdraw</option>
+		    <option value=-1>All</option>
+		    <option value=0>Buy</option>
+		    <option value=1>Sell</option>
+		    <option value=2>Deposit</option>
+		    <option value=3>Withdraw</option>
 		  </select>
 		</td>
-		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
+		<td><a href="#" title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>
 </div>

@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Research Fund</title>
-<link href="../css/common.css" rel="stylesheet" type="text/css" />
-<link href="../css/detail.css" rel="stylesheet" type="text/css" />
-<link href="../css/display.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
-<script type="text/javascript" src="../js/new_user.js" language="javascript"></script>
+<link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
+<link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" language="javascript">
 $(document).ready(function() {
@@ -59,7 +59,7 @@ $(document).ready(function() {
 <!--header help-->
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="log out" /></div>
+<div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
 <div class="header_ues">Welcome, ${sessionScope.NAME}</a></div>
 </div>
 </div>
@@ -72,7 +72,7 @@ $(document).ready(function() {
 <form action="" method="post">
 <div class="mail_tab_nav"><div class="straight_line_nav"></div></div>
 <!--Alert start-->
-<div class="success_area">Success!</div>
+<!-- div class="success_area">Success!</div>
 <div class="warning">Error!</div>
 <!--Alert end-->
 
