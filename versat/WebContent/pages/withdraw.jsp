@@ -21,7 +21,7 @@ $(document).ready(
             $("#submit_change").click(
                     function() {
                             $("#form").attr("action",
-                                    "/versat/employee//withdraw");
+                                    "/versat/customer/trans/withdraw");
                             $("#form").submit();
                     });
         }
@@ -63,7 +63,7 @@ $(document).ready(
 <tbody>
   	<tr>
 		<td class="detail_left">Cash Balance:</td>
-		<td class="detail_right">$${user.cash}</td>
+		<td class="detail_right">${user.cash}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Withdraw Amount:</td>
