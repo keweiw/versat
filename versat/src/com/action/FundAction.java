@@ -20,6 +20,13 @@ public class FundAction extends ActionSupport{
 	private double lastPrice;
 	
 	private int fundId;
+	private int userId;
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	private double shares;
 	private int isSuccess = 0;
 	
@@ -112,6 +119,14 @@ public class FundAction extends ActionSupport{
 			e.printStackTrace();
 		}		
 		return SUCCESS;
+	}
+	public String employeeListFundByUserId(){
+		try{
+			positions=PositionDao.getInstance().getPositionByCostomerId(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return SUCCESS;	
 	}
 	//--search fund by fund name--//
 	public String searchFundByName() throws Exception{
