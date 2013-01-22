@@ -21,6 +21,9 @@
 			$("#form").attr("action", "/versat/employee/account/employeelist");
 			$("#form").submit();
 		});
+        $("#create").click(function() {
+            $("#form").attr("action", "/versat/employee/account/createemployeeaccount");
+        });
 	});
 </script>
 </head>
@@ -44,7 +47,7 @@
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form>
+<form id = "form">
 <div class="mail_tab_nav">
 	<ul class="straight_line_nav">
 		<li><a href="/versat/employee/account/employeelist" class="current">Employee</a></li>
@@ -55,11 +58,13 @@
 <!-- Alert -->
 <s:if test='isSuccess == 1'><div class="success_area"> Create Employee Success!</div></s:if>
 <s:if test='isSuccess == 2'><div class="success_area"> Reset Password Success!</div></s:if>
+<s:if test='isSuccess == -2'><div class="warning"><s:actionerror /></div></s:if>
+
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">
 	<div class="search"><a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Employee&nbsp;</span></a></div>
-	<div class="add_user"><a href="/versat/employee/account/createemployeeaccount"><button> + Create New Employee</button></a></div>
+	<div class="add_user"><a href="#" id="create"><button> + Create New Employee</button></a></div>
 </div>
 <div class="search_detail clearfix">	
 	<table cellspacing="0" cellpadding="0" class="search_detail_list">
@@ -67,8 +72,12 @@
 		<td>&nbsp;</td>
 		<td>
 		<input name="searchKeyE" type="text" class="list_text_width_normal" value="" /></td>
-		<td><select class="list_text_width_normal" ><option>Username</option><option>First Name</option><option>Last Name</option></select></td>
-		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
+		<td><select class="list_text_width_normal" name="optionC" >
+			<option value="default"  >Search By:</option>
+			<option value="username" >Username</option>
+			<option value="firstname">First Name</option>
+			<option value="lastname">Last Name</option></select></td>
+		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
 </div>

@@ -21,7 +21,12 @@
                 function() {
                         $("#form").attr("action", "/versat/employee/account/customerlist");
                         $("#form").submit();
-                });
+        });
+        $("#create").click(
+                function() {
+                        $("#form").attr("action", "/versat/employee/account/createcustomeraccount");
+                       
+        });
 	});
 </script>
 </head>
@@ -56,12 +61,13 @@
 <!-- Alert -->
 <s:if test='isSuccess == 1'><div class="success_area"> Create Customer Success!</div></s:if>
 <s:if test='isSuccess == 2'><div class="success_area"> Reset Password Success!</div></s:if>
+<s:if test='isSuccess == -2'><div class="warning"><s:actionerror /></div></s:if>
 
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">
 	<div class="search"><a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Customer Search&nbsp;</span></a></div>
-<div class="add_user"><a href="/versat/employee/account/createcustomeraccount"><button> + Create New Customer</button></a></div>
+<div class="add_user"><a href="#" id="create"><button> + Create New Customer</button></a></div>
 </div>
 <div class="search_detail clearfix">	
 	<table cellspacing="0" cellpadding="0" class="search_detail_list">
@@ -70,10 +76,10 @@
 		<td>
 		<input name="searchKeyC" type="text" class="list_text_width_normal" value="${searchKeyC}" /></td>
 		<td><select class="list_text_width_normal" name="optionC" >
-			<option value="default"  ><s:if test='optionC=="default"'>Search By:</s:if></option>
-			<option value="username" ><s:if test='optionC=="username"'>Username</s:if></option>
-			<option value="firstname"><s:if test='optionC=="fistname"'>First Name</s:if></option>
-			<option value="lastname"><s:if test='optionC=="lastname"'>Last Name</s:if></option></select></td>
+			<option value="default"  >Search By:</option>
+			<option value="username" >Username</option>
+			<option value="firstname">First Name</option>
+			<option value="lastname">Last Name</option></select></td>
 		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
@@ -95,21 +101,16 @@
 	 <tbody>
 	 <s:iterator value="users" id="user">
 		<tr>
-			<td>${user.username}</td>
+			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">${user.username}</a></td>
 			<td>${user.firstname}</td>
 			<td>${user.lastname}</td>
 			<td>${user.cash}</td>
-			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">View Account</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/deposit?userId=${user.id}">Deposit Check</a></td>
+			<td><a href="/versat/employee/fund/customerfund?userId=${user.id}">Owned Fund</a>
+				&nbsp;&nbsp;<a href="/versat/employee/trans/deposit?userId=${user.id}">Deposit Check</a>
+				&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}">Transaction History</a></td>
 		</tr>
 	</s:iterator>
 	
-	<td>${userSearch.username}</td>
-			<td>${userSearch.firstname}</td>
-			<td>${userSearch.lastname}</td>
-			<td>${userSearch.cash}</td>
-			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${userSearch.id}">View Account</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/deposit?userId=${userSearch.id}">Deposit Check</a></td>
 	</tbody>
 	</table>
 </div>
