@@ -65,7 +65,7 @@ $(document).ready(
   <tbody>
   	<tr>
 		<td class="detail_left">Customer Username:</td>
-		<td class="detail_right"><s:property value="#user.username"/></td>
+		<td class="detail_right">${user.username}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Customer First Name:</td>
@@ -102,11 +102,12 @@ $(document).ready(
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_77 font14b" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
+   <div class="content_menu
+   7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>

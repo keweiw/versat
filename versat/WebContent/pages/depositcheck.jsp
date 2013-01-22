@@ -12,20 +12,21 @@
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(
-        function() {
-            $(".btn_sprites").click(function() {
-                  $(this).blur();
-                 });
-         
-            $("#submit_change").click(
-                    function() {
-                            $("#form").attr("action",
-                                    "/versat/employee/trans/deposit");
-                            $("#form").submit();
-                    });
-        }
-);
+$(document).ready(function() {
+	$(".btn_sprites").click(function() {
+		$(this).blur();
+	});
+    $("#search").click(
+            function() {
+                    $("#form").attr("action", "/versat/employee/trans/deposit");
+                    $("#form").submit();
+    });
+    $("#deposit").click(
+            function() {
+                    $("#form").attr("action", "/versat/employee/trans/deposit");
+                   
+    });
+});
 </script>
 </head>
 

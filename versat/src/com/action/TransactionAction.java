@@ -19,7 +19,9 @@ public class TransactionAction extends ActionSupport {
 	public Integer idFund;
 	public Fund fund;
 	public Sysuser user;
+	public double amount;
 	private int isSuccess;
+	
 
 	public Integer getUserId() {
 		return userId;
@@ -84,56 +86,24 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String showWithdraw() {
-		Map session = ActionContext.getContext().getSession();
-		user = (Sysuser) session.get(LoginAction.SYSUSER);
-		this.isSuccess = 1;
+	public String showDeposit() {
+
 		return SUCCESS;
-		/*if (oldPassword != null && newPassword != null && confirmPassword != null) {
-			oldPassword.trim();
-			newPassword.trim();
-			confirmPassword.trim();
-			if (newPassword.equals("")) {
-				this.addActionError("Password can not be empty, or only space!");
-				this.isSuccess = -1;
-				return ERROR;
-			} else if(!newPassword.equals(confirmPassword)){
-				this.addActionError("Confirm password is not same as new password!");
-				this.isSuccess = -1;
-				return ERROR;
-			}
-			Sysuser changePswUser = null;
-			
+		
+	}
+
+	
+	public String showDepositByUserId() {
+		if (userId == null) {
+			userId = 0;
+		}else {
 			try {
-				changePswUser =SysuserDao.getInstance().getByUserId(user.getId());
+				this.user = SysuserDao.getInstance().getByUserId(userId);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			if(!oldPassword.equals(changePswUser.getPassword())){
-				this.addActionError("Current password is Incorrect!");
-				this.isSuccess = -1;
-				return ERROR;
-			}else{
-				changePswUser.setPassword(newPassword);
-				try {
-					SysuserDao.getInstance().update(changePswUser);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				this.isSuccess = 1;
-				return SUCCESS;
-			}			
 		}
-		this.addActionError("Password shouldn't be empty.");
-		this.isSuccess = -1;
-		return ERROR;*/
-	}
-
-	
-	public String showDeposit() {
 		return SUCCESS;
 	}
 	
