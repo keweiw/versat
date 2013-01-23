@@ -83,7 +83,7 @@ $(document).ready(function() {
 	<div class="sell_button"><a class="btn_sprites" href="#" id="submit_change" name="password"><span>Buy Fund</span></a></div>					
 </div>
 <!-- hidden field put here -->
-<input name="fundId" type="text" class="list_text_width_normal" value="${fundId}" readonly />
+<input name="fundId" type="hidden" class="list_text_width_normal" value="${fundId}" readonly />
 </div>
 <!--Sell fund end-->	
 

@@ -17,14 +17,30 @@ public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
 	private String keyword;
+	private double lastPrice;
 	
 	private int fundId;
+	private int userId;
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	private double shares;
+	private int isSuccess = 0;
+	
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 
 	
 	//--getters and setters to be here--//
+	public int getIsSuccess() {
+		return isSuccess;
+	}
+	public void setIsSuccess(int isSuccess) {
+		this.isSuccess = isSuccess;
+	}
 	public String getKeyword() {
 		return keyword;
 	}
@@ -104,6 +120,14 @@ public class FundAction extends ActionSupport{
 		}		
 		return SUCCESS;
 	}
+	public String employeeListFundByUserId(){
+		try{
+			positions=PositionDao.getInstance().getPositionByCostomerId(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return SUCCESS;	
+	}
 	//--search fund by fund name--//
 	public String searchFundByName() throws Exception{
 		keyword = keyword.trim();
@@ -118,23 +142,36 @@ public class FundAction extends ActionSupport{
 		
 		if(keyword.equals("") || keyword==null){
 			this.addActionError("you must enter the search key!");
+			isSuccess=-1;
 			return ERROR;
 		}
 		keyword = keyword.trim();
-		Fund f = new Fund();
-		f.setName(keyword);
-		if(FundDao.getInstance().isExist(f)==false){
-			this.addActionError("fund does not exist!");
+		
+		funds = FundDao.getInstance().getByName(keyword);
+		if(funds==null){
+			this.addActionError("you must enter the search key!");
+			isSuccess=-1;
 			return ERROR;
 		}
-		else{
-			funds = FundDao.getInstance().getByName(keyword);
-			positions = PositionDao.getInstance().getListByCustomerIdFundId(user.getId(), funds.get(0).getId());
-			return SUCCESS;
-		}
+		
+		positions = PositionDao.getInstance().getListByCustomerIdFundId(user.getId(), 0);
+		//isSuccess=1;
+		return SUCCESS;
+		
 	}
 	
 	public String createFund() throws Exception{
+		//System.out.println("*****************name="+name);
+		if(name==null || name .equals("")){
+			this.addActionError("The fund can not be empty!");
+			isSuccess=-1;
+			return ERROR;
+		}
+		if(symbol==null || symbol.equals("")){
+			this.addActionError("The symbol can not be empty!");
+			isSuccess=-1;
+			return ERROR;
+		}
 		name=name.trim();
 		symbol=symbol.trim();
 		Fund f1 = new Fund();
@@ -142,16 +179,19 @@ public class FundAction extends ActionSupport{
 		//--check if there is a fund already had the same name--//
 		if(FundDao.getInstance().isExist(f1)==true){
 			this.addActionError("The fund name already existed");
+			isSuccess=-1;
 			return ERROR;
 		}
 		Fund f2 = new Fund();
 		f2.setSymbol(symbol);
 		//
 		if(FundDao.getInstance().isExist(f2)==true){
-			this.addActionError("The fund name already existed");
+			this.addActionError("The fund symbol already existed");
+			isSuccess=-1;
 			return ERROR;
 		}
 		FundDao.getInstance().createFund(name, symbol);
+		isSuccess=1;
 		return SUCCESS;
 	}
 	public String showFundDetail() throws Exception{
@@ -181,16 +221,20 @@ public class FundAction extends ActionSupport{
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		
-		this.addActionError("test here");
-		return ERROR;
+	//	this.addActionError("test here");
+	//	return ERROR;
 		
 		//--transaction needs to be filled in--//
-		/*
+		
 		Transaction t = new Transaction();
-		TransitionDay.getInstance().newTransaction(user.getId(), t);
+		long s = (long) (shares*1000);
+		t.setShares(s);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_SELL);	
+		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
 		
 		return SUCCESS;
-		*/
+		
 	}
 	public String showBuyFund() throws Exception{
 		//--get user id from session--//

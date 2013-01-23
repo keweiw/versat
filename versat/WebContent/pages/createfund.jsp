@@ -15,6 +15,12 @@ $(document).ready(function() {
  $(".btn_sprites").click(function() {
   $(this).blur();
  });
+ $("#create").click(
+         function() {
+                 $("#form").attr("action",
+                         "/versat/employee/fund/create");
+                 $("#form").submit();
+         });
 });
 </script>
 </head>
@@ -28,7 +34,7 @@ $(document).ready(function() {
 <!--header help-->
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="??" /></div>
+<div class="header_image"><img src="../../images/back.gif" title="??" /></div>
 <div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
@@ -38,13 +44,14 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<s:form action="create" namespace="/" method="post" id="form">
+<s:form action="create" namespace="/versat/employee/fund" method="post" id="form">
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"></div>
 </div>
 
 <!-- Alert -->
-<div class="success_area">Create Customer Success!</div>
+<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 
 <!-- Create New Fund start-->
@@ -55,8 +62,7 @@ $(document).ready(function() {
 	<tr>
 		<td class="detail_left">Fund Name：</td>
 		<td class="detail_right">
-			<!-- <input name="" type="text" class="list_text_width_normal"/>		 -->
-			<s:textfield tabindex="1" name="name" />
+			<input name="name" type="text" class="list_text_width_normal" tabindex="1" value="${name}"/>
 		</td>
 	</tr>
 	<tr>
@@ -66,14 +72,13 @@ $(document).ready(function() {
 	<tr>
 		<td class="detail_left">Fund Symbol:</td>
 		<td class="detail_right">
-			<!-- <input name="" type="text" class="list_text_width_normal" /> -->
-			<s:textfield tabindex="2" name="symbol" />
+			<input name="symbol" type="text" class="list_text_width_normal" tabindex="2" value="${symbol}"/> 
 		</td>
 	</tr>
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a title="Create" class="btn_sprites" href="#" name="make sure button"><span>Create</span></a></div>					
+	<div class="new_user_save_button"><a title="Create" class="btn_sprites" href="#" name="make sure button" id="create"><span>Create</span></a></div>					
 </div>
 </div>
 <!--Create New Fund end-->			
@@ -88,9 +93,9 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
+   <div class="content_menu_44 font14b" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_77 font14b" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
+   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>

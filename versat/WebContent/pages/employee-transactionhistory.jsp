@@ -17,10 +17,10 @@ $(document).ready(
                   $(this).blur();
                  });
          
-            $("#submit_change").click(
+            $("#search").click(
                     function() {
                             $("#form").attr("action",
-                                    "/versat/customer/changesubmit");
+                                    "/versat/employee/trans/list");
                             $("#form").submit();
                     });
         }
@@ -52,13 +52,13 @@ $(document).ready(
 	<div class="straight_line_nav"></div>
 </div>
 
-<!-- Alert -->
+<!-- Alert 
 <div class="success_area">Success!</div>
 <div class="warning">Error!</div>
 <!-- Alert -->
 
 <div class="new_user_title">Transaction History</div>
-
+<input type="hidden" name="hdField" value=userId/> 
 <!-- Search -->
 <div class="list_search clearfix">
 	<div class="search">
@@ -70,9 +70,15 @@ $(document).ready(
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<select><option>Buy</option><option>Sell</option><option>Deposit</option><option>Withdraw</option></select>
+		 <select id="select_trans_type" name=transactionType >
+		    <option value=-1>All</option>
+		    <option value=0>Buy</option>
+		    <option value=1>Sell</option>
+		    <option value=2>Deposit</option>
+		    <option value=3>Withdraw</option>
+		  </select>
 		</td>
-		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
+		<td><a href=# title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
 </div>
@@ -94,16 +100,37 @@ $(document).ready(
 	 </thead>
 	 <tbody>
 	   <s:iterator value="transactions" id="transaction">
-        <tr align="center">
-            <td><s:property value="#transaction.status"/></td>
-            <td><s:property value="#transaction.transactionType"/></td>
-            <td><s:property value="#transaction.fundName"/></td>
-            <td><s:property value="#transaction.shares"/></td>
-            <td><s:property value="#transaction.unitPrice"/></td>
-            <td><s:property value="#transaction.amount"/></td>
-            <td><s:property value="#transaction.executeDate"/></td>
-        </tr>
-        </s:iterator>
+								<tr align="center">
+									
+									<s:if test='#transaction.status == 0'>
+										<td>pending</td>
+									</s:if>
+									<s:if test='#transaction.status == 1'>
+										<td>processed</td>
+									</s:if>
+									<s:if test='#transaction.status == 2'>
+										<td>failed</td>
+									</s:if>
+									
+									<s:if test='#transaction.transactionType == 0'>
+										<td>buy fund</td>
+									</s:if>
+									<s:if test='#transaction.transactionType == 1'>
+										<td>sell fund</td>
+									</s:if>
+									<s:if test='#transaction.transactionType == 2'>
+										<td>deposit check</td>
+									</s:if>
+									<s:if test='#transaction.transactionType == 3'>
+										<td>request check</td>
+									</s:if>
+									<td><s:property value="#transaction.fundName" /></td>
+									<td><s:property value="#transaction.shares" /></td>
+									<td align="right"><s:property value="#transaction.unitPrice" /></td>
+									<td align="right"><s:property value="#transaction.amount" /></td>
+									<td><s:property value="#transaction.executeDate" /></td>
+								</tr>
+		</s:iterator>
 	 </tbody>
     </table>
 </div>

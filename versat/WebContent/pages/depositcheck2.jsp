@@ -21,7 +21,7 @@ $(document).ready(
             $("#submit_change").click(
                     function() {
                             $("#form").attr("action",
-                                    "/versat/customer/trans/withdraw");
+                                    "/versat/employee/trans/deposit");
                             $("#form").submit();
                     });
         }
@@ -30,7 +30,6 @@ $(document).ready(
 </head>
 
 <body>
-<!--header begin-->
 <div class="header_container">
 <h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
 <!--header right-->
@@ -39,67 +38,85 @@ $(document).ready(
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
-<div class="header_ues">Welcome, ${sessionScope.NAME}</a></div>
+<div class="header_ues">Welcome,${sessionScope.NAME}</a></div>
 </div>
 </div>
 <!--header end-->
 
-<!-- Main part Begin -->
-	
 <!--content start-->
 <div class="content">
 <!--content features-->
 <div class="content_right2">
-<form action="" method="post" id="form" name="form">
-
-<!--Alert start-->
-<s:if test='isSuccess == 1'><div class="success_area">Request check success!</div></s:if>
-<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
+<form action="" method="post">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
+</div>
+<!--Alert start
+<div class="success_area">Success!</div>
+<div class="warning">Error!</div>
 <!--Alert end-->
-<!--start-->
+
+
+<!--Deposit start-->
 <div class="new_user">
-<div class="new_user_title">Request Check</div>
+<div class="new_user_title">Deposit Check</div>
+</table>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
-<tbody>
+  <tbody>
   	<tr>
-		<td class="detail_left">Cash Balance:</td>
-		<td class="detail_right">${user.cash}</td>
+		<td class="detail_left">Customer Username:</td>
+		<td class="detail_right">${user.username}</td>
 	</tr>
 	<tr>
-		<td class="detail_left">Withdraw Amount:</td>
-		<td class="detail_right"><input name="withdrawAmount" type="text" class="list_text_width_normal" /></td>
+		<td class="detail_left">Customer First Name:</td>
+		<td class="detail_right">${user.firstname}</td>
 	</tr>
-</tbody>
+  <tr>
+    <td class="detail_left">Customer Last Name:</td>
+    <td class="detail_right">${user.lastname}</td>
+  </tr>
+	<tr>
+    <td class="detail_left">Cash Balance:</td>
+    <td class="detail_right">${user.cash}</td>
+  </tr>
+  <tr>
+    <td class="detail_left">Deposit Amount:</td>
+    <td class="detail_right"><input name="depositAmount" type="text" value="$" class="list_text_width_normal"/></td>
+  </tr>
+  </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw"><span>Withdraw</span></a></div>					
+	<div class="sell_button"><a class="btn_sprites" href="#" name="password"><span>Deposit</span></a></div>					
 </div>
 </div>
-<!--Withdraw end-->	
+<!--Deposit end-->	
+		
 </form>
 </div>
 <!--content function end-->
 </div>
 <!--content end-->
 
-<!--content menu-->
-<div class="content_left">
+<!--content menu start-->
+ <div class="content_left">
   <h2 class="contentbg_top">Menu</h2>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu5 " id="sellLink"><a href="/versat/customer/fund/listownedfund">Sell Fund</a></div>
+   <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu4" id="researchLink"><a href="/versat/customer/fund/listallfund">Research Fund</a></div>
+   <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
+   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_77 font14b" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>
    <div class="content_menubd"></div>
-   <div class="content_menu8" id="profileLink"><a href="/versat/customer/welcome">Profile</a></div>
-  </div>
+   <div class="content_menu8" id="profileLink"><a href="/versat/employee/welcome">Profile</a></div>
+ </div>
+<!--content menu end-->
+
 <!--floter start-->
 <div class="footer_bg">Copyright&nbsp;&copy 2013 Versat. All Rights Reserved</div>
 <!--floter end-->

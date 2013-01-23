@@ -3,6 +3,7 @@ package com.action;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.bu.TransitionDay;
 import com.dao.FundDao;
 import com.dao.SysuserDao;
 import com.dao.TransactionDao;
@@ -14,12 +15,14 @@ import com.pojo.Transaction;
 
 public class TransactionAction extends ActionSupport {
 	public Integer userId;
-	public Integer transactionType;
+	public Integer transactionType=-1;
 	public ArrayList<Transaction> transactions;
 	public Integer idFund;
 	public Fund fund;
 	public Sysuser user;
+	public double amount;
 	private int isSuccess;
+	
 
 	public Integer getUserId() {
 		return userId;
@@ -38,11 +41,20 @@ public class TransactionAction extends ActionSupport {
 	}
 
 	public String list() {
-		if (userId == null) {
+		userId=this.getUserId();
+		
+		if (userId == null || transactionType==null) {
 			userId = 0;
 		}
 		try {
-			transactions = TransactionDao.getInstance().getListByUserId(userId);
+			if(transactionType==-1){
+				transactions = TransactionDao.getInstance().getListByUserId(userId);
+				
+			}else {
+				System.out.println(userId);
+				
+				transactions = TransactionDao.getInstance().displayByOperation(userId, transactionType);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,102 +65,83 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		try {
-			transactions = TransactionDao.getInstance().getListByUserId(user.getId());
+			if(transactionType==-1){
+				transactions = TransactionDao.getInstance().getListByUserId(user.getId());
+			}else {
+				transactions = TransactionDao.getInstance().displayByOperation(user.getId(), transactionType);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
 	
-	public String showBuy() {
-		if (idFund  != null) {
-			try {
-				this.fund = FundDao.getInstance().getById(idFund);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-		}
-		return SUCCESS;
-	}
 	
-	public String showSell() {
-		if (idFund  != null) {
-			try {
-				this.fund = FundDao.getInstance().getById(idFund);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
+	public String showDeposit() {
+		
+		Map session = ActionContext.getContext().getSession();
+		try {
+			if(userId == null){
+				userId = 0;
+			} else {
+				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 		return SUCCESS;
+		
 	}
 	
 	public String showWithdraw() {
 		Map session = ActionContext.getContext().getSession();
-		user = (Sysuser) session.get(LoginAction.SYSUSER);
-		this.isSuccess = 1;
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		return SUCCESS;
-		/*if (oldPassword != null && newPassword != null && confirmPassword != null) {
-			oldPassword.trim();
-			newPassword.trim();
-			confirmPassword.trim();
-			if (newPassword.equals("")) {
-				this.addActionError("Password can not be empty, or only space!");
-				this.isSuccess = -1;
-				return ERROR;
-			} else if(!newPassword.equals(confirmPassword)){
-				this.addActionError("Confirm password is not same as new password!");
-				this.isSuccess = -1;
-				return ERROR;
-			}
-			Sysuser changePswUser = null;
-			
-			try {
-				changePswUser =SysuserDao.getInstance().getByUserId(user.getId());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(!oldPassword.equals(changePswUser.getPassword())){
-				this.addActionError("Current password is Incorrect!");
-				this.isSuccess = -1;
-				return ERROR;
-			}else{
-				changePswUser.setPassword(newPassword);
-				try {
-					SysuserDao.getInstance().update(changePswUser);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				this.isSuccess = 1;
-				return SUCCESS;
-			}			
-		}
-		this.addActionError("Password shouldn't be empty.");
-		this.isSuccess = -1;
-		return ERROR;*/
-	}
-
-	
-	public String showDeposit() {
-		return SUCCESS;
+		
 	}
 	
-	public String displayByTransactionType() {
+	public String withdraw(){
 		Map session = ActionContext.getContext().getSession();
-		if (userId == null || transactionType == null) {
-			userId = 0;
-		}
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		Transaction t = new Transaction();
+		
+		long a = (long) (amount*100);
+		t.setAmount(a);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);	
+		TransitionDay.getInstance().newTransaction(user.getId(),t);
+		
+		return SUCCESS;
+		
+	}
+	
+	public String deposit(){
+		Map session = ActionContext.getContext().getSession();
 		try {
-			transactions = TransactionDao.getInstance().displayByOperation(userId, transactionType);
+			if(userId == null){
+				userId = 0;
+			} else {
+				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+			}
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+			
+		Transaction t = new Transaction();
+		
+		long a = (long) (amount*100);
+		t.setAmount(a);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);	
+		TransitionDay.getInstance().newTransaction(user.getId(),t);
+		
 		return SUCCESS;
 	}
+		
+}
 	
 
-}

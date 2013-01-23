@@ -5,7 +5,7 @@
 <struts>
     <constant name="struts.multipart.maxSize" value="1073741824" />
     <constant name="struts.ui.theme" value="simple" />
-    <package name="versat" namespace="/" extends="struts-default">
+    <package name="versat" namespace="/" extends="json-default">
     	<default-action-ref name="index"></default-action-ref>
     </package>
     <package name="login-action" namespace="/" extends="versat">

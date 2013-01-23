@@ -44,8 +44,8 @@ $(document).ready(function() {
 </div>
 
 <!-- Alert -->
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">

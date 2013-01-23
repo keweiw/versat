@@ -33,7 +33,7 @@ $(document).ready(function() {
 <!--header help-->
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="" /></div>
+<div class="header_image"><img src="../../images/back.gif" title="" /></div>
 <div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
@@ -43,14 +43,14 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form action="" method="post" id="form">
+<form action=showCreate method="post" id="form">
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"></div>
 </div>
 
 <!-- Alert -->
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">
