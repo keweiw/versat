@@ -77,10 +77,10 @@
 							<td>&nbsp;</td>
 							<td><select id="select_trans_type" name=transactionType>
 									<option value=-1>All</option>
-									<option value=0>Buy</option>
-									<option value=1>Sell</option>
-									<option value=2>Deposit</option>
-									<option value=3>Withdraw</option>
+									<option value=0>Buy Fund</option>
+									<option value=1>Sell Fund</option>
+									<option value=2>Deposit Check</option>
+									<option value=3>Request Check</option>
 							</select></td>
 							<td><a href="#" title="search" class="btn_sprites"
 								name="search button" id="search"><span>Search</span></a></td>
@@ -108,26 +108,26 @@
 								<tr align="center">
 									
 									<s:if test='#transaction.status == 0'>
-										<td>pending</td>
+										<td>Pending</td>
 									</s:if>
 									<s:if test='#transaction.status == 1'>
-										<td>processed</td>
+										<td>Processed</td>
 									</s:if>
 									<s:if test='#transaction.status == 2'>
-										<td>failed</td>
+										<td>Failed</td>
 									</s:if>
 									
 									<s:if test='#transaction.transactionType == 0'>
-										<td>buy fund</td>
+										<td>Buy Fund</td>
 									</s:if>
 									<s:if test='#transaction.transactionType == 1'>
-										<td>sell fund</td>
+										<td>Sell Fund</td>
 									</s:if>
 									<s:if test='#transaction.transactionType == 2'>
-										<td>deposit check</td>
+										<td>Deposit Check</td>
 									</s:if>
 									<s:if test='#transaction.transactionType == 3'>
-										<td>request check</td>
+										<td>Request Check</td>
 									</s:if>
 									<td><s:property value="#transaction.fundName" /></td>
 									<td><s:property value="#transaction.shares" /></td>

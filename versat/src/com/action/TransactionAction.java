@@ -20,6 +20,54 @@ public class TransactionAction extends ActionSupport {
 	public Integer idFund;
 	public Fund fund;
 	public Sysuser user;
+	public Integer getTransactionType() {
+		return transactionType;
+	}
+
+	public void setTransactionType(Integer transactionType) {
+		this.transactionType = transactionType;
+	}
+
+	public Integer getIdFund() {
+		return idFund;
+	}
+
+	public void setIdFund(Integer idFund) {
+		this.idFund = idFund;
+	}
+
+	public Fund getFund() {
+		return fund;
+	}
+
+	public void setFund(Fund fund) {
+		this.fund = fund;
+	}
+
+	public Sysuser getUser() {
+		return user;
+	}
+
+	public void setUser(Sysuser user) {
+		this.user = user;
+	}
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public int getIsSuccess() {
+		return isSuccess;
+	}
+
+	public void setIsSuccess(int isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+
 	public double amount;
 	private int isSuccess;
 	
@@ -64,6 +112,7 @@ public class TransactionAction extends ActionSupport {
 	public String listSelf() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		this.user = user;
 		try {
 			if(transactionType==-1){
 				transactions = TransactionDao.getInstance().getListByUserId(user.getId());
@@ -99,6 +148,7 @@ public class TransactionAction extends ActionSupport {
 	public String showWithdraw() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		this.user = user;
 		return SUCCESS;
 		
 	}
@@ -141,6 +191,21 @@ public class TransactionAction extends ActionSupport {
 		
 		return SUCCESS;
 	}
+	
+	public String showDepositByUserId() {
+		if (userId == null) {
+			userId = 0;
+		}else {
+			try {
+				this.user = SysuserDao.getInstance().getByUserId(userId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return SUCCESS;
+	}
+
 		
 }
 	

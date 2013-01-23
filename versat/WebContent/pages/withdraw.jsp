@@ -52,7 +52,7 @@ $(document).ready(
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
 
-<!--Alert start-->
+<!--Alert start-
 <s:if test='isSuccess == 1'><div class="success_area">Request check success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
@@ -66,13 +66,13 @@ $(document).ready(
 		<td class="detail_right">${user.cash}</td>
 	</tr>
 	<tr>
-		<td class="detail_left">Withdraw Amount:</td>
+		<td class="detail_left">Request Check Amount:</td>
 		<td class="detail_right"><input name="withdrawAmount" type="text" class="list_text_width_normal" /></td>
 	</tr>
 </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw"><span>Withdraw</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw"><span>Send Request</span></a></div>					
 </div>
 </div>
 <!--Withdraw end-->	

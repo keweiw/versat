@@ -103,26 +103,26 @@ $(document).ready(
 								<tr align="center">
 									
 									<s:if test='#transaction.status == 0'>
-										<td>pending</td>
+										<td>Pending</td>
 									</s:if>
 									<s:if test='#transaction.status == 1'>
-										<td>processed</td>
+										<td>Processed</td>
 									</s:if>
 									<s:if test='#transaction.status == 2'>
-										<td>failed</td>
+										<td>Failed</td>
 									</s:if>
 									
 									<s:if test='#transaction.transactionType == 0'>
-										<td>buy fund</td>
+										<td>Buy fund</td>
 									</s:if>
 									<s:if test='#transaction.transactionType == 1'>
-										<td>sell fund</td>
+										<td>Sell fund</td>
 									</s:if>
 									<s:if test='#transaction.transactionType == 2'>
-										<td>deposit check</td>
+										<td>Deposit check</td>
 									</s:if>
 									<s:if test='#transaction.transactionType == 3'>
-										<td>request check</td>
+										<td>Request check</td>
 									</s:if>
 									<td><s:property value="#transaction.fundName" /></td>
 									<td><s:property value="#transaction.shares" /></td>
