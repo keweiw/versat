@@ -100,16 +100,37 @@ $(document).ready(
 	 </thead>
 	 <tbody>
 	   <s:iterator value="transactions" id="transaction">
-        <tr align="center">
-            <td><s:property value="#transaction.status"/></td>
-            <td><s:property value="#transaction.transactionType"/></td>
-            <td><s:property value="#transaction.fundName"/></td>
-            <td><s:property value="#transaction.shares"/></td>
-            <td><s:property value="#transaction.unitPrice"/></td>
-            <td><s:property value="#transaction.amount"/></td>
-            <td><s:property value="#transaction.executeDate"/></td>
-        </tr>
-        </s:iterator>
+								<tr align="center">
+									
+									<s:if test='#transaction.status == 0'>
+										<td>pending</td>
+									</s:if>
+									<s:if test='#transaction.status == 1'>
+										<td>processed</td>
+									</s:if>
+									<s:if test='#transaction.status == 2'>
+										<td>failed</td>
+									</s:if>
+									
+									<s:if test='#transaction.transactionType == 0'>
+										<td>buy fund</td>
+									</s:if>
+									<s:if test='#transaction.transactionType == 1'>
+										<td>sell fund</td>
+									</s:if>
+									<s:if test='#transaction.transactionType == 2'>
+										<td>deposit check</td>
+									</s:if>
+									<s:if test='#transaction.transactionType == 3'>
+										<td>request check</td>
+									</s:if>
+									<td><s:property value="#transaction.fundName" /></td>
+									<td><s:property value="#transaction.shares" /></td>
+									<td align="right"><s:property value="#transaction.unitPrice" /></td>
+									<td align="right"><s:property value="#transaction.amount" /></td>
+									<td><s:property value="#transaction.executeDate" /></td>
+								</tr>
+		</s:iterator>
 	 </tbody>
     </table>
 </div>

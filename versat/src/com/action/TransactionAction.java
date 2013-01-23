@@ -3,6 +3,7 @@ package com.action;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.bu.TransitionDay;
 import com.dao.FundDao;
 import com.dao.SysuserDao;
 import com.dao.TransactionDao;
@@ -48,6 +49,7 @@ public class TransactionAction extends ActionSupport {
 		try {
 			if(transactionType==-1){
 				transactions = TransactionDao.getInstance().getListByUserId(userId);
+				
 			}else {
 				System.out.println(userId);
 				
@@ -74,32 +76,22 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String showBuy() {
-		if (idFund  != null) {
-			try {
-				this.fund = FundDao.getInstance().getById(idFund);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-		}
-		return SUCCESS;
-	}
-	
-	public String showSell() {
-		if (idFund  != null) {
-			try {
-				this.fund = FundDao.getInstance().getById(idFund);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}		
-		}
-		return SUCCESS;
-	}
 	
 	public String showDeposit() {
-
+		
+		Map session = ActionContext.getContext().getSession();
+		try {
+			if(userId == null){
+				userId = 0;
+			} else {
+				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return SUCCESS;
 		
 	}
@@ -107,26 +99,49 @@ public class TransactionAction extends ActionSupport {
 	public String showWithdraw() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-
 		return SUCCESS;
 		
 	}
-
 	
-	public String showDepositByUserId() {
-		if (userId == null) {
-			userId = 0;
-		}else {
-			try {
-				this.user = SysuserDao.getInstance().getByUserId(userId);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	public String withdraw(){
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		Transaction t = new Transaction();
+		
+		long a = (long) (amount*100);
+		t.setAmount(a);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);	
+		TransitionDay.getInstance().newTransaction(user.getId(),t);
+		
 		return SUCCESS;
+		
 	}
 	
+	public String deposit(){
+		Map session = ActionContext.getContext().getSession();
+		try {
+			if(userId == null){
+				userId = 0;
+			} else {
+				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		Transaction t = new Transaction();
+		
+		long a = (long) (amount*100);
+		t.setAmount(a);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);	
+		TransitionDay.getInstance().newTransaction(user.getId(),t);
+		
+		return SUCCESS;
+	}
+		
 }
 	
 
