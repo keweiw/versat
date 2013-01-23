@@ -1,5 +1,7 @@
 package com.pojo;
 
+import java.text.DecimalFormat;
+
 // Generated Jan 15, 2013 9:10:07 PM by Hibernate Tools 3.4.0.CR1
 
 /**
@@ -21,6 +23,10 @@ public class Sysuser implements java.io.Serializable {
 	private String zip;
 	private long cash;
 	private double cashes;
+	private String cashesString;
+	DecimalFormat dFormat = new DecimalFormat("###,##0.00");
+
+
 	private int type;
 //	private Set positions = new HashSet(0);
 //	private Set transactions = new HashSet(0);
@@ -38,6 +44,7 @@ public class Sysuser implements java.io.Serializable {
 		this.cash = cash;
 		this.type = type;
 		this.cashes = this.cash / 100.00;
+		//this.cashesString = dFormat.format(cashes); 
 	}
 
 	public Sysuser(String username, String password, String firstname,
@@ -55,6 +62,7 @@ public class Sysuser implements java.io.Serializable {
 		this.cash = cash;
 		this.type = type;
 		this.cashes = this.cash / 100.00;
+		//this.cashesString = dFormat.format(cashes); 
 	}
 
 	public Integer getId() {
@@ -144,6 +152,7 @@ public class Sysuser implements java.io.Serializable {
 	public void setCash(long cash) {
 		this.cash = cash;
 		this.cashes = this.cash / 100.00;
+		this.cashesString = dFormat.format(cashes);
 	}
 
 	public int getType() {
@@ -161,4 +170,9 @@ public class Sysuser implements java.io.Serializable {
 	public void setCashes(double cashes) {
 		this.cashes = cashes;
 	}
+	public String getCashesString() {
+		return this.cashesString;
+	}
+
+
 }

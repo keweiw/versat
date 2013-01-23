@@ -77,9 +77,9 @@
 		<input name="searchKeyC" type="text" class="list_text_width_normal" value="${searchKeyC}" /></td>
 		<td><select class="list_text_width_normal" name="optionC" >
 			<option value="default"  >Search By:</option>
-			<option value="username" >Username</option>
-			<option value="firstname">First Name</option>
-			<option value="lastname">Last Name</option></select></td>
+			<option value="username" <s:if test='optionC == "username"'>selected</s:if>>Username</option>
+			<option value="firstname"<s:if test='optionC == "firstname"'>selected</s:if> >First Name</option>
+			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select></td>
 		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
@@ -104,7 +104,7 @@
 			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">${user.username}</a></td>
 			<td>${user.firstname}</td>
 			<td>${user.lastname}</td>
-			<td>${user.cash}</td>
+			<td>${user.cashesString}</td>
 			<td><a href="/versat/employee/fund/customerfund?userId=${user.id}">Owned Fund</a>
 				&nbsp;&nbsp;<a href="/versat/employee/trans/accountdeposit?userId=${user.id}">Deposit Check</a>
 				&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}">Transaction History</a></td>
