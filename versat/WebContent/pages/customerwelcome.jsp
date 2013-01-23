@@ -68,19 +68,19 @@ $(document).ready(function() {
         <td class="detail_right">${user.addrLine2}</td>
     </tr>
     <tr>
-        <td class="detail_left">City</td>
+        <td class="detail_left">City:</td>
         <td class="detail_right">${user.city}</td>
     </tr>
     <tr>
-        <td class="detail_left">State：</td>
+        <td class="detail_left">State:</td>
         <td class="detail_right">${user.state}</td>
     </tr>
     <tr>
-        <td class="detail_left">Zipcode：</td>
+        <td class="detail_left">Zipcode:</td>
         <td class="detail_right">${user.zip}</td>
     </tr>
     <tr>
-        <td class="detail_left">Cash Balance：</td>
+        <td class="detail_left">Cash Balance:</td>
         <td class="detail_right">${user.cashes}</td>
     </tr>
   </tbody>

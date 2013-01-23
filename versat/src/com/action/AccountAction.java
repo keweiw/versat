@@ -1,5 +1,6 @@
 package com.action;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -215,8 +216,9 @@ public class AccountAction extends ActionSupport {
 	}
 	
 	public String viewAccount(){			//just take out a user Instance by ID
+		System.out.println();
+		System.out.println();
 		try {
-			System.out.println("sb");
 			this.user = SysuserDao.getInstance().getByUserId(userId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

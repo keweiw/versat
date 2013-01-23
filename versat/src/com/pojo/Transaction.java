@@ -12,9 +12,10 @@ public class Transaction implements java.io.Serializable {
 	public static final int TRANS_TYPE_BUY = 0;
 	public static final int TRANS_TYPE_SELL = 1;
 	public static final int TRANS_TYPE_DEPOSIT = 2;
-	public static final int TRANS_TYPE_WITHDREW = 3;
+	public static final int TRANS_TYPE_WITHDRAW = 3;
 	public static final int TRANS_STATUS_PENDING = 0;
 	public static final int TRANS_STATUS_FINISH = 1;
+	public static final int TRANS_STATUS_FAIL = 2;
 	private Integer id;
 	private Sysuser sysuser;
 	private FundPriceHistory fundPriceHistory;
