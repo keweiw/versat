@@ -1,6 +1,7 @@
 package com.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
@@ -42,6 +43,15 @@ public class TransactionDao extends BaseDao<Transaction> {
 		Criterion criterion2 = Restrictions.eq("transactionType", operation);
 		criterions.add(criterion2);
 		return (ArrayList<Transaction>) super.getList(criterions);	
+	}
+	
+	public ArrayList<Transaction> getTransByDate(Date date) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion1 = Restrictions.eq("executeDate", date);
+		criterions.add(criterion1);
+		Criterion criterion2 = Restrictions.eq("status", Transaction.TRANS_STATUS_PENDING);
+		criterions.add(criterion2);
+		return (ArrayList<Transaction>) super.getList(0, 0, "id", true, criterions);	
 	}
 	
 	public void createTransaction(Transaction transaction) throws Exception{
