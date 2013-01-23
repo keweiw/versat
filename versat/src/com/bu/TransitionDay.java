@@ -298,7 +298,7 @@ public class TransitionDay {
 					TransactionDao.getInstance().update(tran);
 				}
 				break;
-			case Transaction.TRANS_TYPE_DEPOSIT:
+			case Transaction.TRANS_TYPE_SELL:
 				Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
 				if (p.getShares() >= tran.getShares()) {
 					long money = tran.getShares() / 10 * tran.getFundPriceHistory().getPrice();
@@ -319,7 +319,7 @@ public class TransitionDay {
 					TransactionDao.getInstance().update(tran);
 				}
 				break;
-			case Transaction.TRANS_TYPE_SELL:
+			case Transaction.TRANS_TYPE_DEPOSIT:
 				break;
 			case Transaction.TRANS_TYPE_WITHDRAW:
 				break;
