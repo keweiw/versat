@@ -40,11 +40,18 @@ public class FundDao extends BaseDao<Fund>{
 		criterions.add(criterion);
 		return (ArrayList<Fund>) super.getList(criterions);
 	}
+	public ArrayList<Fund> getBySymbol(String symbol) throws Exception{
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("symbol", symbol);
+		criterions.add(criterion);
+		return (ArrayList<Fund>) super.getList(criterions);
+	}
 	
 	public boolean isExist(Fund f) throws Exception{
-		if(super.retrieve(f)==null)
-			return false;
-		else
+		if(super.getByExample(f)==null)
 			return true;
+		else
+			return false;
 	}
+	/**/
 }

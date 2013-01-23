@@ -47,7 +47,7 @@ $(document).ready(function() {
 <form action="" method="post" id="form" name="form">
 
 <!--Alert start-->
-<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
@@ -82,7 +82,8 @@ $(document).ready(function() {
 </div>
 </div>
 <!--Sell fund end-->	
-
+<!-- hidden field -->
+<input type="hidden" name="fundId" value=${fundId} />
 </form>
 </div>
 <!--content function end-->

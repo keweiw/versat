@@ -14,7 +14,25 @@ public class Position implements java.io.Serializable {
 	
 	private String fundName;
 	private String fundSymbol;
+	private double lastPrice;
+	private double value;
 	
+
+	public double getLastPrice() {
+		return lastPrice;
+	}
+
+	public void setLastPrice(double lastPrice) {
+		this.lastPrice = lastPrice;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
 
 	public Position() {
 	}

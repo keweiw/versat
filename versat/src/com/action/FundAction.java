@@ -17,6 +17,13 @@ public class FundAction extends ActionSupport{
 	private String name;
 	private String symbol;
 	private String keyword;
+	private String optionC;
+	public String getOptionC() {
+		return optionC;
+	}
+	public void setOptionC(String optionC) {
+		this.optionC = optionC;
+	}
 	private double lastPrice;
 	
 	private int fundId;
@@ -135,7 +142,7 @@ public class FundAction extends ActionSupport{
 		return SUCCESS;
 	}
 	//--search fund by fund name and user id--//
-	public String searchFundByFundNameUserId() throws Exception{
+	public String searchFundByOption() throws Exception{
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
@@ -146,18 +153,44 @@ public class FundAction extends ActionSupport{
 			return ERROR;
 		}
 		keyword = keyword.trim();
-		
-		funds = FundDao.getInstance().getByName(keyword);
-		if(funds==null){
-			this.addActionError("you must enter the search key!");
-			isSuccess=-1;
-			return ERROR;
+		//--if the user choose default--//
+		if(optionC.equals("default")){
+			positions=PositionDao.getInstance().getAllList();
+			return SUCCESS;
 		}
-		
-		positions = PositionDao.getInstance().getListByCustomerIdFundId(user.getId(), 0);
-		//isSuccess=1;
+		else if(optionC.equals("fundName")){
+			funds = FundDao.getInstance().getByName(keyword);
+			if(funds.size()==0){
+				this.addActionError("Can not find this fund!");
+				isSuccess=-1;
+				return ERROR;
+			}
+			positions = PositionDao.getInstance().getListByCustomerIdFundId(user.getId(), funds.get(0).getId());
+			if(positions.size()==0){
+				this.addActionError("Can not find this fund!");
+				isSuccess=-1;
+				return ERROR;
+			}
+			isSuccess=1;
+			return SUCCESS;
+		}
+		else if(optionC.equals("fundSymbol")){
+			funds = FundDao.getInstance().getBySymbol(keyword);
+			if(funds.size()==0){
+				this.addActionError("Can not find this fund!");
+				isSuccess=-1;
+				return ERROR;
+			}
+			positions = PositionDao.getInstance().getListByCustomerIdFundId(user.getId(), funds.get(0).getId());
+			if(positions.size()==0){
+				this.addActionError("Can not find this fund!");
+				isSuccess=-1;
+				return ERROR;
+			}
+			isSuccess=1;
+			return SUCCESS;
+		}
 		return SUCCESS;
-		
 	}
 	
 	public String createFund() throws Exception{
@@ -172,8 +205,19 @@ public class FundAction extends ActionSupport{
 			isSuccess=-1;
 			return ERROR;
 		}
+		if(symbol.length()>5){
+			this.addActionError("The symbol can not be over five letters!");
+			isSuccess=-1;
+			return ERROR;
+		}
 		name=name.trim();
 		symbol=symbol.trim();
+		if(symbol.matches("[a-zA-Z]")==false){
+			this.addActionError("The symbol should be all letters!");
+			isSuccess=-1;
+			return ERROR;
+		}
+		
 		Fund f1 = new Fund();
 		f1.setName(name);
 		//--check if there is a fund already had the same name--//
