@@ -37,7 +37,7 @@
 		<!--header help-->
 		<div class="header_help">
 			<div class="header_bz">
-				<a href="versat/logout">Log out</a>
+				<a href="/versat/logout">Log out</a>
 			</div>
 			<div class="header_image">
 				<img src="../../images/back.gif" title="" />
@@ -76,14 +76,13 @@
 						<tr>
 							<td>&nbsp;</td>
 							<td><select id="select_trans_type" name=transactionType>
-									<option value=-1>All</option>
-									<option value=0>Buy Fund</option>
-									<option value=1>Sell Fund</option>
-									<option value=2>Deposit Check</option>
-									<option value=3>Request Check</option>
+									<option value=-1 selected>All</option>
+									<option value=0 <s:if test='transactionType == 0'>selected</s:if>>Buy Fund</option>
+									<option value=1 <s:if test='transactionType == 1'>selected</s:if>>Sell Fund</option>
+									<option value=2 <s:if test='transactionType == 2'>selected</s:if>>Deposit Check</option>
+									<option value=3 <s:if test='transactionType == 3'>selected</s:if>>Request Check</option>
 							</select></td>
-							<td><a href="#" title="search" class="btn_sprites"
-								name="search button" id="search"><span>Search</span></a></td>
+							<td><a href="#" title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 						</tr>
 					</table>
 				</div>
