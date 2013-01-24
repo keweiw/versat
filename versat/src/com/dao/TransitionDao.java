@@ -52,4 +52,24 @@ public class TransitionDao extends BaseDao {
 		}
 		return flag;
 	}
+	public boolean depositAndWithdraw(Sysuser user, Transaction tran, int operation){
+		Session session = null;
+		boolean flag = true;
+		try {
+			session = HibernateUtil.getSession();
+			session.setFlushMode(FlushMode.AUTO);
+			session.getTransaction().begin();
+			session.update(user);
+			session.update(tran);
+			session.flush();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			flag = false;
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return flag;
+	}
 }
