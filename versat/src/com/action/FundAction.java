@@ -5,10 +5,12 @@ import java.util.Map;
 
 import com.bu.TransitionDay;
 import com.dao.FundDao;
+import com.dao.FundPriceHistoryDao;
 import com.dao.PositionDao;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Fund;
+import com.pojo.FundPriceHistory;
 import com.pojo.Position;
 import com.pojo.Sysuser;
 import com.pojo.Transaction;
@@ -18,30 +20,37 @@ public class FundAction extends ActionSupport{
 	private String symbol;
 	private String keyword;
 	private String optionC;
-	public String getOptionC() {
-		return optionC;
-	}
-	public void setOptionC(String optionC) {
-		this.optionC = optionC;
-	}
 	private double lastPrice;
-	
 	private int fundId;
 	private int userId;
+	
+	private double shares;
+	private int isSuccess = 0;
+	private double inputShares;
+	private String amount;
+	private ArrayList<Fund> funds;
+	private ArrayList<Position> positions;
+
+	
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	//--getters and setters to be here--//
 	public int getUserId() {
 		return userId;
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	private double shares;
-	private int isSuccess = 0;
-	
-	private ArrayList<Fund> funds;
-	private ArrayList<Position> positions;
-
-	
-	//--getters and setters to be here--//
+	public String getOptionC() {
+		return optionC;
+	}
+	public void setOptionC(String optionC) {
+		this.optionC = optionC;
+	}
 	public int getIsSuccess() {
 		return isSuccess;
 	}
@@ -83,20 +92,27 @@ public class FundAction extends ActionSupport{
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	public double getShares() {
-		return shares;
-	}
+
 	//--end of getter and setter--//
 	
 	
-	public void setShares(double shares) {
-		this.shares = shares;
-	}
 	
 	public String showCreate() {
 		return SUCCESS;
 	}
 	
+	public double getShares() {
+		return shares;
+	}
+	public void setShares(double shares) {
+		this.shares = shares;
+	}
+	public double getInputShares() {
+		return inputShares;
+	}
+	public void setInputShares(double inputShares) {
+		this.inputShares = inputShares;
+	}
 	public String create(){
 		return SUCCESS;
 	}
@@ -122,6 +138,11 @@ public class FundAction extends ActionSupport{
 		int userId = user.getId();
 		try{
 			positions=PositionDao.getInstance().getPositionByCostomerId(userId);
+			FundPriceHistory fph = FundPriceHistoryDao.getInstance().getLastDay();
+			if(fph==null)
+				lastPrice=0.00;
+			else
+				lastPrice = fph.getPrice()/100.00; 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -258,26 +279,38 @@ public class FundAction extends ActionSupport{
 		}
 		name=p.getFundName();
 		symbol=p.getFundSymbol();
-		shares=p.getShares()/100.0;
+		shares=p.getShares()/1000.00;
 		return SUCCESS;
 	}
-	public String sell(){
+	public String sell() throws Exception{
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		//--check if the share want to sell is smaller--//
+		Position p= PositionDao.getInstance().getByCustomerIdFundId(user.getId(), fundId);
+		double currentShares = p.getShares()/1000.00;
+		name=p.getFundName();
+		symbol=p.getFundSymbol();
+		shares=p.getShares()/1000.0;
+		if(inputShares==0 ){
+			this.addActionError("You must enter one number!");
+			isSuccess=-1;
+			return ERROR;
+		}
+		if(inputShares > currentShares){
+			
+			this.addActionError("Can not over sell!");
+			isSuccess=-1;
+			return ERROR;
+		}
 		
-	//	this.addActionError("test here");
-	//	return ERROR;
-		
-		//--transaction needs to be filled in--//
-		
-		Transaction t = new Transaction();
+		//---transaction here----//
+		/*Transaction t = new Transaction();
 		long s = (long) (shares*1000);
 		t.setShares(s);
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
 		t.setTransactionType(Transaction.TRANS_TYPE_SELL);	
 		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
-		
-		return SUCCESS;
+		*/return SUCCESS;
 		
 	}
 	public String showBuyFund() throws Exception{
@@ -294,8 +327,28 @@ public class FundAction extends ActionSupport{
 		}
 		name=f.getName();
 		symbol=f.getSymbol();
+		return SUCCESS;
+	}
+	public String buy() throws Exception{
+		Transaction t = new Transaction();
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		
+		if(amount.equals("") || amount==null){
+			this.addActionError("You must enter amount!");
+			isSuccess=-1;
+			return ERROR;
+		}
+		if(amount.matches("[1-9]*")==false){
+			this.addActionError("You must enter numbers!");
+			isSuccess=-1;
+			return ERROR;
+		}
 		
+		t.setAmount(Long.valueOf(amount));
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_SELL);	
+		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
 		return SUCCESS;
 	}
 
