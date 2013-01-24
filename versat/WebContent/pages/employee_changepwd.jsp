@@ -46,9 +46,12 @@ $(document).ready(
 
 <!--content start-->
 <div class="content">
-<!--content功能展现-->
+<!--content-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
+</div>
 
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>

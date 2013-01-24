@@ -212,7 +212,7 @@ public class FundAction extends ActionSupport{
 		}
 		name=name.trim();
 		symbol=symbol.trim();
-		if(symbol.matches("[a-zA-Z]")==false){
+		if(symbol.matches("[a-zA-Z]*")==false){
 			this.addActionError("The symbol should be all letters!");
 			isSuccess=-1;
 			return ERROR;
