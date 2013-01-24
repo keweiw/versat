@@ -40,6 +40,9 @@ $(document).ready(function() {
 <!--content-->
 <div class="content_right2">
 <form action="" method="post">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
+</div>
 
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Password Changed!</div></s:if>
