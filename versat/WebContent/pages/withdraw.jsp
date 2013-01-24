@@ -51,6 +51,9 @@ $(document).ready(
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"></div>
+</div>
 
 <!--Alert start-
 <s:if test='isSuccess == 1'><div class="success_area">Request check success!</div></s:if>
@@ -67,12 +70,12 @@ $(document).ready(
 	</tr>
 	<tr>
 		<td class="detail_left">Request Check Amount:</td>
-		<td class="detail_right"><input name="withdrawAmount" type="text" class="list_text_width_normal" /></td>
+		<td class="detail_right"><input name="amount" type="text" class="list_text_width_normal" value=${amount} /></td>
 	</tr>
 </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw"><span>Send Request</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw" id="submit_change"><span>Send Request</span></a></div>					
 </div>
 </div>
 <!--Withdraw end-->	

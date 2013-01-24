@@ -20,6 +20,8 @@ public class TransactionAction extends ActionSupport {
 	public Integer idFund;
 	public Fund fund;
 	public Sysuser user;
+	public double amount;
+	
 	public Integer getTransactionType() {
 		return transactionType;
 	}
@@ -68,7 +70,7 @@ public class TransactionAction extends ActionSupport {
 		this.isSuccess = isSuccess;
 	}
 
-	public double amount;
+
 	private int isSuccess;
 	
 
@@ -148,7 +150,12 @@ public class TransactionAction extends ActionSupport {
 	public String showWithdraw() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+
 		this.user = user;
+		amount = this.getAmount();
+		this.withdraw();
+		
+		
 		return SUCCESS;
 		
 	}

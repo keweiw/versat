@@ -59,4 +59,9 @@ public class TransactionDao extends BaseDao<Transaction> {
 
 	}
 	
+	public void update(Transaction transaction) throws Exception{
+		super.update(transaction);
+
+	}
+	
 }
