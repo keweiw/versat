@@ -5,16 +5,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.dao.BaseDao;
 import com.dao.FundDao;
 import com.dao.FundPriceHistoryDao;
-import com.dao.PositionDao;
 import com.dao.SysuserDao;
 import com.dao.TransactionDao;
-import com.dao.TransitionDao;
 import com.pojo.Fund;
 import com.pojo.FundPriceHistory;
-import com.pojo.Position;
 import com.pojo.Sysuser;
 import com.pojo.Transaction;
 
@@ -180,7 +176,7 @@ public class TransitionDay {
 					} else {
 						transaction.setSysuser(user);
 						transaction.setFundPriceHistory(fph);
-//						transaction.setExecuteDate(fph.getPriceDate());
+						transaction.setExecuteDate(fph.getPriceDate());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -217,7 +213,7 @@ public class TransitionDay {
 						ret = FAILED;
 					} else {
 						transaction.setSysuser(user);
-//						transaction.setExecuteDate(getLastTransitionDay());
+						transaction.setExecuteDate(getLastTransitionDay());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -252,79 +248,14 @@ public class TransitionDay {
 		@Override
 		public void run() {
 			try {
-				ArrayList<Transaction> trans = TransactionDao.getInstance()
-						.getTransByDate(this.date);
-				if (trans != null) {
-					for (Transaction tran : trans) {
-						operation(tran, this.date);
-					}
-				}
+				ArrayList<Transaction> trans = TransactionDao.getInstance().getTransByDate(this.date); 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
+			 
 			// TODO Auto-generated method stub
 
-		}
-
-		private static synchronized void operation(Transaction tran, Date date) throws Exception {
-			// TODO Auto-generated method stub
-			Sysuser user = SysuserDao.getInstance().getByUserId(tran.getSysuser().getId());
-			int operation = TransitionDao.OPERATION_UPDATE;
-			switch (tran.getTransactionType()) {
-			case Transaction.TRANS_TYPE_BUY:
-				if (user.getCash() >= tran.getAmount()) {
-					user.setCash(user.getCash() - tran.getAmount());
-					long shares = 1000 * tran.getAmount() / tran.getFundPriceHistory().getPrice() ;
-					tran.setShares(shares);
-					Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
-					if (p == null) {
-						p = new Position();
-						p.setFund(tran.getFundPriceHistory().getFund());
-						p.setIduser(user.getId());
-						p.setShares(shares);
-						operation = TransitionDao.OPERATION_NEW;
-					} else {
-						p.setShares(shares + p.getShares());
-					}
-					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-					if (!TransitionDao.getInstance().buyAndSell(p, user, tran, operation)) {
-						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
-						TransactionDao.getInstance().update(tran);
-					}
-				} else {
-					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
-					TransactionDao.getInstance().update(tran);
-				}
-				break;
-			case Transaction.TRANS_TYPE_DEPOSIT:
-				Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
-				if (p.getShares() >= tran.getShares()) {
-					long money = tran.getShares() / 10 * tran.getFundPriceHistory().getPrice();
-					user.setCashes(user.getCash() + money);
-					tran.setAmount(money);
-					if (p.getShares() == tran.getShares()) {
-						operation = TransitionDao.OPERATION_DELETE;
-					} else {
-						p.setShares(p.getShares() - tran.getShares());
-					}
-					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-					if (!TransitionDao.getInstance().buyAndSell(p, user, tran, operation)) {
-						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
-						TransactionDao.getInstance().update(tran);
-					}
-				} else {
-					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
-					TransactionDao.getInstance().update(tran);
-				}
-				break;
-			case Transaction.TRANS_TYPE_SELL:
-				break;
-			case Transaction.TRANS_TYPE_WITHDRAW:
-				break;
-			}
-			
 		}
 	}
 }
