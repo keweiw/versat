@@ -25,7 +25,7 @@ public class FundAction extends ActionSupport{
 		this.optionC = optionC;
 	}
 	private double lastPrice;
-	
+
 	private int fundId;
 	private int userId;
 	public int getUserId() {
@@ -36,11 +36,11 @@ public class FundAction extends ActionSupport{
 	}
 	private double shares;
 	private int isSuccess = 0;
-	
+
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 
-	
+
 	//--getters and setters to be here--//
 	public int getIsSuccess() {
 		return isSuccess;
@@ -67,19 +67,19 @@ public class FundAction extends ActionSupport{
 	public ArrayList<Fund> getFunds(){
 		return funds;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getSymbol() {
 		return symbol;
 	}
-	
+
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
@@ -87,24 +87,24 @@ public class FundAction extends ActionSupport{
 		return shares;
 	}
 	//--end of getter and setter--//
-	
-	
+
+
 	public void setShares(double shares) {
 		this.shares = shares;
 	}
-	
+
 	public String showCreate() {
 		return SUCCESS;
 	}
-	
+
 	public String create(){
 		return SUCCESS;
 	}
-	
+
 	public String showfund() {
 		return SUCCESS;
 	}
-	
+
 	public String listAllFund(){
 		try {
 			funds=FundDao.getInstance().getAllList();
@@ -146,7 +146,7 @@ public class FundAction extends ActionSupport{
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
-		
+
 		if(keyword.equals("") || keyword==null){
 			this.addActionError("you must enter the search key!");
 			isSuccess=-1;
@@ -192,7 +192,7 @@ public class FundAction extends ActionSupport{
 		}
 		return SUCCESS;
 	}
-	
+
 	public String createFund() throws Exception{
 		//System.out.println("*****************name="+name);
 		if(name==null || name .equals("")){
@@ -217,7 +217,7 @@ public class FundAction extends ActionSupport{
 			isSuccess=-1;
 			return ERROR;
 		}
-		
+
 		Fund f1 = new Fund();
 		f1.setName(name);
 		//--check if there is a fund already had the same name--//
@@ -244,7 +244,7 @@ public class FundAction extends ActionSupport{
 		symbol=f.getSymbol();
 		return SUCCESS;
 	}
-	
+
 	//--get info from customer_sell2.jsp and set info want to bo post on sellfund.jsp
 	public String showSellFund() throws Exception{
 		//--get user id from session--//
@@ -264,22 +264,23 @@ public class FundAction extends ActionSupport{
 	public String sell(){
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-		
-	//	this.addActionError("test here");
-	//	return ERROR;
-		
+
+		//	this.addActionError("test here");
+		//	return ERROR;
+
 		//--transaction needs to be filled in--//
-		
+
 		Transaction t = new Transaction();
 		long s = (long) (shares*1000);
 		t.setShares(s);
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
 		t.setTransactionType(Transaction.TRANS_TYPE_SELL);	
 		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
-		
+
 		return SUCCESS;
-		
+
 	}
+
 	public String showBuyFund() throws Exception{
 		//--get user id from session--//
 		Map session = ActionContext.getContext().getSession();
@@ -294,8 +295,8 @@ public class FundAction extends ActionSupport{
 		}
 		name=f.getName();
 		symbol=f.getSymbol();
-		
-		
+
+
 		return SUCCESS;
 	}
 

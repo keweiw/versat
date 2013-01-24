@@ -26,7 +26,9 @@
             <result>/pages/sellfund.jsp</result>
         </action>
         <action name="withdraw" class="com.action.TransactionAction" method="showWithdraw">
-            <result>/pages/withdraw.jsp</result>
+         <!--    <result name="success" type="redirect">/customer/trans/withdraw?isSuccess=1</result>
+             <result name="error">/pages/withdraw.jsp</result> -->
+             <result>/pages/withdraw.jsp</result>
         </action>
         <action name="sort" class="com.action.TransactionAction" method="displayByTransactionType">
             <result>/pages/customer-transactionhistory.jsp</result>
