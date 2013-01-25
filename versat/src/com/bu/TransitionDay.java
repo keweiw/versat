@@ -143,7 +143,18 @@ public class TransitionDay {
 						e.printStackTrace();
 					}
 				}
+				ArrayList<Transaction> trans = null;
+				try {
+					trans = TransactionDao.getInstance()
+							.getTransByStatus();
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				inTransition = false;
+				TransitionProcessing tp = new TransitionProcessing(date, trans);
+				tp.run();
 				// NEED to add thread to handle the all transactions;
 				return SUCCESS;
 			} else {
@@ -244,17 +255,18 @@ public class TransitionDay {
 
 	public static class TransitionProcessing extends Thread {
 		private Date date;
+		private ArrayList<Transaction> trans;
 
-		public TransitionProcessing(Date date) {
+		public TransitionProcessing(Date date, ArrayList<Transaction> trans) {
 			this.date = date;
+			this.trans = trans;
 		}
 
 		@Override
 		public void run() {
 			try {
-				ArrayList<Transaction> trans = TransactionDao.getInstance()
-						.getTransByDate(this.date);
-				if (trans != null) {
+				
+				if (this.trans != null) {
 					for (Transaction tran : trans) {
 						operation(tran, this.date);
 					}
