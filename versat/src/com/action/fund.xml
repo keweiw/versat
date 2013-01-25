@@ -17,11 +17,12 @@
             <result name="success">/pages/createfund.jsp</result>
         </action>
         <action name="listallfund" class="com.action.FundAction" method="listAllFund">
-       <!--        <result name="success">/pages/employee_fundlist.jsp</result> -->
-       	     <result type= "json"></result>  
+               <result name="success">/pages/employee_fundlist.jsp</result> 
+       	   <!--  <result type= "json"></result>  -->
         </action>
-        <action name="search" class="com.action.FundAction" method="searchFundByName">
+        <action name="search" class="com.action.FundAction" method="searchAllFundByOption">
             <result name="success">/pages/employee_fundlist.jsp</result>
+            <result name="error">/pages/employee_fundlist.jsp</result>
         </action>
         <action name="customerfund" class="com.action.FundAction" method="employeeListFundByUserId">
             <result name="success">/pages/employee_viewcustomerfund.jsp</result>
@@ -50,8 +51,12 @@
     		<result name="success">/pages/customer_sell.jsp</result>
     	</action>
     	<action name="searchownedfund" class="com.action.FundAction" method="searchFundByOption">
-    		<result name="error">/pages/customer_sell.jsp?isSuccess=-1</result>
+    		<result name="error">/pages/customer_sell.jsp</result>
     		<result name="success">/pages/customer_sell.jsp</result>
+    	</action>
+    	<action name="searchallfund" class="com.action.FundAction" method="searchAllFundByOption">
+    		<result name="error">/pages/customer_fundlist.jsp</result>
+    		<result name="success">/pages/customer_fundlist.jsp</result>
     	</action>
     	<action name="buyfund" class="com.action.FundAction" method="showBuyFund">
     		<result name="success">/pages/customer_buy.jsp</result>

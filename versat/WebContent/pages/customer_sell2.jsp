@@ -69,11 +69,11 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Shares owned:</td>
-		<td class="detail_right">${shares}</td>
+		<td class="detail_right">${outputShareString}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Number of shares want to sell:</td>
-		<td class="detail_right"><input name="share" type="text" class="list_text_width_normal"/></td>
+		<td class="detail_right"><input name="inputShareString" type="text" class="list_text_width_normal"/></td>
 	</tr>
   </tbody>
 </table>
