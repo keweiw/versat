@@ -1,5 +1,6 @@
 package com.action;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -14,14 +15,16 @@ import com.pojo.Sysuser;
 import com.pojo.Transaction;
 
 public class TransactionAction extends ActionSupport {
-	public Integer userId;
-	public Integer transactionType=-1;
-	public ArrayList<Transaction> transactions;
-	public Integer idFund;
-	public Fund fund;
-	public Sysuser user;
-	public double amount;
-	
+	private Integer userId;
+	private Integer transactionType = -1;
+	private ArrayList<Transaction> transactions;
+	private Integer idFund;
+	private Fund fund;
+	private Sysuser user;
+	private Double amount;
+	private int isSuccess;
+
+
 	public Integer getTransactionType() {
 		return transactionType;
 	}
@@ -70,8 +73,6 @@ public class TransactionAction extends ActionSupport {
 		this.isSuccess = isSuccess;
 	}
 
-
-	private int isSuccess;
 	
 
 	public Integer getUserId() {
@@ -91,129 +92,156 @@ public class TransactionAction extends ActionSupport {
 	}
 
 	public String list() {
-		userId=this.getUserId();
-		
-		if (userId == null || transactionType==null) {
+		userId = this.getUserId();
+
+		if (userId == null || transactionType == null) {
 			userId = 0;
 		}
 		try {
-			if(transactionType==-1){
-				transactions = TransactionDao.getInstance().getListByUserId(userId);
-				
-			}else {
+			if (transactionType == -1) {
+				transactions = TransactionDao.getInstance().getListByUserId(
+						userId);
+
+			} else {
 				System.out.println(userId);
-				
-				transactions = TransactionDao.getInstance().displayByOperation(userId, transactionType);
+
+				transactions = TransactionDao.getInstance().displayByOperation(
+						userId, transactionType);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
-	
+
 	public String listSelf() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		this.user = user;
 		try {
-			if(transactionType==-1){
+			if (transactionType == -1) {
 				transactions = TransactionDao.getInstance().getListByUserId(user.getId());
-			}else {
-				transactions = TransactionDao.getInstance().displayByOperation(user.getId(), transactionType);
+			} else {
+				transactions = TransactionDao.getInstance().displayByOperation(
+						user.getId(), transactionType);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return SUCCESS;
 	}
-	
-	
+
 	public String showDeposit() {
-		
+
 		Map session = ActionContext.getContext().getSession();
 		try {
-			if(userId == null){
+			if (userId == null) {
 				userId = 0;
 			} else {
 				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return SUCCESS;
-		
+
 	}
-	
+
 	public String showWithdraw() {
 		Map session = ActionContext.getContext().getSession();
-		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);	
 		this.user = user;
-		amount = this.getAmount();
-		this.withdraw();
 		
-		
+		isSuccess = 0;
 		return SUCCESS;
-		
+
+
 	}
-	
-	public String withdraw(){
+
+	public String withdraw() {
 		Map session = ActionContext.getContext().getSession();
-		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-		Transaction t = new Transaction();
+		user = (Sysuser) session.get(LoginAction.SYSUSER);	
+		isSuccess = 0;
 		
-		long a = (long) (amount*100);
-		t.setAmount(a);
-		t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);	
-		TransitionDay.getInstance().newTransaction(user.getId(),t);
-		
-		return SUCCESS;
-		
-	}
-	
-	public String deposit(){
-		Map session = ActionContext.getContext().getSession();
-		try {
-			if(userId == null){
-				userId = 0;
+		if(user!=null) {
+			if(amount==null||amount==0){
+				this.addActionError("Request amount can not be zero!");
+				this.isSuccess = -1;
+				return ERROR;
+			} else if(amount>user.getCash()){
+				this.addActionError("Request amount can not larger than cash balance!");
+				this.isSuccess = -1;
+				return ERROR;
 			} else {
-				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+				Transaction t = new Transaction();
+				long a = (long)(amount * 100);
+				Date date = new Date(0);
+				t.setAmount(a);
+				t.setExecuteDate(date);
+				t.setStatus(Transaction.TRANS_STATUS_PENDING);
+				t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);
+				try {
+					TransitionDay.getInstance().newTransaction(user.getId(), t);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.isSuccess = 1;
+				return SUCCESS;
+				
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 			
+		}
+		this.addActionError("Amount shouldn't be empty.");
+		this.isSuccess = -1;
+		return ERROR;
+
+	}
+
+	public String deposit() {
+	//	Map session = ActionContext.getContext().getSession();
+	//	try {
+		//	if (userId == null) {
+		//		userId = 0;
+		//	} else {
+			//	Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+		//	}
+	//	} catch (Exception e) {
+			// TODO Auto-generated catch block
+	//		e.printStackTrace();
+	//	}
+
 		Transaction t = new Transaction();
-		
-		long a = (long) (amount*100);
+
+		long a = (long) (amount * 100);
 		t.setAmount(a);
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);	
-		TransitionDay.getInstance().newTransaction(user.getId(),t);
-		
+		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
+		TransitionDay.getInstance().newTransaction(user.getId(), t);
+
 		return SUCCESS;
 	}
-	
+
 	public String showDepositByUserId() {
 		if (userId == null) {
 			userId = 0;
-		}else {
+		} else {
 			try {
 				this.user = SysuserDao.getInstance().getByUserId(userId);
+				amount = this.getAmount();
+				this.deposit();
 			} catch (Exception e) {
+				
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return SUCCESS;
-	}
-
 		
-}
+	}
 	
 
+}

@@ -129,10 +129,10 @@
 										<td>Request Check</td>
 									</s:if>
 									<td><s:property value="#transaction.fundName" /></td>
-									<td><s:property value="#transaction.shares" /></td>
+									<td><s:property value="#transaction.doubleshares" /></td>
 									<td align="right"><s:property value="#transaction.unitPrice" /></td>
-									<td align="right"><s:property value="#transaction.amount" /></td>
-									<td><s:property value="#transaction.executeDate" /></td>
+									<td align="right"><s:property value="#transaction.doubleamount" /></td>
+									<td><s:property value="#transaction.stringDate" /></td>
 								</tr>
 							</s:iterator>
 						</tbody>
@@ -164,7 +164,7 @@
 		</div>
 		<div class="content_menubd"></div>
 		<div class="content_menu7" id="requestLink">
-			<a href="/versat/customer/trans/withdraw">Request Check</a>
+			<a href="/versat/customer/trans/showWithdraw">Request Check</a>
 		</div>
 		<div class="content_menubd"></div>
 		<div class="content_menubd"></div>

@@ -52,8 +52,8 @@ $(document).ready(
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
 
-<!--Alert start-
-<s:if test='isSuccess == 1'><div class="success_area">Request check success!</div></s:if>
+<!--Alert start-->
+<s:if test='isSuccess == 1'><div class="success_area">Request Check Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 <!--start-->
@@ -67,12 +67,13 @@ $(document).ready(
 	</tr>
 	<tr>
 		<td class="detail_left">Request Check Amount:</td>
-		<td class="detail_right"><input name="withdrawAmount" type="text" class="list_text_width_normal" /></td>
+		<td class="detail_right"><input name="amount" type="text" class="list_text_width_normal" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" ></td>
+		 
 	</tr>
 </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw"><span>Send Request</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw" id= submit_change><span>Send Request</span></a></div>					
 </div>
 </div>
 <!--Withdraw end-->	
@@ -93,7 +94,7 @@ $(document).ready(
    <div class="content_menubd"></div>
    <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu_77 font14b" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+   <div class="content_menu_77 font14b" id="requestLink"><a href="/versat/customer/trans/showWithdraw">Request Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>

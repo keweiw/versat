@@ -2,6 +2,8 @@ package com.pojo;
 
 // Generated Jan 15, 2013 9:10:07 PM by Hibernate Tools 3.4.0.CR1
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -20,12 +22,20 @@ public class Transaction implements java.io.Serializable {
 	private Sysuser sysuser;
 	private FundPriceHistory fundPriceHistory;
 	private Date executeDate;
+	private String stringDate;
 	private Long shares;
+	private double doubleshares;
 	private Long amount;
+	private double doubleamount;
 	private Integer transactionType;
 	private Integer status;
 	private String fundName;
 	private double unitPrice;
+	private String sharesString;
+	private String amountString;
+	DecimalFormat dFormat1 = new DecimalFormat("###,##0.000");
+	DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+	SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
 
 	public Transaction() {
 	}
@@ -39,12 +49,23 @@ public class Transaction implements java.io.Serializable {
 		this.amount = amount;
 		this.transactionType = transactionType;
 		this.status = status;
+		this.setDoubleshares(this.shares / 1000.00);
+		this.setDoubleamount(this.amount / 100.00);
 		if (this.fundPriceHistory != null) {
 			this.fundName = fundPriceHistory.getFund().getName();
 			this.unitPrice = fundPriceHistory.getPrice() / 100.0;
 		}
 	}
 
+	public Transaction(Sysuser sysuser,Date executeDate, Long amount, Integer transactionType, Integer status) {
+		this.sysuser = sysuser;
+		this.executeDate = executeDate;
+		this.amount = amount;
+		this.transactionType = transactionType;
+		this.status = status;
+		this.setDoubleamount(this.amount / 100.00);
+		
+	}
 	public String getFundName() {
 		return fundName;
 	}
@@ -95,6 +116,7 @@ public class Transaction implements java.io.Serializable {
 
 	public void setExecuteDate(Date executeDate) {
 		this.executeDate = executeDate;
+		this.stringDate = df.format(executeDate);
 	}
 
 	public Long getShares() {
@@ -103,6 +125,8 @@ public class Transaction implements java.io.Serializable {
 
 	public void setShares(Long shares) {
 		this.shares = shares;
+//		this.doubleshares = this.shares / 1000.00;
+//		this.setSharesString(dFormat1.format(doubleshares));
 	}
 
 	public Integer getTransactionType() {
@@ -127,5 +151,47 @@ public class Transaction implements java.io.Serializable {
 
 	public void setAmount(Long amount) {
 		this.amount = amount;
+		this.doubleamount = this.amount / 100.00;
+		this.setSharesString(dFormat2.format(doubleamount));
+	}
+
+	public double getDoubleshares() {
+		return doubleshares;
+	}
+
+	public void setDoubleshares(double doubleshares) {
+		this.doubleshares = doubleshares;
+	}
+
+	public double getDoubleamount() {
+		return doubleamount;
+	}
+
+	public void setDoubleamount(double doubleamount) {
+		this.doubleamount = doubleamount;
+	}
+
+	public String getSharesString() {
+		return sharesString;
+	}
+
+	public void setSharesString(String sharesString) {
+		this.sharesString = sharesString;
+	}
+
+	public String getAmountString() {
+		return amountString;
+	}
+
+	public void setAmountString(String amountString) {
+		this.amountString = amountString;
+	}
+
+	public String getStringDate() {
+		return stringDate;
+	}
+
+	public void setStringDate(String stringDate) {
+		this.stringDate = stringDate;
 	}
 }

@@ -122,7 +122,7 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_menu1 " id="historyLink"><a href="/versat/customer/trans/list">Transaction History</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu7" id="requestLink"><a href="/versat/customer/trans/withdraw">Request Check</a></div>
+   <div class="content_menu7" id="requestLink"><a href="/versat/customer/trans/showWithdraw">Request Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>

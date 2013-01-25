@@ -60,6 +60,7 @@ $(document).ready(
 <!--Deposit start-->
 <div class="new_user">
 <div class="new_user_title">Deposit Check</div>
+<input type="hidden" name="userId" value=${userId} />
 </table>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
@@ -81,12 +82,12 @@ $(document).ready(
   </tr>
   <tr>
     <td class="detail_left">Deposit Amount:</td>
-    <td class="detail_right"><input name="depositAmount" type="text" value="$" class="list_text_width_normal"/></td>
+    <td class="detail_right"><input name="amount" type="text" value=${amount} class="list_text_width_normal"/></td>
   </tr>
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="sell_button"><a class="btn_sprites" href="#" name="password"><span>Deposit</span></a></div>					
+	<div class="sell_button"><a class="btn_sprites" href="#" name="deposit" id="submit_change"><span>Deposit</span></a></div>					
 </div>
 </div>
 <!--Deposit end-->	
