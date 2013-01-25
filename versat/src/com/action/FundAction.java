@@ -32,12 +32,21 @@ public class FundAction extends ActionSupport {
 	private double inputShares;
 	private String amount;
 	private String inputShareString;
+	private String outputShareString;
 
 
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 
 	// --getters and setters to be here--//
+	public String getOutputShareString() {
+		return outputShareString;
+	}
+
+	public void setOutputShareString(String outputShareString) {
+		this.outputShareString = outputShareString;
+	}
+	
 	public String getInputShareString() {
 		return inputShareString;
 	}
@@ -398,6 +407,9 @@ public class FundAction extends ActionSupport {
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.00;
+		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+		outputShareString = dFormat2.format(shares);
+		
 		return SUCCESS;
 	}
 
@@ -495,6 +507,11 @@ public class FundAction extends ActionSupport {
 		}
 		if (amount.matches("[1-9]*") == false) {
 			this.addActionError("You must enter numbers!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if(Long.valueOf(amount)<0){
+			this.addActionError("You must enter positive numbers!");
 			isSuccess = -1;
 			return ERROR;
 		}
