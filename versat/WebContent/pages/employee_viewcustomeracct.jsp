@@ -87,7 +87,7 @@ $(document).ready(function() {
     </tr>
     <tr>
         <td class="detail_left">Action:</td>
-        <td class="detail_right"><a href="/versat/employee/account/resetcustomerpassword?userId=${user.id}"  name="password"><span>Reset Password</span></a>	
+        <td class="detail_right" id="link"><a href="/versat/employee/account/resetcustomerpassword?userId=${user.id}"  name="password"><span>Reset Password</span></a>	
 								&nbsp;&nbsp;<a href="/versat/employee/fund/customerfund?userId=${user.id}"><span>Owned Fund</span></a>
 								&nbsp;&nbsp;<a href="/versat/employee/trans/accountdeposit?userId=${user.id}"><span>Deposit Check</span></a>	
 								&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}"><span>Transaction History</span></a>				

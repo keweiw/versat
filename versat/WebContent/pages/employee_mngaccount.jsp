@@ -105,7 +105,7 @@
 			<td>${user.firstname}</td>
 			<td>${user.lastname}</td>
 			<td>${user.cashesString}</td>
-			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">View Account</a></td>
+			<td id="link"><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">View Account</a></td>
 		</tr>
 	</s:iterator>
 	
