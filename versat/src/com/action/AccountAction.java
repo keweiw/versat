@@ -124,6 +124,11 @@ public class AccountAction extends ActionSupport {
 				user.getFirstname().trim();
 				user.getLastname().trim();
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("")){
+					if (checkCashFormat(this.user)){
+						this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+						isSuccess = -1;
+						return ERROR;
+					}
 					if (checkRequired(this.user)) {
 						this.addActionError("This username has already exist!");
 						isSuccess = -1;
@@ -213,6 +218,10 @@ public class AccountAction extends ActionSupport {
 		}
 		if(finduser != null) return true;
 		else return false;
+	}
+	private boolean checkCashFormat(Sysuser u){
+	
+			return false;
 	}
 	
 	public String viewAccount(){			//just take out a user Instance by ID

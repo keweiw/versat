@@ -85,11 +85,16 @@ $(document).ready(function() {
         <td class="detail_left">Cash Balance：</td>
         <td class="detail_right">$${user.cashesString}</td>
     </tr>
+    <tr>
+        <td class="detail_left">Action:</td>
+        <td class="detail_right"><a href="/versat/employee/account/resetcustomerpassword?userId=${user.id}"  name="password"><span>Reset Password</span></a>	
+								&nbsp;&nbsp;<a href="/versat/employee/fund/customerfund?userId=${user.id}"><span>Owned Fund</span></a>
+								&nbsp;&nbsp;<a href="/versat/employee/trans/accountdeposit?userId=${user.id}"><span>Deposit Check</span></a>	
+								&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}"><span>Transaction History</span></a>				
+        </td>
+    </tr>
   </tbody>
 </table>
-<div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="/versat/employee/account/resetcustomerpassword?userId=${user.id}"  name="password"><span>Reset Password</span></a></div>					
-</div>
 </div>
 <!--Create New customer-->			
 </form>
