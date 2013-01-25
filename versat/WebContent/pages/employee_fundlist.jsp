@@ -53,19 +53,25 @@ $(document).ready(function() {
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 <!-- Search -->
-<div class="list_search clearfix">
-	<div class="search"><a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a></div>
-	<div class="add_user"><a href="/versat/employee/fund/create"><button> + Create New Fund</button></a></div>
+  <div class="new_user_title">All Funds</div>
+  <div class="search">
+    <a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a>
+  </div>
 </div>
-<div class="search_detail clearfix">	
-	<table cellspacing="0" cellpadding="0" class="search_detail_list">
+<div class="search_detail clearfix">  
+  	<table cellspacing="0" cellpadding="0" class="search_detail_list">
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="keyword" type="text" class="list_text_width_normal" value="fund name" /></td>
-		<td><a href="#" title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
+		<input name="keyword" type="text" class="list_text_width_normal" value="${keyword}" /></td>
+		<td><select class="list_text_width_normal" name="optionC" >
+			<option value="default"  >Search By:</option>
+			<option value="fundName" >Fund Name</option>
+			<option value="fundSymbol">Fund Symbol</option>
+			</select></td>
+		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
-	</table>	
+	</table> 
 </div>
 <!-- Search -->
 
