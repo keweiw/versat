@@ -53,6 +53,7 @@ $(document).ready(function() {
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 <!-- Search -->
+<div class="list_search clearfix">
   <div class="new_user_title">All Funds</div>
   <div class="search">
     <a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a>
