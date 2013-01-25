@@ -55,10 +55,11 @@ $(document).ready(
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Request Check Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
+
 <!--Alert end-->
 <!--start-->
 <div class="new_user">
-<div class="new_user_title">Request Check</div>
+<div class="new_user_title">Request Check ${isSuccess}</div>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
 <tbody>
   	<tr>
@@ -67,7 +68,8 @@ $(document).ready(
 	</tr>
 	<tr>
 		<td class="detail_left">Request Check Amount:</td>
-		<td class="detail_right"><input name="amount" type="text" class="list_text_width_normal" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" ></td>
+		<td class="detail_right"><input name="amount" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amount}  ></td>
 		 
 	</tr>
 </tbody>

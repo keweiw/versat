@@ -1,7 +1,7 @@
 package com.action;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import com.bu.TransitionDay;
@@ -165,9 +165,15 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);	
 		isSuccess = 0;
-		
+		userId= user.getId();
+		try {
+			user = SysuserDao.getInstance().getByUserId(userId);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if(user!=null) {
-			if(amount==null||amount==0){
+			if(amount==0){
 				this.addActionError("Request amount can not be zero!");
 				this.isSuccess = -1;
 				return ERROR;
@@ -178,7 +184,7 @@ public class TransactionAction extends ActionSupport {
 			} else {
 				Transaction t = new Transaction();
 				long a = (long)(amount * 100);
-				Date date = new Date(0);
+				Date date = new Date();			
 				t.setAmount(a);
 				t.setExecuteDate(date);
 				t.setStatus(Transaction.TRANS_STATUS_PENDING);
@@ -195,7 +201,7 @@ public class TransactionAction extends ActionSupport {
 			}
 			
 		}
-		this.addActionError("Amount shouldn't be empty.");
+		this.addActionError("error!");
 		this.isSuccess = -1;
 		return ERROR;
 

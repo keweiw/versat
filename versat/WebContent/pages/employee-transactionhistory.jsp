@@ -138,11 +138,11 @@
 										<td>Request check</td>
 									</s:if>
 									<td><s:property value="#transaction.fundName" /></td>
-									<td><s:property value="#transaction.shares" /></td>
+									<td><s:property value="#transaction.doubleshares" /></td>
 									<td align="right"><s:property
 											value="#transaction.unitPrice" /></td>
-									<td align="right"><s:property value="#transaction.amount" /></td>
-									<td><s:property value="#transaction.executeDate" /></td>
+									<td align="right"><s:property value="#transaction.doubleamount" /></td>
+									<td><s:property value="#transaction.stringDate" /></td>
 								</tr>
 							</s:iterator>
 						</tbody>
