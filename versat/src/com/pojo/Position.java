@@ -14,11 +14,11 @@ public class Position implements java.io.Serializable {
 	
 	private String fundName;
 	private String fundSymbol;
-	private double lastPrice;
-	private double value;
 	
-
-
+	private String shareString;
+	private String lastPriceString;
+	private String shareValueString;
+	
 
 	public Position() {
 	}
@@ -69,6 +69,30 @@ public class Position implements java.io.Serializable {
 
 	public void setShares(Long shares) {
 		this.shares = shares;
+	}
+
+	public String getShareString() {
+		return shareString;
+	}
+
+	public void setShareString(String shareString) {
+		this.shareString = shareString;
+	}
+
+	public String getLastPriceString() {
+		return lastPriceString;
+	}
+
+	public void setLastPriceString(String lastPriceString) {
+		this.lastPriceString = lastPriceString;
+	}
+
+	public String getShareValueString() {
+		return shareValueString;
+	}
+
+	public void setShareValueString(String shareValueString) {
+		this.shareValueString = shareValueString;
 	}
 
 }
