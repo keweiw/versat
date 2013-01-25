@@ -17,8 +17,8 @@
             <result name="success">/pages/createfund.jsp</result>
         </action>
         <action name="listallfund" class="com.action.FundAction" method="listAllFund">
-              <result name="success">/pages/employee_fundlist.jsp</result>
-        	  <!--     <result type= "json"></result>  -->
+       <!--        <result name="success">/pages/employee_fundlist.jsp</result> -->
+       	     <result type= "json"></result>  
         </action>
         <action name="search" class="com.action.FundAction" method="searchFundByName">
             <result name="success">/pages/employee_fundlist.jsp</result>
@@ -34,7 +34,7 @@
     	<action name="funddetail" class="com.action.FundAction" method="showFundDetail">
     		<result name="success">/pages/researchfund.jsp</result>
     	</action>
-    	<action name="fundJson" class="com.action.FundAction" method="listFundByUserId">
+    	<action name="fundjson" class="com.action.FundAction" method="listFundByUserId">
     		<result type="json"></result>
     	</action>
     	<action name="listownedfund" class="com.action.FundAction" method="listFundByUserId">

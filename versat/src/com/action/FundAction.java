@@ -296,8 +296,20 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-
-		Fund f1 = new Fund();
+		// --check if the fund name or symbol is duplicate --//
+		ArrayList<Fund> fs = FundDao.getInstance().getByName(name);
+		if(fs.size()!=0){
+			this.addActionError("The fund name is already exist!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		fs = FundDao.getInstance().getBySymbol(symbol);
+		if(fs.size()!=0){
+			this.addActionError("The fund symbol is already exist!");
+			isSuccess = -1;
+			return ERROR;
+		}
+/*		Fund f1 = new Fund();
 		f1.setName(name);
 		// --check if there is a fund already had the same name--//
 		if (FundDao.getInstance().isExist(f1) == true) {
@@ -313,6 +325,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
+		*/
 		FundDao.getInstance().createFund(name, symbol);
 		isSuccess = 1;
 		return SUCCESS;

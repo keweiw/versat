@@ -50,7 +50,7 @@ $(document).ready(function() {
 </div>
 
 <!-- Alert -->
-<s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
+<s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 
