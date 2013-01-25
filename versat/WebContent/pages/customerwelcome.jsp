@@ -81,7 +81,7 @@ $(document).ready(function() {
     </tr>
     <tr>
         <td class="detail_left">Cash Balance:</td>
-        <td class="detail_right">${user.cashes}</td>
+        <td class="detail_right">$${user.cashes}</td>
     </tr>
   </tbody>
 </table>
