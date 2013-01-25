@@ -47,12 +47,9 @@ $(document).ready(function() {
 <form action="" method="post" id="form" name="form">
 
 <!--Alert start-->
-<div class="success_area">Success!</div>
-<div class="warning"><s:actionerror /></div>
+<s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
-
-
-
 
 <!--Sell fund start-->
 <div class="new_user">

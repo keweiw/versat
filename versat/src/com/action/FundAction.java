@@ -454,10 +454,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		
-		
 		// ---transaction here----//
-		
 		 Transaction t = new Transaction(); 
 		 long s = (long) (inputShares*1000);
 		 t.setShares(s);
