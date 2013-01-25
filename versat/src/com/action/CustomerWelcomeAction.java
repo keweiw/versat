@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Sysuser;
 import com.pojo.Transaction;
 
-public class CustomerWelcome extends ActionSupport {
+public class CustomerWelcomeAction extends ActionSupport {
 
 	private String oldPassword;
 	private String newPassword;
