@@ -39,14 +39,14 @@ $(document).ready(function() {
 <div class="content_right2">
 <form action="" method="post">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
+	<div class="straight_line_nav"><div class="new_user_title">Profile</div></div>
 </div>
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Password Changed!</div></s:if>
 <!--Alert end-->
 <!--Create new user start-->
+
 <div class="new_user">
-<div class="new_user_title">Profile</div>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>

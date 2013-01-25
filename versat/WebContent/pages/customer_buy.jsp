@@ -45,18 +45,17 @@ $(document).ready(function() {
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
-
+	<div class="mail_tab_nav">
+		<div class="straight_line_nav"><div class="new_user_title">Buy Fund</div></div>
+	</div>
 <!--Alert start-->
 <div class="success_area">Success!</div>
 <div class="warning"><s:actionerror /></div>
 <!--Alert end-->
 
 
-
-
 <!--Sell fund start-->
 <div class="new_user">
-<div class="new_user_title">Buy Fund</div>
 
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
 	

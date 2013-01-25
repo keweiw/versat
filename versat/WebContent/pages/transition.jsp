@@ -40,7 +40,7 @@ $(document).ready(function() {
 <div class="content_right2">
 <form action="" method="post">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
+	<div class="straight_line_nav"><div class="new_user_title">Transition Day</div></div>
 </div>
 
 <!-- Alert -
@@ -49,7 +49,6 @@ $(document).ready(function() {
 <!-- Alert -->
 
 <div class="new_user">
-<div class="new_user_title">Transition Day</div>
 
 <!-- Date start -->
 <div class="trade_day">Last trading day:</div>
