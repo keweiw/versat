@@ -423,6 +423,8 @@ public class FundAction extends ActionSupport {
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.0;
+		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+		outputShareString = dFormat2.format(shares);
 /*		if (inputShares == 0) {
 			this.addActionError("You must enter one number!");
 			isSuccess = -1;
@@ -474,14 +476,15 @@ public class FundAction extends ActionSupport {
 		Fund f = FundDao.getInstance().getById(fundId);
 		if (p == null) {
 			shares = 0 / 1000.0;
+			outputShareString = "-";
 		} else {
 			shares = p.getShares() / 1000.0;
+			DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+			outputShareString = dFormat2.format(shares);
 		}
 		name = f.getName();
 		symbol = f.getSymbol();
-		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-		outputShareString = dFormat2.format(shares);
-				   
+		
 		return SUCCESS;
 	}
 
@@ -504,7 +507,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (amount.matches("[1-9]*") == false) {
+		if (amount.matches("[1-9]*.?[1-9]*") == false) {
 			this.addActionError("You must enter numbers!");
 			isSuccess = -1;
 			return ERROR;

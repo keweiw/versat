@@ -44,18 +44,22 @@ $(document).ready(function() {
 <!--content feature-->
 <div class="content_right2">
 <form action="" method="post" id="form">
-<div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
-</div>
+	<div class="mail_tab_nav">
+		<div class="straight_line_nav"><div class="new_user_title">Fund List</div></div>
+	</div>
 
 <!-- Alert -->
 <s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
+<<<<<<< HEAD
  <div class="add_user"><a href="/versat/employee/fund/create"><button> + Create New Fund</button></a></div>
+=======
+
+>>>>>>> refs/remotes/choose_remote_name/master
 <!-- Search -->
 <div class="list_search clearfix">
-  <div class="new_user_title">All Funds</div>
+  
   <div class="search">
     <a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a>
   </div>

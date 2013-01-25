@@ -42,7 +42,7 @@ $(document).ready(function() {
       // Create and draw the visualization.
       visualization = new google.visualization.ColumnChart(document.getElementById('chart'));
       visualization.draw(data, {'allowHtml': true,
-                                title: "Fund Statics",
+                                title: "Fund Name",
                                 width: 800, height:250,
                                 hAxis: {title:"Date"}});
       }
@@ -70,15 +70,16 @@ $(document).ready(function() {
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post">
-<div class="mail_tab_nav"><div class="straight_line_nav"></div></div>
+	<div class="mail_tab_nav">
+		<div class="straight_line_nav"><div class="new_user_title">Fund Statistics</div></div>
+	</div>
 <!--Alert start-->
 <!-- div class="success_area">Success!</div>
 <div class="warning">Error!</div>
 <!--Alert end-->
 
-<!--Withdraw start-->
 <div class="new_user">
-<div class="new_user_title" id="chart">Fund Statictics</div>
+<div class="new_user_title" id="chart">Fund Statistics</div>
 
 <!--Google Chart start-->
 

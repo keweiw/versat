@@ -101,13 +101,11 @@
 	 <tbody>
 	 <s:iterator value="users" id="user">
 		<tr>
-			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">${user.username}</a></td>
+			<td>${user.username}</td>
 			<td>${user.firstname}</td>
 			<td>${user.lastname}</td>
 			<td>${user.cashesString}</td>
-			<td><a href="/versat/employee/fund/customerfund?userId=${user.id}">Owned Fund</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/accountdeposit?userId=${user.id}">Deposit Check</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}">Transaction History</a></td>
+			<td id="link"><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">View Account</a></td>
 		</tr>
 	</s:iterator>
 	
