@@ -63,5 +63,12 @@ public class TransactionDao extends BaseDao<Transaction> {
 		super.update(transaction);
 
 	}
+
+	public ArrayList<Transaction> getTransByStatus() throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion2 = Restrictions.eq("status", Transaction.TRANS_STATUS_PENDING);
+		criterions.add(criterion2);
+		return (ArrayList<Transaction>) super.getList(0, 0, "id", true, criterions);	
+	}
 	
 }

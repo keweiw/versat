@@ -10,7 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Sysuser;
 import com.pojo.Transaction;
 
-public class CustomerWelcome extends ActionSupport {
+public class CustomerWelcomeAction extends ActionSupport {
 
 	private String oldPassword;
 	private String newPassword;
@@ -81,7 +81,7 @@ public class CustomerWelcome extends ActionSupport {
 				this.isSuccess = -1;
 				return ERROR;
 			} else if(!newPassword.equals(confirmPassword)){
-				this.addActionError("Confirm password is not same as new password!");
+				this.addActionError("Confirm password is not the same as new password!");
 				this.isSuccess = -1;
 				return ERROR;
 			}

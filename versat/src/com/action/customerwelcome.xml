@@ -6,15 +6,15 @@
 <struts>
     <package name="customer-welcome-action" namespace="/customer" extends="versat">
     
-        <action name="welcome" class="com.action.CustomerWelcome" method="welcome">
+        <action name="welcome" class="com.action.CustomerWelcomeAction" method="welcome">
             <result>/pages/customerwelcome.jsp</result>
         </action>
         
-        <action name="changepassword" class="com.action.CustomerWelcome" method="changePassword">
+        <action name="changepassword" class="com.action.CustomerWelcomeAction" method="changePassword">
             <result>/pages/customer_changepwd.jsp</result>
         </action>
         
-        <action name="changesubmit" class="com.action.CustomerWelcome" method="submit">
+        <action name="changesubmit" class="com.action.CustomerWelcomeAction" method="submit">
             <result name="error">/pages/customer_changepwd.jsp</result>
             <result name="success" type="redirect">/customer/welcome?isSuccess=1</result>
         </action>
