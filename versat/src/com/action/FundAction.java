@@ -31,10 +31,21 @@ public class FundAction extends ActionSupport {
 	private int isSuccess = 0;
 	private double inputShares;
 	private String amount;
+	private String inputShareString;
+
+
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 
 	// --getters and setters to be here--//
+	public String getInputShareString() {
+		return inputShareString;
+	}
+
+	public void setInputShareString(String inputShareString) {
+		this.inputShareString = inputShareString;
+	}
+	
 	public double getShareValue() {
 		return shareValue;
 	}
@@ -157,7 +168,6 @@ public class FundAction extends ActionSupport {
 		try {
 			funds = FundDao.getInstance().getAllList();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return SUCCESS;
@@ -173,29 +183,30 @@ public class FundAction extends ActionSupport {
 		int userId = user.getId();
 		try {
 			positions = PositionDao.getInstance().getPositionByCostomerId(
-					userId);	
-			for(Position p:positions){
-				int fId=p.getFund().getId();
-				System.out.println("*********id="+fId);
-				FundPriceHistory fph = FundPriceHistoryDao.getInstance().getLatestFundHistoryById(fId);
+					userId);
+			for (Position p : positions) {
+				int fId = p.getFund().getId();
+				// System.out.println("*********id="+fId);
+				FundPriceHistory fph = FundPriceHistoryDao.getInstance()
+						.getLatestFundHistoryById(fId);
 				long price;
 				// -- if no history then set price to zero -- //
-				if(fph!=null)
-					price = FundPriceHistoryDao.getInstance().getLatestFundHistoryById(fId).getPrice();
+				if (fph != null)
+					price = FundPriceHistoryDao.getInstance()
+							.getLatestFundHistoryById(fId).getPrice();
 				else
 					price = 0;
-				
-				double priceInDouble = price/100.0;
-				double shareInDouble = p.getShares()/1000.0;
+
+				double priceInDouble = price / 100.0;
+				double shareInDouble = p.getShares() / 1000.0;
 				double shareValue = priceInDouble * shareInDouble;
 				DecimalFormat dFormat = new DecimalFormat("###,##0.00");
 				DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-				
+
 				p.setLastPriceString(dFormat.format(priceInDouble));
 				p.setShareString(dFormat2.format(shareInDouble));
 				p.setShareValueString(dFormat.format(shareValue));
-				
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,6 +232,45 @@ public class FundAction extends ActionSupport {
 	}
 
 	// --search fund by fund name and user id--//
+	public String searchAllFundByOption() throws Exception {
+		Sysuser user;
+		Map session = ActionContext.getContext().getSession();
+		user = (Sysuser) session.get(LoginAction.SYSUSER);
+
+		if (keyword.equals("") || keyword == null) {
+			funds = FundDao.getInstance().getAllList();
+			this.addActionError("you must enter the search key!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		keyword = keyword.trim();
+		// --if the user choose default--//
+		if (optionC.equals("default")) {
+			funds = FundDao.getInstance().getAllList();
+			return SUCCESS;
+		} else if (optionC.equals("fundName")) {
+			funds = FundDao.getInstance().getByName(keyword);
+			if (funds.size() == 0) {
+				this.addActionError("Can not find this fund!");
+				isSuccess = -1;
+				return ERROR;
+			}
+			isSuccess = 1;
+			return SUCCESS;
+		} else if (optionC.equals("fundSymbol")) {
+			funds = FundDao.getInstance().getBySymbol(keyword);
+			if (funds.size() == 0) {
+				this.addActionError("Can not find this fund!");
+				isSuccess = -1;
+				return ERROR;
+			}
+			isSuccess = 1;
+			return SUCCESS;
+		}
+		return SUCCESS;
+	}
+
+	// --search fund by fund name and user id--//
 	public String searchFundByOption() throws Exception {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
@@ -228,6 +278,8 @@ public class FundAction extends ActionSupport {
 
 		if (keyword.equals("") || keyword == null) {
 			this.addActionError("you must enter the search key!");
+			positions = PositionDao.getInstance().getPositionByCostomerId(
+					user.getId());
 			isSuccess = -1;
 			return ERROR;
 		}
@@ -298,34 +350,26 @@ public class FundAction extends ActionSupport {
 		}
 		// --check if the fund name or symbol is duplicate --//
 		ArrayList<Fund> fs = FundDao.getInstance().getByName(name);
-		if(fs.size()!=0){
+		if (fs.size() != 0) {
 			this.addActionError("The fund name is already exist!");
 			isSuccess = -1;
 			return ERROR;
 		}
 		fs = FundDao.getInstance().getBySymbol(symbol);
-		if(fs.size()!=0){
+		if (fs.size() != 0) {
 			this.addActionError("The fund symbol is already exist!");
 			isSuccess = -1;
 			return ERROR;
 		}
-/*		Fund f1 = new Fund();
-		f1.setName(name);
-		// --check if there is a fund already had the same name--//
-		if (FundDao.getInstance().isExist(f1) == true) {
-			this.addActionError("The fund name already existed");
-			isSuccess = -1;
-			return ERROR;
-		}
-		Fund f2 = new Fund();
-		f2.setSymbol(symbol);
-		//
-		if (FundDao.getInstance().isExist(f2) == true) {
-			this.addActionError("The fund symbol already existed");
-			isSuccess = -1;
-			return ERROR;
-		}
-		*/
+		/*
+		 * Fund f1 = new Fund(); f1.setName(name); // --check if there is a fund
+		 * already had the same name--// if (FundDao.getInstance().isExist(f1)
+		 * == true) { this.addActionError("The fund name already existed");
+		 * isSuccess = -1; return ERROR; } Fund f2 = new Fund();
+		 * f2.setSymbol(symbol); // if (FundDao.getInstance().isExist(f2) ==
+		 * true) { this.addActionError("The fund symbol already existed");
+		 * isSuccess = -1; return ERROR; }
+		 */
 		FundDao.getInstance().createFund(name, symbol);
 		isSuccess = 1;
 		return SUCCESS;
@@ -363,11 +407,11 @@ public class FundAction extends ActionSupport {
 		// --check if the share want to sell is smaller--//
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
-		double currentShares = p.getShares() / 1000.00;
+		//double currentShares = p.getShares() / 1000.00;
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.0;
-		if (inputShares == 0) {
+/*		if (inputShares == 0) {
 			this.addActionError("You must enter one number!");
 			isSuccess = -1;
 			return ERROR;
@@ -378,20 +422,37 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-
+	*/	
+		if(inputShareString.equals("") || inputShareString == null){
+			this.addActionError("You must one number!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if(inputShareString.matches("[1-9]*.[1-9]*")==false){
+			this.addActionError("You must enter numbers!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		// -- share number too big needs to be here --//
+		
+		// -- change string type to double --//
+		inputShares = Double.valueOf(inputShareString);
+		if(inputShares > shares){
+			this.addActionError("You can not over sell!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		
+		
 		// ---transaction here----//
-		/*
-		 * Transaction t = new Transaction();
-		 * 
-		 * // this.addActionError("test here"); // return ERROR;
-		 * 
-		 * //--transaction needs to be filled in--//
-		 * 
-		 * Transaction t = new Transaction(); long s = (long) (shares*1000);
-		 * t.setShares(s); t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		 * t.setTransactionType(Transaction.TRANS_TYPE_SELL);
-		 * TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
-		 */return SUCCESS;
+		
+		 Transaction t = new Transaction(); 
+		 long s = (long) (inputShares*1000);
+		 t.setShares(s);
+		 t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		 t.setTransactionType(Transaction.TRANS_TYPE_SELL);
+		 TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
+		 return SUCCESS;
 
 	}
 
@@ -409,7 +470,7 @@ public class FundAction extends ActionSupport {
 		}
 		name = f.getName();
 		symbol = f.getSymbol();
-
+				   
 		return SUCCESS;
 	}
 
