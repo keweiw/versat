@@ -19,7 +19,6 @@ public class Position implements java.io.Serializable {
 	private String lastPriceString;
 	private String shareValueString;
 	
-
 	public Position() {
 	}
 

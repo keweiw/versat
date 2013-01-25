@@ -15,12 +15,6 @@ $(document).ready(function() {
  $(".btn_sprites").click(function() {
   $(this).blur();
  });
- $("#search").click(
-		    function() {
-		       	$("#form").attr("action","/versat/customer/fund/searchallfund");
-		       	$("#form").submit();
-	});
-         
 });
 </script>
 </head>
@@ -44,7 +38,7 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form action="" method="post" id="form">
+<form action="" method="post">
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"></div>
 </div>
@@ -62,15 +56,10 @@ $(document).ready(function() {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="keyword" type="text" class="list_text_width_normal" value="${keyword}" /></td>
-		<td><select class="list_text_width_normal" name="optionC" >
-			<option value="default"  >Search By:</option>
-			<option value="fundName" >Fund Name</option>
-			<option value="fundSymbol">Fund Symbol</option>
-			</select></td>
-		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
+		<input name="title0" type="text" class="list_text_width_normal" value="fund name" /></td>
+		<td><a href="#" title="search" class="btn_sprites" name="search button"><span>Search</span></a></td>
 	</tr>
-	</table> 
+	</table>	
 </div>
 <!-- Search -->
 

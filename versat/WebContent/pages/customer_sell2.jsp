@@ -45,9 +45,6 @@ $(document).ready(function() {
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
-<div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
-</div>
 
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
@@ -76,7 +73,7 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Number of shares want to sell:</td>
-		<td class="detail_right"><input name="inputShares" type="text" class="list_text_width_normal"/></td>
+		<td class="detail_right"><input name="share" type="text" class="list_text_width_normal"/></td>
 	</tr>
   </tbody>
 </table>

@@ -62,13 +62,8 @@ $(document).ready(function() {
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="keyword" type="text" class="list_text_width_normal" value="${keyword}" /></td>
-		<td><select class="list_text_width_normal" name="optionC" >
-			<option value="default"  >Search By:</option>
-			<option value="fundName" >Fund Name</option>
-			<option value="fundSymbol">Fund Symbol</option>
-			</select></td>
-		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
+		<input name="keyword" type="text" class="list_text_width_normal" value="fund name" /></td>
+		<td><a href="#" title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	
 </div>

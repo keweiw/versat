@@ -18,7 +18,7 @@ $(document).ready(function() {
 	});
 	$("#submit_change").click(
     	function() {
-        	$("#form").attr("action","/versat/customer/fund/buy");
+        	$("#form").attr("action","/versat/customer/fund/sell");
             $("#form").submit();
 	});
 });
@@ -45,14 +45,14 @@ $(document).ready(function() {
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
-<div class="mail_tab_nav">
-	<div class="straight_line_nav">Buy Fund</div>
-</div>
 
 <!--Alert start-->
-<s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
-<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
+<div class="success_area">Success!</div>
+<div class="warning"><s:actionerror /></div>
 <!--Alert end-->
+
+
+
 
 <!--Sell fund start-->
 <div class="new_user">
@@ -75,7 +75,7 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>
-		<td class="detail_right"><input name="amount" type="text" class="list_text_width_normal"/></td>
+		<td class="detail_right"><input name="share" type="text" class="list_text_width_normal"/></td>
 	</tr>
   </tbody>
 </table>

@@ -52,8 +52,6 @@
 		<!--content feature-->
 		<div class="content_right2">
 			<form action="" method="post" id="form" name="form">
-			<!-- hidden field -->
-			<input type="hidden" name="userId" value=${userId} />
 				<div class="mail_tab_nav">
 					<div class="straight_line_nav"></div>
 				</div>
