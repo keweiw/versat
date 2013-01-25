@@ -302,7 +302,7 @@ public class TransitionDay {
 				Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
 				if (p.getShares() >= tran.getShares()) {
 					long money = tran.getShares() / 10 * tran.getFundPriceHistory().getPrice();
-					user.setCashes(user.getCash() + money);
+					user.setCash(user.getCash() + money);
 					tran.setAmount(money);
 					if (p.getShares() == tran.getShares()) {
 						operation = TransitionDao.OPERATION_DELETE;
@@ -320,8 +320,25 @@ public class TransitionDay {
 				}
 				break;
 			case Transaction.TRANS_TYPE_DEPOSIT:
+				user.setCash(user.getCash() + tran.getAmount());
+				tran.setStatus(Transaction.TRANS_STATUS_FINISH);
+				if (!TransitionDao.getInstance().withDrawAndDepsit(user, tran)) {
+					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+					TransactionDao.getInstance().update(tran);
+				}
 				break;
 			case Transaction.TRANS_TYPE_WITHDRAW:
+				if (user.getCash() >= tran.getAmount()) {
+					user.setCash(user.getCash() - tran.getAmount());
+					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
+					if (!TransitionDao.getInstance().withDrawAndDepsit(user, tran)) {
+						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+						TransactionDao.getInstance().update(tran);
+					}
+				} else {
+					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+					TransactionDao.getInstance().update(tran);
+				}
 				break;
 			}
 			
