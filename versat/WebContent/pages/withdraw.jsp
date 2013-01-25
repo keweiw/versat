@@ -62,7 +62,7 @@ $(document).ready(
 <!--Alert end-->
 <!--start-->
 <div class="new_user">
-<div class="new_user_title">Request Check ${isSuccess}</div>
+<div class="new_user_title">Request Check </div>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
 <tbody>
   	<tr>
