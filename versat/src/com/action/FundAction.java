@@ -476,12 +476,14 @@ public class FundAction extends ActionSupport {
 				user.getId(), fundId);
 		Fund f = FundDao.getInstance().getById(fundId);
 		if (p == null) {
-			shares = 0 / 100.0;
+			shares = 0 / 1000.0;
 		} else {
-			shares = p.getShares() / 100.0;
+			shares = p.getShares() / 1000.0;
 		}
 		name = f.getName();
 		symbol = f.getSymbol();
+		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+		outputShareString = dFormat2.format(shares);
 				   
 		return SUCCESS;
 	}

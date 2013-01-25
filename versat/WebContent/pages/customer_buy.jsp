@@ -71,7 +71,7 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Shares owned:</td>
-		<td class="detail_right">${shares}</td>
+		<td class="detail_right">${outputShareString}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>

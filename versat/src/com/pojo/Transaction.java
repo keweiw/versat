@@ -34,7 +34,7 @@ public class Transaction implements java.io.Serializable {
 	private String sharesString;
 	private String amountString;
 	DecimalFormat dFormat1 = new DecimalFormat("###,##0.000");
-	DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+	DecimalFormat dFormat2 = new DecimalFormat("###,##0.00");
 	SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
 
 	public Transaction() {
@@ -152,7 +152,7 @@ public class Transaction implements java.io.Serializable {
 	public void setAmount(Long amount) {
 		this.amount = amount;
 		this.doubleamount = this.amount / 100.00;
-		this.setSharesString(dFormat2.format(doubleamount));
+		this.amountString = dFormat2.format(doubleamount);
 	}
 
 	public double getDoubleshares() {

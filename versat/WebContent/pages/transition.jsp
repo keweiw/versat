@@ -86,7 +86,7 @@ $(document).ready(function() {
 	 </tbody>
 	</table>
 	<div class="submit_button">
-		<input class="btn_sprites" type="submit" name="password">
+		<input class="btn_sprites" type="submit" name="password" value="Submit">
 	</div>					
 </div>
 </div>

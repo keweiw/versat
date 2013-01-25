@@ -96,7 +96,7 @@ $(document).ready(function() {
   </tr>
   <tr>
     <td class="detail_left">Deposit Amount:</td>
-    <td class="detail_right"><input name="amount" type="text" value=${amount} class="list_text_width_normal"/></td>
+    <td class="detail_right"><input name="amount" type="text"  class="list_text_width_normal" value=${amount}/></td>
   </tr>
   </tbody>
 </table>
