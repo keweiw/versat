@@ -52,11 +52,7 @@ $(document).ready(function() {
 <s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
-<<<<<<< HEAD
- <div class="add_user"><a href="/versat/employee/fund/create"><button> + Create New Fund</button></a></div>
-=======
-
->>>>>>> refs/remotes/choose_remote_name/master
+ 
 <!-- Search -->
 <div class="list_search clearfix">
   

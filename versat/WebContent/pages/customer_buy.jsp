@@ -53,10 +53,6 @@ $(document).ready(function() {
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/choose_remote_name/master
 <!--Sell fund start-->
 <div class="new_user">
 

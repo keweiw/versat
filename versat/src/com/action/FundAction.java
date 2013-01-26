@@ -438,11 +438,11 @@ public class FundAction extends ActionSupport {
 		}
 	*/	
 		if(inputShareString.equals("") || inputShareString == null){
-			this.addActionError("You must one number!");
+			this.addActionError("You must enter shares!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		if(inputShareString.matches("[1-9]*.[1-9]*")==false){
+		if(inputShareString.matches("[1-9]+.?[1-9]*")==false){
 			this.addActionError("You must enter numbers!");
 			isSuccess = -1;
 			return ERROR;
