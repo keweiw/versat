@@ -37,7 +37,7 @@
 		<!--header help-->
 		<div class="header_help">
 			<div class="header_bz">
-				<a href="versat/logout">Log out</a>
+				<a href="/versat/logout">Log out</a>
 			</div>
 			<div class="header_image">
 				<img src="../../images/back.gif" title="" />
