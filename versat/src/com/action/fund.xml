@@ -48,7 +48,7 @@
     	</action>
     	<action name="sell" class="com.action.FundAction" method="sell">
     		<result name="error">/pages/customer_sell2.jsp</result>
-    		<result name="success" type="redirect">/customer/fund/listownedfund?isSuccess=1</result>
+    		<result name="success">/pages/customer_sell.jsp</result>
     	</action>
     	<action name="searchownedfund" class="com.action.FundAction" method="searchFundByOption">
     		<result name="error">/pages/customer_sell.jsp</result>

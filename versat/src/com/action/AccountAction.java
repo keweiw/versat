@@ -15,6 +15,7 @@ public class AccountAction extends ActionSupport {
 	private ArrayList<Sysuser> users;
 	public Sysuser user;
 	public double cash;
+	private String cashString;
 	private int isSuccess = 0;
 	public String optionC="";
 	public String searchKeyC;
@@ -123,12 +124,28 @@ public class AccountAction extends ActionSupport {
 				user.getUsername().trim();
 				user.getFirstname().trim();
 				user.getLastname().trim();
+				cashString.trim();
+				if(user.getUsername().length() > 18 ){
+					this.addActionError("Username can't be more than 18 characters");
+					isSuccess = -1;
+					return ERROR;
+				}
+				if(user.getFirstname().length() > 18){
+					this.addActionError("Firstname can't be more than 18 characters");
+					isSuccess = -1;
+					return ERROR;
+				}
+				if(user.getLastname().length() >18 ){
+					this.addActionError("Lastname can't be more than 18 characters");
+					isSuccess = -1;
+					return ERROR;
+				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("")){
-					if (checkCashFormat(this.user)){
+					if (!checkCashFormat(cashString)){
 						this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
 						isSuccess = -1;
 						return ERROR;
-					}
+					}else cash = Double.parseDouble(cashString);
 					if (checkRequired(this.user)) {
 						this.addActionError("This username has already exist!");
 						isSuccess = -1;
@@ -174,6 +191,21 @@ public class AccountAction extends ActionSupport {
 				user.getUsername().trim();
 				user.getFirstname().trim();
 				user.getLastname().trim();
+				if(user.getUsername().length() > 18 ){
+					this.addActionError("Username can't be more than 18 characters");
+					isSuccess = -1;
+					return ERROR;
+				}
+				if(user.getFirstname().length() > 18){
+					this.addActionError("Firstname can't be more than 18 characters");
+					isSuccess = -1;
+					return ERROR;
+				}
+				if(user.getLastname().length() >18 ){
+					this.addActionError("Lastname can't be more than 18 characters");
+					isSuccess = -1;
+					return ERROR;
+				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("")){
 					if (checkRequired(this.user)) {
 						this.addActionError("This username has already exist!");
@@ -219,9 +251,27 @@ public class AccountAction extends ActionSupport {
 		if(finduser != null) return true;
 		else return false;
 	}
-	private boolean checkCashFormat(Sysuser u){
-	
-			return false;
+	private boolean checkCashFormat(String cashString){
+			int i, flag = 0, loopTime = 0;
+			for(i = 0; i < cashString.length(); i ++){
+				int asc = cashString.charAt(i);
+				if(i == 0){
+					if(asc < 48 || asc > 57) return false;
+				}
+				if((asc < 48 || asc > 57) && asc != 46) return false;
+				if(asc == 46){
+					flag = 1;
+					break;
+				}
+			}
+			for(i ++; i < cashString.length() && flag == 1; ){
+				int asc = cashString.charAt(i);
+				if(asc < 48 || asc > 57) return false;
+				i++;
+				loopTime ++;
+			}
+			if(loopTime > 2) return false;
+			return true;
 	}
 	
 	public String viewAccount(){			//just take out a user Instance by ID
@@ -298,5 +348,11 @@ public class AccountAction extends ActionSupport {
 
 	public void setSearchKeyC(String searchKeyC) {
 		this.searchKeyC = searchKeyC;
+	}
+	public String getCashString() {
+		return cashString;
+	}
+	public void setCashString(String cashString) {
+		this.cashString = cashString;
 	}
 }

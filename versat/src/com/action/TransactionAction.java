@@ -73,7 +73,7 @@ public class TransactionAction extends ActionSupport {
 		this.isSuccess = isSuccess;
 	}
 
-	
+
 
 	public Integer getUserId() {
 		return userId;
@@ -92,7 +92,8 @@ public class TransactionAction extends ActionSupport {
 	}
 
 	public String list() {
-		userId = this.getUserId();
+	//	Map session = ActionContext.getContext().getSession();
+	//	userId = this.getUserId();
 
 		if (userId == null || transactionType == null) {
 			userId = 0;
@@ -131,30 +132,11 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String showDeposit() {
-
-		Map session = ActionContext.getContext().getSession();
-		try {
-			if (userId == null) {
-				userId = 0;
-			} else {
-				Sysuser user = SysuserDao.getInstance().getByUserId(userId);
-			}
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return SUCCESS;
-
-	}
-
 	public String showWithdraw() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);	
 		this.user = user;
-		
+
 		isSuccess = 0;
 		return SUCCESS;
 
@@ -173,20 +155,20 @@ public class TransactionAction extends ActionSupport {
 			e1.printStackTrace();
 		}
 		if(user!=null) {
-			if(amount==0){
-				this.addActionError("Request amount can not be zero!");
+			if(amount == null||amount == 0){
+				this.addActionError("Request amount can not be empty or zero!");
 				this.isSuccess = -1;
 				return ERROR;
-			} else if(amount>user.getCash()){
+			} else if(amount > user.getCashes()){
 				this.addActionError("Request amount can not larger than cash balance!");
 				this.isSuccess = -1;
 				return ERROR;
 			} else {
 				Transaction t = new Transaction();
 				long a = (long)(amount * 100);
-				Date date = new Date();			
+				//Date date = new Date();			
 				t.setAmount(a);
-				t.setExecuteDate(date);
+				//t.setExecuteDate(date);
 				t.setStatus(Transaction.TRANS_STATUS_PENDING);
 				t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);
 				try {
@@ -197,9 +179,9 @@ public class TransactionAction extends ActionSupport {
 				}
 				this.isSuccess = 1;
 				return SUCCESS;
-				
+
 			}
-			
+
 		}
 		this.addActionError("error!");
 		this.isSuccess = -1;
@@ -207,47 +189,76 @@ public class TransactionAction extends ActionSupport {
 
 	}
 
-	public String deposit() {
+	public String showDeposit() {
 	//	Map session = ActionContext.getContext().getSession();
-	//	try {
-		//	if (userId == null) {
-		//		userId = 0;
-		//	} else {
-			//	Sysuser user = SysuserDao.getInstance().getByUserId(userId);
-		//	}
-	//	} catch (Exception e) {
-			// TODO Auto-generated catch block
-	//		e.printStackTrace();
-	//	}
-
-		Transaction t = new Transaction();
-
-		long a = (long) (amount * 100);
-		t.setAmount(a);
-		t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
-		TransitionDay.getInstance().newTransaction(user.getId(), t);
-
-		return SUCCESS;
-	}
-
-	public String showDepositByUserId() {
 		if (userId == null) {
 			userId = 0;
 		} else {
 			try {
 				this.user = SysuserDao.getInstance().getByUserId(userId);
-				amount = this.getAmount();
-				this.deposit();
 			} catch (Exception e) {
-				
+
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		isSuccess = 0;
 		return SUCCESS;
-		
+
 	}
-	
+
+
+	public String deposit() {
+	//	Map session = ActionContext.getContext().getSession();	
+		isSuccess = 0;
+
+		try {
+			if (userId == null) {
+				userId = 0;
+				isSuccess = -1;
+				return ERROR;
+			}else {
+				user = SysuserDao.getInstance().getByUserId(userId);
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if(user!=null) {
+			if(amount==null||amount==0){
+				this.addActionError("Request amount can not be empty or zero!");
+				this.isSuccess = -1;
+				return ERROR;
+			} else if(amount < 0){
+				this.addActionError("Amount can not smaller than zero!");
+				this.isSuccess = -1;
+				return ERROR;
+			} else {
+				Transaction t = new Transaction();
+				long a = (long)(amount * 100);
+				//Date date = new Date();			
+				t.setAmount(a);
+				//t.setExecuteDate(date);
+				t.setStatus(Transaction.TRANS_STATUS_PENDING);
+				t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
+				try {
+					TransitionDay.getInstance().newTransaction(user.getId(), t);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.isSuccess = 1;
+				return SUCCESS;
+
+			}
+
+		}
+		this.addActionError("error!");
+		this.isSuccess = -1;
+		return ERROR;
+	}
+
+
 
 }

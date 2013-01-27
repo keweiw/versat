@@ -66,18 +66,18 @@ $(document).ready(
 <tbody>
   	<tr>
 		<td class="detail_left">Cash Balance:</td>
-		<td class="detail_right">${user.cashesString}</td>
+		<td class="detail_right">$${user.cashesString}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Request Check Amount:</td>
-		<td class="detail_right"><input name="amount" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
+		<td class="detail_right">$ <input name="amount" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
 		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amount}  ></td>
-		 
+
 	</tr>
 </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw" id= submit_change><span>Send Request</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw" id= "submit_change"><span>Send Request</span></a></div>					
 </div>
 </div>
 <!--Withdraw end-->	

@@ -452,7 +452,9 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
+
 		return SUCCESS;
+
 	}
 
 	public static synchronized boolean checkAndSell(int fId, int uId,
@@ -571,6 +573,14 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 
+		// newAmount*=100;
+		// long a = (long)(newAmount*100);
+		// ---transaction here----//
+		/*
+		 * t.setAmount(a); t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		 * t.setTransactionType(Transaction.TRANS_TYPE_BUY);
+		 * TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
+		 */
 		return SUCCESS;
 	}
 
