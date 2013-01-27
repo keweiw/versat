@@ -49,7 +49,7 @@ q:before { content:'';}
 acronym { border: 0;}
 abbr { border: 0;}
 
-.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;} /* 这是对Firefox进行的处理，因为Firefox支持生成元素，而IE所有版本都不支持生成元素.  :after 伪元素在元素内容之后插入内容。 */
+.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;}
 /*.clearfix {display: inline-block;}*/
 * html .clearfix {height: 1%;} 
 
