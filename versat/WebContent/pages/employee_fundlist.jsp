@@ -52,6 +52,7 @@ $(document).ready(function() {
 <s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
+<div class="add_user"><a href="/versat/employee/fund/create"><button> + Create New Fund</button></a></div>
 <!-- Search -->
 <div class="list_search clearfix">
   <div class="new_user_title">All Funds</div>
@@ -110,8 +111,6 @@ $(document).ready(function() {
    <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu_44 font14b" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
-   <div class="content_menubd"></div>
-   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>

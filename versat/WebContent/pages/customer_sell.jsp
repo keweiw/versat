@@ -45,6 +45,9 @@ $(document).ready(function() {
 <!--content features-->
 <div class="content_right2">
 <form action="" method="post" id="form">
+<div class="mail_tab_nav">
+	<div class="straight_line_nav"><div class="new_user_title">My Fund</div></div>
+</div>
 
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
@@ -54,7 +57,6 @@ $(document).ready(function() {
 
 <!-- Search -->
 <div class="list_search clearfix">
-  <div class="new_user_title">Funds Owned</div>
   <div class="search">
     <a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a>
   </div>

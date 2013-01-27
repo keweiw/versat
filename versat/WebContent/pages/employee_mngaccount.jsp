@@ -101,13 +101,11 @@
 	 <tbody>
 	 <s:iterator value="users" id="user">
 		<tr>
-			<td><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">${user.username}</a></td>
+			<td>${user.username}</td>
 			<td>${user.firstname}</td>
 			<td>${user.lastname}</td>
 			<td>${user.cashesString}</td>
-			<td><a href="/versat/employee/fund/customerfund?userId=${user.id}">Owned Fund</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/accountdeposit?userId=${user.id}">Deposit Check</a>
-				&nbsp;&nbsp;<a href="/versat/employee/trans/list?userId=${user.id}">Transaction History</a></td>
+			<td id="link"><a href="/versat/employee/account/viewcustomeraccount?userId=${user.id}">View Account</a></td>
 		</tr>
 	</s:iterator>
 	
@@ -129,8 +127,6 @@
    <div class="content_menu_55 font14b" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
-   <div class="content_menubd"></div>
-   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
