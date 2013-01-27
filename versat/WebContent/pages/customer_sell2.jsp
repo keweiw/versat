@@ -68,6 +68,10 @@ $(document).ready(function() {
 		<td class="detail_right">${symbol}</td>
 	</tr>
 	<tr>
+		<td class="detail_left">Shares owned:</td>
+		<td class="detail_right">${outputShareString}</td>
+	</tr>
+	<tr>
 		<td class="detail_left">Shares available:</td>
 		<td class="detail_right">${outputShareString}</td>
 	</tr>

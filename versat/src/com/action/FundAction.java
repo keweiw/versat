@@ -416,7 +416,6 @@ public class FundAction extends ActionSupport {
 	public String sell() throws Exception {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-		// --check if the share want to sell is smaller--//
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
 		//double currentShares = p.getShares() / 1000.00;
@@ -425,29 +424,23 @@ public class FundAction extends ActionSupport {
 		shares = p.getShares() / 1000.0;
 		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
 		outputShareString = dFormat2.format(shares);
-/*		if (inputShares == 0) {
-			this.addActionError("You must enter one number!");
-			isSuccess = -1;
-			return ERROR;
-		}
-		if (inputShares > currentShares) {
 
-			this.addActionError("Can not over sell!");
-			isSuccess = -1;
-			return ERROR;
-		}
-	*/	
 		if(inputShareString.equals("") || inputShareString == null){
 			this.addActionError("You must enter shares!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		if(inputShareString.matches("[1-9]+.?[1-9]*")==false){
+		inputShareString=inputShareString.trim();
+		if(inputShareString.matches("^[0-9]+([.][0-9]+)?$")==false){
 			this.addActionError("You must enter numbers!");
 			isSuccess = -1;
 			return ERROR;
 		}
 		// -- share number too big needs to be here --//
+		//
+		//
+		//
+		//
 		
 		// -- change string type to double --//
 		inputShares = Double.valueOf(inputShareString);
@@ -498,29 +491,33 @@ public class FundAction extends ActionSupport {
 		name = f.getName();
 		symbol = f.getSymbol();
 		if (p == null) {
-			shares = 0 / 100.0;
+			shares = 0 / 1000.0;
+			outputShareString = "-";
 		} else {
-			shares = p.getShares() / 100.0;
+			shares = p.getShares() / 1000.0;
+			DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
+			outputShareString = dFormat2.format(shares);
 		}
+		// -- error check here-- //
 		if (amount.equals("") || amount == null) {
 			this.addActionError("You must enter amount!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (amount.matches("[1-9]*.?[1-9]*") == false) {
-			this.addActionError("You must enter numbers!");
+		if (amount.matches("^[0-9]+([.][0-9]+)?$") == false) {
+			this.addActionError("You must enter numbers and it can not be negtive.");
 			isSuccess = -1;
 			return ERROR;
 		}
-		if(Long.valueOf(amount)<0){
-			this.addActionError("You must enter positive numbers!");
-			isSuccess = -1;
-			return ERROR;
-		}
-
-		t.setAmount(Long.valueOf(amount));
+		//--can not buy too much check here --//
+		Double newAmount = Double.valueOf(amount);
+		newAmount*=100;
+		long a = (long)(newAmount*100);
+		
+		// ---transaction here----//
+		t.setAmount(a);
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		t.setTransactionType(Transaction.TRANS_TYPE_SELL);
+		t.setTransactionType(Transaction.TRANS_TYPE_BUY);
 		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
 
 		return SUCCESS;

@@ -18,7 +18,7 @@ $(document).ready(function() {
 	});
 	$("#submit_change").click(
     	function() {
-        	$("#form").attr("action","/versat/customer/fund/sell");
+        	$("#form").attr("action","/versat/customer/fund/buy");
             $("#form").submit();
 	});
 });
@@ -70,6 +70,10 @@ $(document).ready(function() {
 	<tr>
 		<td class="detail_left">Shares owned:</td>
 		<td class="detail_right">${outputShareString}</td>
+	</tr>
+	<tr>
+		<td class="detail_left">Balance available:</td>
+		<td class="detail_right">balance to be added here</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>
