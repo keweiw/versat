@@ -57,7 +57,7 @@ $(document).ready(function() {
   <tbody>
     <tr>
     <td class="detail_left">*Username:</td>
-    <td class="detail_right"><input name="user.username"  value="${user.username}" class="list_text_width_normal" /></td>
+    <td class="detail_right"><input name="user.username" type="text"  value="${user.username}" class="list_text_width_normal" /></td>
   </tr>
   <tr>
     <td class="detail_left">*First Name:</td>

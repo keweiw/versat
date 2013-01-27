@@ -120,11 +120,12 @@ public class AccountAction extends ActionSupport {
 	public String createCustomer() {
 		isSuccess = 0;
 		if(user != null){	
-			if (user.getUsername() != null && user.getFirstname() != null && user.getLastname() != null) {
+			if (user.getUsername() != null && user.getFirstname() != null && user.getLastname() != null && cashString != null) {
 				user.getUsername().trim();
 				user.getFirstname().trim();
 				user.getLastname().trim();
 				cashString.trim();
+				if(cashString.equals("")) cashString = "0";
 				if(user.getUsername().length() > 18 ){
 					this.addActionError("Username can't be more than 18 characters");
 					isSuccess = -1;
