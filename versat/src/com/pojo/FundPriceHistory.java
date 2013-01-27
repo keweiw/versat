@@ -53,7 +53,10 @@ public class FundPriceHistory implements java.io.Serializable {
 		this.priceDate = priceDate;
 	}
 
-	public Long getPrice() {
+	public long getPrice() {
+		if (this.price == null) {
+			return 0;
+		}
 		return this.price;
 	}
 

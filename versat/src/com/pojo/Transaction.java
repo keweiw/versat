@@ -43,7 +43,8 @@ public class Transaction implements java.io.Serializable {
 	}
 
 	public Transaction(Sysuser sysuser, FundPriceHistory fundPriceHistory,
-			Date executeDate, Long shares, Long amount, Integer transactionType, Integer status) {
+			Date executeDate, Long shares, Long amount,
+			Integer transactionType, Integer status) {
 		this.sysuser = sysuser;
 		this.fundPriceHistory = fundPriceHistory;
 		this.executeDate = executeDate;
@@ -58,12 +59,10 @@ public class Transaction implements java.io.Serializable {
 			this.unitPrice = fundPriceHistory.getPrice() / 100.0;
 		}
 
-
-
-
 	}
 
-	public Transaction(Sysuser sysuser,Date executeDate, Long amount, Integer transactionType, Integer status) {
+	public Transaction(Sysuser sysuser, Date executeDate, Long amount,
+			Integer transactionType, Integer status) {
 		this.sysuser = sysuser;
 		this.executeDate = executeDate;
 		this.amount = amount;
@@ -72,15 +71,16 @@ public class Transaction implements java.io.Serializable {
 		this.setDoubleamount(this.amount / 100.00);
 
 	}
+
 	public String getFundName() {
 		return fundName;
 	}
 
 	public void setFundName(String fundName) {
 		this.fundName = fundName;
-	//	if(fundName==null||fundName==""){
-	//		this.setFundNameString("-");
-	//	}
+		// if(fundName==null||fundName==""){
+		// this.setFundNameString("-");
+		// }
 	}
 
 	public double getUnitPrice() {
@@ -90,11 +90,11 @@ public class Transaction implements java.io.Serializable {
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 
-	//	if(unitPrice!=0){
-	//		this.setUnitPriceString(dFormat2.format(unitPrice));
-	//	} else {
-	//		this.setUnitPriceString("-");
-	//	}
+		// if(unitPrice!=0){
+		// this.setUnitPriceString(dFormat2.format(unitPrice));
+		// } else {
+		// this.setUnitPriceString("-");
+		// }
 	}
 
 	public Integer getId() {
@@ -124,13 +124,13 @@ public class Transaction implements java.io.Serializable {
 			this.unitPrice = fundPriceHistory.getPrice() / 100.0;
 		}
 
-		if(fundName==null){
+		if (fundName == null) {
 			this.setFundNameString("-");
-		} else{
+		} else {
 			this.setFundNameString(fundName);
 		}
 
-		if(unitPrice==null||unitPrice==0){
+		if (unitPrice == null || unitPrice == 0) {
 			this.setUnitPriceString("-");
 		} else {
 			this.setUnitPriceString(dFormat2.format(unitPrice));
@@ -143,9 +143,9 @@ public class Transaction implements java.io.Serializable {
 
 	public void setExecuteDate(Date executeDate) {
 		this.executeDate = executeDate;
-		if(executeDate!=null){
+		if (executeDate != null) {
 			this.setStringDate(df.format(executeDate));
-		}else {
+		} else {
 			this.setStringDate("-");
 		}
 
@@ -157,10 +157,10 @@ public class Transaction implements java.io.Serializable {
 
 	public void setShares(Long shares) {
 		this.shares = shares;
-		if(shares!=null&&shares!=0){
+		if (shares != null && shares != 0) {
 			this.doubleshares = this.shares / 1000.00;
 			this.setSharesString(dFormat1.format(doubleshares));
-		}else {
+		} else {
 			this.setSharesString("-");
 		}
 
@@ -188,10 +188,10 @@ public class Transaction implements java.io.Serializable {
 
 	public void setAmount(Long amount) {
 		this.amount = amount;
-		if(amount!=null){
+		if (amount != null) {
 			this.doubleamount = this.amount / 100.00;
 			this.amountString = dFormat2.format(doubleamount);
-		}else{
+		} else {
 			this.setAmountString("-");
 		}
 
