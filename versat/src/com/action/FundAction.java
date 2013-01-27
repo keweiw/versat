@@ -446,8 +446,9 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-
-		if (checkAndSell(fundId, user.getId(), Long.valueOf(inputShareString)) == false) {
+		double ds = Double.valueOf(inputShareString);
+		long ls= (long)(ds*1000);
+		if (checkAndSell(fundId, user.getId(), ls) == false) {
 			this.addActionError("You can not over sell!");
 			isSuccess = -1;
 			return ERROR;
@@ -570,8 +571,9 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
+		long la = (long) (newAmount*100);
 
-		if (checkAndBuy(fundId, userId, Long.valueOf(amount)) == false) {
+		if (checkAndBuy(fundId, userId, la) == false) {
 			this.addActionError("You do not have enough balance.");
 			isSuccess = -1;
 			return ERROR;
@@ -585,6 +587,7 @@ public class FundAction extends ActionSupport {
 		 * t.setTransactionType(Transaction.TRANS_TYPE_BUY);
 		 * TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
 		 */
+		isSuccess = 1;
 		return SUCCESS;
 	}
 
