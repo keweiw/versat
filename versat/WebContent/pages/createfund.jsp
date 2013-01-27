@@ -72,7 +72,7 @@ $(document).ready(function() {
 	<tr>
 		<td class="detail_left">Fund Symbol:</td>
 		<td class="detail_right">
-			<input name="symbol" type="text" class="list_text_width_normal" tabindex="2" value="${symbol}"/> 
+			<input name="symbol" maxlength="5" type="text" class="list_text_width_normal" tabindex="2" value="${symbol}"/> 
 		</td>
 	</tr>
   </tbody>
@@ -94,8 +94,6 @@ $(document).ready(function() {
    <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu_44 font14b" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
-   <div class="content_menubd"></div>
-   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
