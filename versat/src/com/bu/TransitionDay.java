@@ -154,7 +154,7 @@ public class TransitionDay {
 				}
 				inTransition = false;
 				TransitionProcessing tp = new TransitionProcessing(date, trans);
-				tp.run();
+				tp.start();
 				// NEED to add thread to handle the all transactions;
 				return SUCCESS;
 			} else {
