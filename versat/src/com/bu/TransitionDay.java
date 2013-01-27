@@ -62,17 +62,16 @@ public class TransitionDay {
 	}
 
 	public ArrayList<Fund> getFundList() {
-		FundPriceHistory fph = null;
 		try {
-			fph = FundPriceHistoryDao.getInstance().getLastDay();
-			if (fph != null) {
-				Date d = fph.getPriceDate();
+			Date d = FundPriceHistoryDao.getInstance().getLastDay();
+			if (d != null) {
 				ArrayList<FundPriceHistory> fundList = FundPriceHistoryDao
 						.getInstance().getListByDate(d);
 				ArrayList<Fund> funds = new ArrayList<Fund>();
 				for (FundPriceHistory f : fundList) {
-					f.getFund().setLastDay(f.getPrice() / 100.0);
-					funds.add(f.getFund());
+					Fund test = f.getFund();
+					test.setLastDay(f.getPrice() / 100.0);
+					funds.add(test);
 				}
 				return funds;
 			} else {
@@ -164,17 +163,17 @@ public class TransitionDay {
 	}
 
 	public Date getLastTransitionDay() {
-		FundPriceHistory fph = null;
+		Date date = null;
 		try {
-			fph = FundPriceHistoryDao.getInstance().getLastDay();
+			date = FundPriceHistoryDao.getInstance().getLastDay();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Date ret = new Date();
-		if (fph != null) {
-			ret = fph.getPriceDate();
+		
+		if (date != null) {
+			return new Date();
 		}
-		return ret;
+		return date;
 	}
 
 	public int newTransaction(int idUser, int idFund, Transaction transaction) {

@@ -8,10 +8,10 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="fund" class="com.pojo.Fund" fetch="select">
+        <many-to-one name="fund" class="com.pojo.Fund" lazy="false" fetch="select">
             <column name="fund_id" not-null="true" />
         </many-to-one>
-        <property name="priceDate" type="timestamp">
+        <property name="priceDate" type="java.util.Date">
             <column name="price_date" length="19" />
         </property>
         <property name="price" type="java.lang.Long">
