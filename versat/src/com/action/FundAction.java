@@ -214,25 +214,28 @@ public class FundAction extends ActionSupport {
 		try {
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					userId);
+			if(positions.size()==0){
+				return SUCCESS;
+			}
 			for (Position p : positions) {
-				int fId = p.getFund().getId();
-				// System.out.println("*********id="+fId);
+				Integer fId = p.getFund().getId();
 				FundPriceHistory fph = FundPriceHistoryDao.getInstance()
 						.getLatestFundHistoryById(fId);
 				long price;
 				// -- if no history then set price to zero -- //
-				if (fph != null)
-					price = FundPriceHistoryDao.getInstance()
-							.getLatestFundHistoryById(fId).getPrice();
-				else
+				if (fph != null) {
+					if (fph.getPrice() != null)
+						price = FundPriceHistoryDao.getInstance()
+								.getLatestFundHistoryById(fId).getPrice();
+					else
+						price = 0;
+				} else
 					price = 0;
 
 				double priceInDouble = price / 100.0;
 				double shareInDouble = p.getShares() / 1000.0;
 				double shareValue = priceInDouble * shareInDouble;
-				// DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
-				// set these string into position, it would be easier for .jsp
-				// to output the result
+
 				p.setLastPriceString(cashDFormat.format(priceInDouble));
 				p.setShareString(shareDFormat.format(shareInDouble));
 				p.setShareValueString(cashDFormat.format(shareValue));
@@ -447,13 +450,13 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		double ds = Double.valueOf(inputShareString);
-		long ls= (long)(ds*1000);
+		long ls = (long) (ds * 1000);
 		if (checkAndSell(fundId, user.getId(), ls) == false) {
 			this.addActionError("You can not over sell!");
 			isSuccess = -1;
 			return ERROR;
 		}
-
+		isSuccess = 1;
 		return SUCCESS;
 
 	}
@@ -465,7 +468,7 @@ public class FundAction extends ActionSupport {
 				.getPendTransByUserIdFundId(uId, fId);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
 		long avaiShares = p.getShares();
-		if(transactions.size()!=0){
+		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
 				if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
 					avaiShares -= t.getShares();
@@ -491,7 +494,7 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
-		if(transactions.size()!=0){
+		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
 				avaiBalance -= t.getAmount();
 			}
@@ -571,7 +574,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		long la = (long) (newAmount*100);
+		long la = (long) (newAmount * 100);
 
 		if (checkAndBuy(fundId, userId, la) == false) {
 			this.addActionError("You do not have enough balance.");
