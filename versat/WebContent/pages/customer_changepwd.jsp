@@ -38,7 +38,7 @@ $(document).ready(
 <!--header help-->
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="退出" /></div>
+<div class="header_image"><img src="../images/back.gif" title="Log out" /></div>
 <div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
@@ -59,16 +59,16 @@ $(document).ready(
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
-        <td class="detail_left">Old Password:</td>
+        <td class="detail_left">*Old Password:</td>
         <td class="detail_right"><input name="oldPassword" type="password" class="list_text_width_normal" value="${oldPassword}"/></td>
     </tr>
     <tr>
-        <td class="detail_left">New Password：</td>
+        <td class="detail_left">*New Password:</td>
         <td class="detail_right"><input name="newPassword" type="password" class="list_text_width_normal" value="${newPassword}"/></td>
     </tr>
     <tr>
-        <td class="detail_left">Confirm Password：</td>
-        <td class="detail_right"><input name="confirmPassword" type="password" class="list_text_width_normal" value="${confirmPassword}"/></td>
+        <td class="detail_left">*Confirm Password:</td>
+        <td class="detail_right"><input name="confirmPassword" type="password" class="list_text_width_normal" value="${confirmPassword}" /></td>
     </tr>
   </tbody>
 </table>

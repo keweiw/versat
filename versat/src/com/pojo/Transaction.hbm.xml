@@ -14,7 +14,7 @@
         <many-to-one name="fundPriceHistory" class="com.pojo.FundPriceHistory" fetch="select">
             <column name="fund_hostory_id" />
         </many-to-one>
-        <property name="executeDate" type="timestamp">
+        <property name="executeDate" type="java.util.Date">
             <column name="execute_date" length="19" />
         </property>
         <property name="shares" type="java.lang.Long">

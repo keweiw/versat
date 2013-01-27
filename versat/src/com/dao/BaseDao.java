@@ -253,8 +253,8 @@ public abstract class BaseDao<T> {
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
-	protected T getMaxId(List<Criterion> criterions) throws Exception {
-		T t = null;
+	protected Integer getMaxId(List<Criterion> criterions) throws Exception {
+		Integer t = null;
 		Session session = null;
 		try {
 			session = HibernateUtil.getSession();
@@ -265,7 +265,7 @@ public abstract class BaseDao<T> {
 			for (Criterion criterion : criterions) {
 				criteria.add(criterion);
 			}
-			t = (T) criteria.setProjection(Projections.max("id")).uniqueResult();
+			t = (Integer) criteria.setProjection(Projections.max("id")).uniqueResult();
 			session.flush();
 			session.getTransaction().commit();
 

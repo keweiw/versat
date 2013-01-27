@@ -24,22 +24,23 @@ jQuery.fn.extend({
         })
     }
 });
+
 $(document).ready(function() {
-	$(".new_user input[@type=text]").css("color","#c1c1c1");
-	$(".new_user input[@type=password]").css("color","#c1c1c1");
-	$(".new_user input[@type=text]").not("#choose_department").focusInput();
+	$(".new_user input[@type=text]").css("color","#000");
+	$(".new_user input[@type=password]").css("color","#000");
+	//$(".new_user input[@type=text]").not("#choose_department").focusInput();
 	$(".new_user input[@type=text]").not("#choose_department").focus(function(){
 		$(this).css({border:"1px #50b8ff solid",background:"#edf8ff",color:"#000"});
 	});
 	$(".new_user input[@type=password]").not("#choose_department").focus(function(){
 		$(this).css({border:"1px #50b8ff solid",background:"#edf8ff",color:"#000"});
 	});
-	$(".new_user input[@type=text]").not("#choose_department").blur(function(){
-		$(this).css({border:"1px #7f9db9 solid",background:"#fff"});
-		if($(this).val() == $(this).get(0).defaultValue){
-			$(this).css({color:"#c1c1c1"});
-		};
-	});
+	//$(".new_user input[@type=text]").not("#choose_department").blur(function(){
+	//	$(this).css({border:"1px #7f9db9 solid",background:"#fff"});
+	//	if($(this).val() == $(this).get(0).defaultValue){
+	//		$(this).css({color:"#c1c1c1"});
+	//	};
+	//});
 	$(".new_user input[@type=password]").not("#choose_department").blur(function(){
 		$(this).css({border:"1px #7f9db9 solid",background:"#fff"});
 		if($(this).val() == $(this).get(0).defaultValue){

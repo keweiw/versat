@@ -29,7 +29,19 @@ public class FundPriceHistoryDao extends BaseDao<FundPriceHistory>{
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion = Restrictions.eq("fund.id", fundId);
 		criterions.add(criterion);
-		return (FundPriceHistory)super.getMaxId(criterions);
+		Integer id = (Integer) super.getMaxId(criterions);
+		if (id == null) {
+			return null;
+		} else {
+			return getById(id);
+		}
+	}
+	
+	public FundPriceHistory getById(int id) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("id", id);
+		criterions.add(criterion);
+		return (FundPriceHistory)super.get(criterions);
 	}
 	
 	public ArrayList<FundPriceHistory> getListByDate(Date date) throws Exception {
@@ -39,8 +51,8 @@ public class FundPriceHistoryDao extends BaseDao<FundPriceHistory>{
 		return (ArrayList<FundPriceHistory>)super.getList(criterions);
 	}
 	
-	public FundPriceHistory getLastDay() throws Exception {
-		FundPriceHistory t = null;
+	public Date getLastDay() throws Exception {
+		Date t = null;
 		Session session = null;
 		try {
 			session = HibernateUtil.getSession();
@@ -48,7 +60,7 @@ public class FundPriceHistoryDao extends BaseDao<FundPriceHistory>{
 			session.getTransaction().begin();
 
 			Criteria criteria = session.createCriteria(FundPriceHistory.class);
-			t = (FundPriceHistory) criteria.setProjection(Projections.max("priceDate")).uniqueResult();
+			t = (Date) criteria.setProjection(Projections.max("priceDate")).uniqueResult();
 			session.flush();
 			session.getTransaction().commit();
 
