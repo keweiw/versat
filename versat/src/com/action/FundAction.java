@@ -464,7 +464,7 @@ public class FundAction extends ActionSupport {
 				.getPendTransByUserIdFundId(uId, fId);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
 		long avaiShares = p.getShares();
-		if(transactions.size()==0){
+		if(transactions.size()!=0){
 			for (Transaction t : transactions) {
 				if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
 					avaiShares -= t.getShares();
