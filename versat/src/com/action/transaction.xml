@@ -8,22 +8,17 @@
         <action name="list" class="com.action.TransactionAction" method="list">
             <result>/pages/employee-transactionhistory.jsp</result>
         </action>
-        <action name="deposit" class="com.action.TransactionAction" method="showDeposit">
-            <result>/pages/depositcheck.jsp</result>
-        </action>
-         <action name="accountdeposit" class="com.action.TransactionAction" method="showDepositByUserId">
+         <action name="showdeposit" class="com.action.TransactionAction" method="showDeposit">
             <result>/pages/depositcheck2.jsp</result>
+        </action>
+        <action name="deposit" class="com.action.TransactionAction" method="deposit">
+            <result name="error">/pages/depositcheck2.jsp</result>
+            <result name="success">/pages/depositcheck2.jsp</result>
         </action>
     </package>
     <package name="transaction-customer-action" namespace="/customer/trans" extends="versat">
         <action name="list" class="com.action.TransactionAction" method="listSelf">
             <result>/pages/customer-transactionhistory.jsp</result>
-        </action>
-        <action name="tobuy" class="com.action.TransactionAction" method="showBuy">
-            <result>/pages/buyfund.jsp</result>
-        </action>
-        <action name="tosell" class="com.action.TransactionAction" method="showSell">
-            <result>/pages/sellfund.jsp</result>
         </action>
         <action name="showWithdraw" class="com.action.TransactionAction" method="showWithdraw">
             <result>/pages/withdraw.jsp</result> 
