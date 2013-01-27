@@ -141,11 +141,6 @@ public class AccountAction extends ActionSupport {
 					return ERROR;
 				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("")){
-					if(cashString.length() > 18){
-						this.addActionError("The cash can't be too long!");
-						isSuccess = -1;
-						return ERROR;
-					}
 					if (!checkCashFormat(cashString)){
 						this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
 						isSuccess = -1;
