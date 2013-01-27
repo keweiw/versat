@@ -464,9 +464,11 @@ public class FundAction extends ActionSupport {
 				.getPendTransByUserIdFundId(uId, fId);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
 		long avaiShares = p.getShares();
-		for (Transaction t : transactions) {
-			if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
-				avaiShares -= t.getShares();
+		if(transactions.size()==0){
+			for (Transaction t : transactions) {
+				if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
+					avaiShares -= t.getShares();
+				}
 			}
 		}
 		if (avaiShares < shares) {
@@ -488,8 +490,10 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
-		for (Transaction t : transactions) {
-			avaiBalance -= t.getAmount();
+		if(transactions.size()!=0){
+			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
 		}
 		if (avaiBalance < inputAmount) {
 			return false;
