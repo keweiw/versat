@@ -20,19 +20,32 @@
         $("#search").click(
                 function() {
                         $("#form").attr("action", "/versat/employee/account/customerlist");
-                        $("#form").submit();
+                        $("#form").submit();     
         });
         $("#create").click(
                 function() {
                         $("#form").attr("action", "/versat/employee/account/createcustomeraccount");
-                       
+
         });
 	});
+</script>
+<script type="text/javascript">
+	function stopRKey(evt) {
+		var evt = (evt) ? evt : ((event) ? event : null);
+		var node = (evt.target) ? evt.target
+				: ((evt.srcElement) ? evt.srcElement : null);
+		if (evt.keyCode == 13) {
+			return false;
+		}
+	}
+
+	document.onkeypress = stopRKey;
 </script>
 </head>
 
 <body>
 <!--header begin-->
+<form id="form">
 <div class="header_container">
 <h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
 <!--header right-->
@@ -50,7 +63,7 @@
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form id="form">
+
 <div class="mail_tab_nav">
 	<ul class="straight_line_nav">
 		<li><a href="/versat/employee/account/employeelist">Employee</a></li>
@@ -69,6 +82,7 @@
 	<div class="search"><a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Customer Search&nbsp;</span></a></div>
 <div class="add_user"><a href="#" id="create"><button> + Create New Customer</button></a></div>
 </div>
+
 <div class="search_detail clearfix">	
 	<table cellspacing="0" cellpadding="0" class="search_detail_list">
 	<tr>
