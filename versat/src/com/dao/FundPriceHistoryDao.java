@@ -29,7 +29,19 @@ public class FundPriceHistoryDao extends BaseDao<FundPriceHistory>{
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion = Restrictions.eq("fund.id", fundId);
 		criterions.add(criterion);
-		return (FundPriceHistory)super.getMaxId(criterions);
+		Integer id = (Integer) super.getMaxId(criterions);
+		if (id == null) {
+			return null;
+		} else {
+			return getById(id);
+		}
+	}
+	
+	public FundPriceHistory getById(int id) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("id", id);
+		criterions.add(criterion);
+		return (FundPriceHistory)super.get(criterions);
 	}
 	
 	public ArrayList<FundPriceHistory> getListByDate(Date date) throws Exception {
