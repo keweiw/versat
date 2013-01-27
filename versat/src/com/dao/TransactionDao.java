@@ -70,5 +70,25 @@ public class TransactionDao extends BaseDao<Transaction> {
 		criterions.add(criterion2);
 		return (ArrayList<Transaction>) super.getList(0, 0, "id", true, criterions);	
 	}
+	public ArrayList<Transaction> getPendTransByUserIdFundId(int userId, int fundId) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion1 = Restrictions.eq("sysuser.id", userId);
+		Criterion criterion2 = Restrictions.eq("status", Transaction.TRANS_STATUS_PENDING);
+		//--fix here--//
+		Criterion criterion3 = Restrictions.eq("status", Transaction.TRANS_STATUS_PENDING);
+		criterions.add(criterion1);
+		criterions.add(criterion2);
+		return (ArrayList<Transaction>) super.getList(0, 0, "id", true, criterions);	
+	}
+	public ArrayList<Transaction> getPendTransByUserIdOp(int userId, int operation) throws Exception {
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion1 = Restrictions.eq("sysuser.id", userId);
+		Criterion criterion2 = Restrictions.eq("status", Transaction.TRANS_STATUS_PENDING);
+		Criterion criterion3 = Restrictions.eq("transactionType", operation);
+		criterions.add(criterion1);
+		criterions.add(criterion2);
+		criterions.add(criterion3);
+		return (ArrayList<Transaction>) super.getList(0, 0, "id", true, criterions);	
+	}
 	
 }

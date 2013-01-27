@@ -8,6 +8,7 @@ import com.bu.TransitionDay;
 import com.dao.FundDao;
 import com.dao.FundPriceHistoryDao;
 import com.dao.PositionDao;
+import com.dao.TransactionDao;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Fund;
@@ -33,12 +34,32 @@ public class FundAction extends ActionSupport {
 	private String amount;
 	private String inputShareString;
 	private String outputShareString;
-
+	private String outputBalanceString;
+	private String outputAvaiBalanceString;
 
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
 
+	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
+	private DecimalFormat shareDFormat = new DecimalFormat("###,##0.000");
+
 	// --getters and setters to be here--//
+	public String getOutputAvaiBalanceString() {
+		return outputAvaiBalanceString;
+	}
+
+	public void setOutputAvaiBalanceString(String outputAvaiBalanceString) {
+		this.outputAvaiBalanceString = outputAvaiBalanceString;
+	}
+
+	public String getOutputBalanceString() {
+		return outputBalanceString;
+	}
+
+	public void setOutputBalanceString(String outputBalanceString) {
+		this.outputBalanceString = outputBalanceString;
+	}
+
 	public String getOutputShareString() {
 		return outputShareString;
 	}
@@ -46,7 +67,7 @@ public class FundAction extends ActionSupport {
 	public void setOutputShareString(String outputShareString) {
 		this.outputShareString = outputShareString;
 	}
-	
+
 	public String getInputShareString() {
 		return inputShareString;
 	}
@@ -54,7 +75,7 @@ public class FundAction extends ActionSupport {
 	public void setInputShareString(String inputShareString) {
 		this.inputShareString = inputShareString;
 	}
-	
+
 	public double getShareValue() {
 		return shareValue;
 	}
@@ -209,12 +230,12 @@ public class FundAction extends ActionSupport {
 				double priceInDouble = price / 100.0;
 				double shareInDouble = p.getShares() / 1000.0;
 				double shareValue = priceInDouble * shareInDouble;
-				DecimalFormat dFormat = new DecimalFormat("###,##0.00");
-				DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-
-				p.setLastPriceString(dFormat.format(priceInDouble));
-				p.setShareString(dFormat2.format(shareInDouble));
-				p.setShareValueString(dFormat.format(shareValue));
+				// DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
+				// set these string into position, it would be easier for .jsp
+				// to output the result
+				p.setLastPriceString(cashDFormat.format(priceInDouble));
+				p.setShareString(shareDFormat.format(shareInDouble));
+				p.setShareValueString(cashDFormat.format(shareValue));
 
 			}
 		} catch (Exception e) {
@@ -334,7 +355,6 @@ public class FundAction extends ActionSupport {
 	}
 
 	public String createFund() throws Exception {
-		// System.out.println("*****************name="+name);
 		if (name == null || name.equals("")) {
 			this.addActionError("The fund can not be empty!");
 			isSuccess = -1;
@@ -370,15 +390,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		/*
-		 * Fund f1 = new Fund(); f1.setName(name); // --check if there is a fund
-		 * already had the same name--// if (FundDao.getInstance().isExist(f1)
-		 * == true) { this.addActionError("The fund name already existed");
-		 * isSuccess = -1; return ERROR; } Fund f2 = new Fund();
-		 * f2.setSymbol(symbol); // if (FundDao.getInstance().isExist(f2) ==
-		 * true) { this.addActionError("The fund symbol already existed");
-		 * isSuccess = -1; return ERROR; }
-		 */
+
 		FundDao.getInstance().createFund(name, symbol);
 		isSuccess = 1;
 		return SUCCESS;
@@ -407,9 +419,9 @@ public class FundAction extends ActionSupport {
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.00;
-		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-		outputShareString = dFormat2.format(shares);
-		
+		// Format cashDFormat = new DecimalFormat("###,##0.000");
+		outputShareString = shareDFormat.format(shares);
+
 		return SUCCESS;
 	}
 
@@ -418,46 +430,74 @@ public class FundAction extends ActionSupport {
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
-		//double currentShares = p.getShares() / 1000.00;
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.0;
-		DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-		outputShareString = dFormat2.format(shares);
+		outputShareString = shareDFormat.format(shares);
 
-		if(inputShareString.equals("") || inputShareString == null){
+		if (inputShareString.equals("") || inputShareString == null) {
 			this.addActionError("You must enter shares!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		inputShareString=inputShareString.trim();
-		if(inputShareString.matches("^[0-9]+([.][0-9]+)?$")==false){
+		inputShareString = inputShareString.trim();
+		if (inputShareString.matches("^[0-9]+([.][0-9]+)?$") == false) {
 			this.addActionError("You must enter numbers!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		// -- share number too big needs to be here --//
-		//
-		//
-		//
-		//
-		
-		// -- change string type to double --//
-		inputShares = Double.valueOf(inputShareString);
-		if(inputShares > shares){
+
+		if (checkAndSell(fundId, user.getId(), Long.valueOf(inputShareString)) == false) {
 			this.addActionError("You can not over sell!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		// ---transaction here----//
-		 Transaction t = new Transaction(); 
-		 long s = (long) (inputShares*1000);
-		 t.setShares(s);
-		 t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		 t.setTransactionType(Transaction.TRANS_TYPE_SELL);
-		 TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
-		 return SUCCESS;
+		return SUCCESS;
+	}
 
+	public static synchronized boolean checkAndSell(int fId, int uId,
+			long shares) throws Exception {
+		// -- the transaction dao needs to be fixed here
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdFundId(uId, fId);
+		Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
+		long avaiShares = p.getShares();
+		for (Transaction t : transactions) {
+			if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
+				avaiShares -= t.getShares();
+			}
+		}
+		if (avaiShares < shares) {
+			return false;
+		}
+		Transaction t = new Transaction();
+		t.setShares(shares);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_SELL);
+		TransitionDay.getInstance().newTransaction(uId, fId, t);
+		return true;
+	}
+
+	public static synchronized boolean checkAndBuy(int fId, int uId,
+			long inputAmount) throws Exception {
+		// -- the transaction dao needs to be fixed here
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		long avaiBalance = user.getCash();
+		for (Transaction t : transactions) {
+			avaiBalance -= t.getAmount();
+		}
+		if (avaiBalance < inputAmount) {
+			return false;
+		}
+		Transaction t = new Transaction();
+		t.setAmount(inputAmount);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_BUY);
+		TransitionDay.getInstance().newTransaction(uId, fId, t);
+		return true;
 	}
 
 	public String showBuyFund() throws Exception {
@@ -471,13 +511,14 @@ public class FundAction extends ActionSupport {
 			shares = 0 / 1000.0;
 			outputShareString = "-";
 		} else {
+
 			shares = p.getShares() / 1000.0;
-			DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-			outputShareString = dFormat2.format(shares);
+			// Format cashDFormat2 = new DecimalFormat("###,##0.000");
+			outputShareString = shareDFormat.format(shares);
 		}
+		outputAvaiBalanceString = cashDFormat.format(user.getCashes());
 		name = f.getName();
 		symbol = f.getSymbol();
-		
 		return SUCCESS;
 	}
 
@@ -490,13 +531,14 @@ public class FundAction extends ActionSupport {
 				user.getId(), fundId);
 		name = f.getName();
 		symbol = f.getSymbol();
+		outputAvaiBalanceString = cashDFormat.format(user.getCashes());
 		if (p == null) {
 			shares = 0 / 1000.0;
 			outputShareString = "-";
 		} else {
 			shares = p.getShares() / 1000.0;
-			DecimalFormat dFormat2 = new DecimalFormat("###,##0.000");
-			outputShareString = dFormat2.format(shares);
+			// Format cashDFormat = new DecimalFormat("###,##0.000");
+			outputShareString = shareDFormat.format(shares);
 		}
 		// -- error check here-- //
 		if (amount.equals("") || amount == null) {
@@ -509,16 +551,25 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		//--can not buy too much check here --//
+		// --can not buy too much or too less check here --//
 		Double newAmount = Double.valueOf(amount);
-		newAmount*=100;
-		long a = (long)(newAmount*100);
-		
-		// ---transaction here----//
-		t.setAmount(a);
-		t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		t.setTransactionType(Transaction.TRANS_TYPE_BUY);
-		TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
+
+		if (newAmount == 0 || newAmount < 0.01) {
+			this.addActionError("You must enter non-zero numbers and it should be greater than 0.01.");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if (newAmount > 100000) {
+			this.addActionError("You can not buy more than 100000 dollars.");
+			isSuccess = -1;
+			return ERROR;
+		}
+
+		if (checkAndBuy(fundId, userId, Long.valueOf(amount)) == false) {
+			this.addActionError("You do not have enough balance.");
+			isSuccess = -1;
+			return ERROR;
+		}
 
 		return SUCCESS;
 	}

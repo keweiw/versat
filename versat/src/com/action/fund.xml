@@ -60,6 +60,7 @@
     	</action>
     	<action name="buyfund" class="com.action.FundAction" method="showBuyFund">
     		<result name="success">/pages/customer_buy.jsp</result>
+    		<result name="error">/pages/customer_buy.jsp</result>
     	</action>
     	<action name="buy" class="com.action.FundAction" method="buy">
     		<result name="success">/pages/customer_buy.jsp</result>

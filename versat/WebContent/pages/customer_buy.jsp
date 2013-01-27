@@ -73,11 +73,11 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Balance available:</td>
-		<td class="detail_right">balance to be added here</td>
+		<td class="detail_right">$${outputAvaiBalanceString}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>
-		<td class="detail_right"><input name="share" type="text" class="list_text_width_normal"/></td>
+		<td class="detail_right">$<input name="amount" type="text" class="list_text_width_normal"/></td>
 	</tr>
   </tbody>
 </table>
