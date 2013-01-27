@@ -47,13 +47,13 @@ $(document).ready(
 <div class="content">
 <!--content features-->
 <div class="content_right2">
-<form action="" method="post">
+<form action="" method="post" id="form" name="form">
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"></div>
 </div>
-<!--Alert start
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<!--Alert start-->
+<s:if test='isSuccess == 1'><div class="success_area">Request Check Success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 
 
@@ -78,16 +78,17 @@ $(document).ready(
   </tr>
 	<tr>
     <td class="detail_left">Cash Balance:</td>
-    <td class="detail_right">${user.cash}</td>
+    <td class="detail_right">$ ${user.cashesString}</td>
   </tr>
   <tr>
     <td class="detail_left">Deposit Amount:</td>
-    <td class="detail_right"><input name="amount" type="text"  class="list_text_width_normal" value=${amount}/></td>
+    <td class="detail_right">$ <input name="amount" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amount}  ></td>
   </tr>
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="sell_button"><a class="btn_sprites" href="#" name="deposit" id="submit_change"><span>Deposit</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="deposit" id= "submit_change"><span>Send Request</span></a></div>					
 </div>
 </div>
 <!--Deposit end-->	

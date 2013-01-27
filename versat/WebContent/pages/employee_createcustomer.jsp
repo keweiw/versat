@@ -90,7 +90,8 @@ $(document).ready(function() {
   <tr>
     <td class="detail_left">Cash Balance:</td>
     <td class="detail_right">
-    <input name="cash"class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
+    <input name="cash"class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
+    onkeypress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
     </td>
   </tr>
   </tbody>

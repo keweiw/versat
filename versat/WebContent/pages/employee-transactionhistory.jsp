@@ -37,7 +37,7 @@
 		<!--header help-->
 		<div class="header_help">
 			<div class="header_bz">
-				<a href="versat/logout">Log out</a>
+				<a href="/versat/logout">Log out</a>
 			</div>
 			<div class="header_image">
 				<img src="../../images/back.gif" title="" />
@@ -137,11 +137,11 @@
 									<s:if test='#transaction.transactionType == 3'>
 										<td>Request check</td>
 									</s:if>
-									<td><s:property value="#transaction.fundName" /></td>
-									<td><s:property value="#transaction.doubleshares" /></td>
+									<td><s:property value="#transaction.fundNameString" /></td>
+									<td><s:property value="#transaction.sharesString" /></td>
 									<td align="right"><s:property
-											value="#transaction.unitPrice" /></td>
-									<td align="right"><s:property value="#transaction.doubleamount" /></td>
+											value="#transaction.unitPriceString" /></td>
+									<td align="right"><s:property value="#transaction.amountString" /></td>
 									<td><s:property value="#transaction.stringDate" /></td>
 								</tr>
 							</s:iterator>
