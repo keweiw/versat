@@ -45,7 +45,7 @@ $(document).ready(function() {
 <div class="content_right2">
 <form action=showCreate method="post" id="form">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
+	<div class="straight_line_nav"><div class="new_user_title">'s Funds</div></div>
 </div>
 
 <!-- Alert -->
