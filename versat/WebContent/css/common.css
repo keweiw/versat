@@ -49,7 +49,7 @@ q:before { content:'';}
 acronym { border: 0;}
 abbr { border: 0;}
 
-.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;} /* 这是对Firefox进行的处理，因为Firefox支持生成元素，而IE所有版本都不支持生成元素.  :after 伪元素在元素内容之后插入内容。 */
+.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;}
 /*.clearfix {display: inline-block;}*/
 * html .clearfix {height: 1%;} 
 
@@ -759,7 +759,6 @@ background-position:center bottom ;
 }
 
 
-/*閭欢缁熻*/
 
 .content_right2{
 line-height:20px;
@@ -812,10 +811,11 @@ background:transparent url('../images/info_menu.png') no-repeat top left;
 .mail_tab_nav a:hover{
 text-decoration:none;
 }
-	.mail_tab{
+
+.mail_tab{
 text-decoration:none;
 }
-	/*---直线二级导航---b*/
+
 .sub_straight_line_nav{
 background-color:#e6f0f9;
 height:22px;
@@ -1801,13 +1801,6 @@ background-color:#f9f9f9;
 .even{
 background-color:#f9f9f9;
 }
-.list_table .line_selected{
-background-color:#fcfedc;
-}
-.list_table_2 .line_selected{
-background-color:#fcfedc;
-}
-
 .list_table td{
 border:1px #c6cfd8 solid;
 }

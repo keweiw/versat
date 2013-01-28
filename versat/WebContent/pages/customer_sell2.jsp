@@ -73,7 +73,7 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Shares available:</td>
-		<td class="detail_right">${outputShareString}</td>
+		<td class="detail_right">${outputAvaiShareString}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Number of shares want to sell:</td>

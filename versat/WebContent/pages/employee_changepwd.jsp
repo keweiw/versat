@@ -49,26 +49,29 @@ $(document).ready(
 <!--content功能展现-->
 <div class="content_right2">
 <form action="" method="post" id="form" name="form">
+	<div class="mail_tab_nav">
+		<div class="straight_line_nav"><div class="new_user_title">Change Password</div></div>
+	</div>
 
 <!--Alert start-->
 <s:if test='isSuccess == 1'><div class="success_area">Change password success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!--Alert end-->
 <!--Create new user start-->
+
 <div class="new_user">
-<div class="new_user_title">Change Password</div>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
-        <td class="detail_left">Old Password:</td>
+        <td class="detail_left">*Old Password:</td>
         <td class="detail_right"><input name="oldPassword" type="password" class="list_text_width_normal" value="${oldPassword}"/></td>
     </tr>
     <tr>
-        <td class="detail_left">New Password：</td>
+        <td class="detail_left">*New Password:</td>
         <td class="detail_right"><input name="newPassword" type="password" class="list_text_width_normal" value="${newPassword}"/></td>
     </tr>
     <tr>
-        <td class="detail_left">Confirm Password：</td>
+        <td class="detail_left">*Confirm Password:</td>
         <td class="detail_right"><input name="confirmPassword" type="password" class="list_text_width_normal" value="${confirmPassword}"/></td>
     </tr>
   </tbody>

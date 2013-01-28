@@ -8,6 +8,7 @@
 <title>Carnegie Financial Service | Manage Account</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
@@ -46,7 +47,7 @@ $(document).ready(function() {
 <div class="content_right2">
 <s:form action="create" namespace="/versat/employee/fund" method="post" id="form">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
+	<div class="straight_line_nav"><div class="new_user_title">Create New Fund</div></div>
 </div>
 
 <!-- Alert -->
@@ -55,30 +56,25 @@ $(document).ready(function() {
 <!-- Alert -->
 
 <!-- Create New Fund start-->
-<div class="new_user">
-<div class="new_user_title">Create New Fund</div>
+<div class="new_user"><br/>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
 	<tr>
-		<td class="detail_left">Fund Name：</td>
+		<td class="detail_left">*Fund Name:</td>
 		<td class="detail_right">
 			<input name="name" type="text" class="list_text_width_normal" tabindex="1" value="${name}"/>
 		</td>
 	</tr>
 	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-	</tr>
-	<tr>
-		<td class="detail_left">Fund Symbol:</td>
+		<td class="detail_left">*Fund Symbol:</td>
 		<td class="detail_right">
-			<input name="symbol" type="text" class="list_text_width_normal" tabindex="2" value="${symbol}"/> 
+			<input name="symbol" maxlength="5" type="text" class="list_text_width_normal" tabindex="2" value="${symbol}"/> 
 		</td>
 	</tr>
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a title="Create" class="btn_sprites" href="#" name="make sure button" id="create"><span>Create</span></a></div>					
+	<div class="sell_button"><a title="Create" class="btn_sprites" href="#" name="make sure button" id="create"><span>Create</span></a></div>					
 </div>
 </div>
 <!--Create New Fund end-->			
@@ -94,8 +90,6 @@ $(document).ready(function() {
    <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu_44 font14b" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
-   <div class="content_menubd"></div>
-   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>

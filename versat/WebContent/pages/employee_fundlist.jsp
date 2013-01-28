@@ -52,12 +52,13 @@ $(document).ready(function() {
 <s:if test='isSuccess == 1'><div class="success_area">Success!</div></s:if>
 <s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
-<div class="add_user"><a href="/versat/employee/fund/create"><button> + Create New Fund</button></a></div>
+
 <!-- Search -->
 <div class="list_search clearfix">
   <div class="search">
     <a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Search Fund&nbsp;</span></a>
   </div>
+  <div class="add_user"><a href="/versat/employee/fund/create"><button> + Create New Fund</button></a></div>
 </div>
 <div class="search_detail clearfix">  
   	<table cellspacing="0" cellpadding="0" class="search_detail_list">

@@ -1,4 +1,4 @@
-﻿
+ 
 /*--- Clear browser style ---*/
 td { padding: 0; margin: 0;} 
 th { padding: 0; margin: 0;} 
@@ -49,16 +49,15 @@ q:after { content:'';}
 q:before { content:'';} 
 acronym { border: 0;}
 abbr { border: 0;}
-/*---去掉所有浏览器的默认样式 e---*/
-/*---消除浮动 b---*/
-.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;} /* 这是对Firefox进行的处理，因为Firefox支持生成元素，而IE所有版本都不支持生成元素.  :after 伪元素在元素内容之后插入内容。 */
-.clearfix {display: inline-block;}/* 这是对 Mac 上的IE浏览器进行的处理 */
+
+
+.clearfix:after { content: "."; clear: both; height: 0; visibility: hidden; display: block;} 
+.clearfix {display: inline-block;}
 /**//* Hides from IE-mac \*/
-* html .clearfix {height: 1%;} /* 这是对win上的IE浏览器进行的处理 */
-.clearfix {display: block;} /* 这是对display: inline-block;进行的修改，重置为区块元素*/
-/**//* End hide from IE-mac */
-/*---消除浮动 e---*/
-/*--------------------------Add in 08072009    up--------------------*/
+* html .clearfix {height: 1%;} 
+.clearfix {display: block;} 
+/**/
+
 body{
 text-align:center;
 font-size:12px;

@@ -16,6 +16,8 @@ public class Position implements java.io.Serializable {
 	private String fundSymbol;
 	
 	private String shareString;
+	private String avaiShareString;
+
 	private String lastPriceString;
 	private String shareValueString;
 	
@@ -92,6 +94,14 @@ public class Position implements java.io.Serializable {
 
 	public void setShareValueString(String shareValueString) {
 		this.shareValueString = shareValueString;
+	}
+	
+	public String getAvaiShareString() {
+		return avaiShareString;
+	}
+
+	public void setAvaiShareString(String avaiShareString) {
+		this.avaiShareString = avaiShareString;
 	}
 
 }

@@ -41,12 +41,12 @@ $(document).ready(function() {
 <div class="content_right2">
 <form action="" method="post">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
+	<div class="straight_line_nav"><div class="new_user_title">View Customer Account</div></div>
 </div>
 
 <!--Create new user start-->
 <div class="new_user">
-<div class="new_user_title">View Customer Account</div>
+
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
     <tr>
