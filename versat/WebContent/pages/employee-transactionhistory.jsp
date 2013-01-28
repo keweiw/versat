@@ -53,7 +53,7 @@
 		<div class="content_right2">
 			<form action="" method="post" id="form" name="form">
 				<div class="mail_tab_nav">
-					<div class="straight_line_nav"></div>
+					<div class="straight_line_nav"><div class="new_user_title">Transaction History</div></div>
 				</div>
 
 				<!-- Alert 
@@ -61,7 +61,7 @@
 <div class="warning">Error!</div>
 <!-- Alert -->
 
-				<div class="new_user_title">Transaction History</div>
+				
 				<input type="hidden" name="hdField" value=userId />
 				<!-- Search -->
 				<div class="list_search clearfix">
