@@ -46,7 +46,7 @@ $(document).ready(function() {
 <div class="content_right2">
 <s:form action="create" namespace="/versat/employee/fund" method="post" id="form">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"></div>
+	<div class="straight_line_nav"><div class="new_user_title">Create New Fund</div></div>
 </div>
 
 <!-- Alert -->
@@ -55,8 +55,7 @@ $(document).ready(function() {
 <!-- Alert -->
 
 <!-- Create New Fund start-->
-<div class="new_user">
-<div class="new_user_title">Create New Fund</div>
+<div class="new_user"><br/>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
 	<tr>
@@ -94,8 +93,6 @@ $(document).ready(function() {
    <div class="content_menu5" id="sellLink"><a href="/versat/employee/account/customerlist">Manage Account</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu_44 font14b" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
-   <div class="content_menubd"></div>
-   <div class="content_menu7" id="historyLink"><a href="/versat/employee/trans/deposit">Deposit Check</a></div>
    <div class="content_menubd"></div>
    <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
