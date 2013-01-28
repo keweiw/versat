@@ -170,9 +170,10 @@ public class TransitionDay {
 			e.printStackTrace();
 		}
 		
-		if (date != null) {
+		if (date == null) {
 			return new Date();
 		}
+		System.out.println(date.toString());
 		return date;
 	}
 
