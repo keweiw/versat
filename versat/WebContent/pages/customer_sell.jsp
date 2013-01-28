@@ -87,6 +87,7 @@ $(document).ready(function() {
       <th class="row_4">Fund Name</th>
       <th class="row_4">Fund Symbol</th>
       <th class="row_4">Shares</th>
+      <th class="row_4">Available Shares</th>
       <th class="row_4">Recent Price</th>
       <th class="row_4">Share Value</th>
       <th class="row_4">Action</th>
@@ -98,6 +99,7 @@ $(document).ready(function() {
 				<td><s:property value="#position.fundName"/></td>
 				<td><s:property value="#position.fundSymbol"/></td>
 				<td><s:property value="#position.shareString"/></td>
+				<td><s:property value="#position.avaiShareString"/></td>
 				<td><s:property value="#position.lastPriceString"/></td>
 				<td><s:property value="#position.shareValueString"/></td>
 				<td><a href="/versat/customer/fund/showsellfund?fundId=${fund.id}">Sell Fund</a></td>

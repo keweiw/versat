@@ -243,12 +243,21 @@ public class FundAction extends ActionSupport {
 				double shareValue = priceInDouble * shareInDouble;
 				
 				//-- calculate shares here --//
-				
-				
+				long avaiShares = p.getShares();
+				ArrayList<Transaction> transactions = TransactionDao.getInstance()
+						.getPendTransByUserIdFundId(fId, user.getId());
+				if (transactions.size() != 0) {
+					for (Transaction t : transactions) {
+						if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
+							avaiShares -= t.getShares();
+						}
+					}
+				}
+				double newAvaiShares = avaiShares/1000.0;
 
 				p.setLastPriceString(cashDFormat.format(priceInDouble));
 				p.setShareString(shareDFormat.format(shareInDouble));
-				p.setShareValueString(shareDFormat.format(outputAvaiShareString));
+				p.setAvaiShareString(shareDFormat.format(newAvaiShares));
 				p.setShareValueString(cashDFormat.format(shareValue));
 
 			}
@@ -406,6 +415,10 @@ public class FundAction extends ActionSupport {
 		}
 
 		FundDao.getInstance().createFund(name, symbol);
+		ArrayList<Fund> f = FundDao.getInstance().getByName(name);
+		FundPriceHistory fph = new FundPriceHistory();
+		fph.setFund(f.get(0));
+		FundPriceHistoryDao.getInstance().create(fph);
 		isSuccess = 1;
 		return SUCCESS;
 	}
@@ -433,8 +446,8 @@ public class FundAction extends ActionSupport {
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.00;
+		//-- calculate available shares here--//
 		long avaiShares = p.getShares();
-		//-- first time calculate of the share--//
 		ArrayList<Transaction> transactions = TransactionDao.getInstance()
 				.getPendTransByUserIdFundId(fundId, user.getId());
 		if (transactions.size() != 0) {
