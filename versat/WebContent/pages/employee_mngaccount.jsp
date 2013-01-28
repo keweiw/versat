@@ -79,8 +79,12 @@
 <!-- Alert -->
 <!-- Search -->
 <div class="list_search clearfix">
-	<div class="search"><a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button"><span>Customer Search&nbsp;</span></a></div>
-<div class="add_user"><a href="#" id="create"><button> + Create New Customer</button></a></div>
+	<div class="search">
+		<a href="javascript:void(0)" title="search" class="btn_sprites" name="search button" id="search_button">
+			<span>Customer Search&nbsp;</span>
+		</a>
+	</div>
+	<div class="add_user"><a href="#" id="create"><button> + Create New Customer</button></a></div>
 </div>
 
 <div class="search_detail clearfix">	
