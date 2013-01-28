@@ -34,6 +34,7 @@ public class FundAction extends ActionSupport {
 	private String amount;
 	private String inputShareString;
 	private String outputShareString;
+	private String outputAvaiShareString;
 	private String outputBalanceString;
 	private String outputAvaiBalanceString;
 
@@ -44,6 +45,14 @@ public class FundAction extends ActionSupport {
 	private DecimalFormat shareDFormat = new DecimalFormat("###,##0.000");
 
 	// --getters and setters to be here--//
+	public String getOutputAvaiShareString() {
+		return outputAvaiShareString;
+	}
+
+	public void setOutputAvaiShareString(String outputAvaiShareString) {
+		this.outputAvaiShareString = outputAvaiShareString;
+	}
+	
 	public String getOutputAvaiBalanceString() {
 		return outputAvaiBalanceString;
 	}
@@ -214,7 +223,7 @@ public class FundAction extends ActionSupport {
 		try {
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					userId);
-			if(positions.size()==0){
+			if (positions.size() == 0) {
 				return SUCCESS;
 			}
 			for (Position p : positions) {
@@ -224,20 +233,22 @@ public class FundAction extends ActionSupport {
 				long price;
 				// -- if no history then set price to zero -- //
 				if (fph != null) {
-					if (fph.getPrice() != null)
-						price = FundPriceHistoryDao.getInstance()
-								.getLatestFundHistoryById(fId).getPrice();
-					else
-						price = 0;
+					price = FundPriceHistoryDao.getInstance()
+							.getLatestFundHistoryById(fId).getPrice();
 				} else
 					price = 0;
 
 				double priceInDouble = price / 100.0;
 				double shareInDouble = p.getShares() / 1000.0;
 				double shareValue = priceInDouble * shareInDouble;
+				
+				//-- calculate shares here --//
+				
+				
 
 				p.setLastPriceString(cashDFormat.format(priceInDouble));
 				p.setShareString(shareDFormat.format(shareInDouble));
+				p.setShareValueString(shareDFormat.format(outputAvaiShareString));
 				p.setShareValueString(cashDFormat.format(shareValue));
 
 			}
@@ -422,9 +433,20 @@ public class FundAction extends ActionSupport {
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.00;
-		// Format cashDFormat = new DecimalFormat("###,##0.000");
+		long avaiShares = p.getShares();
+		//-- first time calculate of the share--//
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdFundId(fundId, user.getId());
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
+					avaiShares -= t.getShares();
+				}
+			}
+		}
+		double newAvaiShares = avaiShares/1000.0;
 		outputShareString = shareDFormat.format(shares);
-
+		outputAvaiShareString = shareDFormat.format(newAvaiShares);
 		return SUCCESS;
 	}
 
