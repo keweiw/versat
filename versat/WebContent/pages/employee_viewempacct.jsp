@@ -37,15 +37,15 @@ $(document).ready(function() {
 
 <!--content start-->
 <div class="content">
-<!--contentåè½å±ç°-->
+<!--content-->
 <div class="content_right2">
 <form action="" method="post">
 <div class="mail_tab_nav">
-  <div class="straight_line_nav"></div>
+  <div class="straight_line_nav"><div class="new_user_title">View Employee Account</div></div>
 </div>
 <!--Create new user start-->
-<div class="new_user">
-<div class="new_user_title">View Employee Account</div>
+<div class="new_user"><br/>
+
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
      <tr>

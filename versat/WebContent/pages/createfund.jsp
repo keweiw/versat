@@ -60,14 +60,10 @@ $(document).ready(function() {
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
 	<tr>
-		<td class="detail_left">*Fund Name：</td>
+		<td class="detail_left">*Fund Name:</td>
 		<td class="detail_right">
 			<input name="name" type="text" class="list_text_width_normal" tabindex="1" value="${name}"/>
 		</td>
-	</tr>
-	<tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
 	</tr>
 	<tr>
 		<td class="detail_left">*Fund Symbol:</td>
@@ -78,7 +74,7 @@ $(document).ready(function() {
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a title="Create" class="btn_sprites" href="#" name="make sure button" id="create"><span>Create</span></a></div>					
+	<div class="sell_button"><a title="Create" class="btn_sprites" href="#" name="make sure button" id="create"><span>Create</span></a></div>					
 </div>
 </div>
 <!--Create New Fund end-->			
