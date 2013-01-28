@@ -77,7 +77,8 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>
-		<td class="detail_right"><input name="amount" type="text" class="list_text_width_normal"/></td>
+		<td class="detail_right">    <input name="amount" value="${amount}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
+</td>
 	</tr>
   </tbody>
 </table>
