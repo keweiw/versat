@@ -203,6 +203,15 @@ public class FundAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public ArrayList<FundPriceHistory> getOutputFundPriceHistory() {
+		return outputFundPriceHistory;
+	}
+
+	public void setOutputFundPriceHistory(
+			ArrayList<FundPriceHistory> outputFundPriceHistory) {
+		this.outputFundPriceHistory = outputFundPriceHistory;
+	}
+	
 	// --end of getter and setter--//
 
 	public String listAllFund() {
@@ -433,6 +442,7 @@ public class FundAction extends ActionSupport {
 		symbol = f.getSymbol();
 		return SUCCESS;
 	}
+
 
 	// --get info from customer_sell2.jsp and set info want to bo post on
 	// sellfund.jsp
