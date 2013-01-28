@@ -526,11 +526,18 @@ public class FundAction extends ActionSupport {
 		// -- the transaction dao needs to be fixed here
 		ArrayList<Transaction> transactions = TransactionDao.getInstance()
 				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
 		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (transactions2.size() != 0) {
+			for (Transaction t : transactions2) {
 				avaiBalance -= t.getAmount();
 			}
 		}
