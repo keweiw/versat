@@ -8,6 +8,7 @@
 <title>Carnegie Financial Service | Manage Account</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
@@ -59,7 +60,7 @@ $(document).ready(function() {
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
 	<tr>
-		<td class="detail_left">Fund Name：</td>
+		<td class="detail_left">*Fund Name：</td>
 		<td class="detail_right">
 			<input name="name" type="text" class="list_text_width_normal" tabindex="1" value="${name}"/>
 		</td>
@@ -69,7 +70,7 @@ $(document).ready(function() {
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td class="detail_left">Fund Symbol:</td>
+		<td class="detail_left">*Fund Symbol:</td>
 		<td class="detail_right">
 			<input name="symbol" maxlength="5" type="text" class="list_text_width_normal" tabindex="2" value="${symbol}"/> 
 		</td>

@@ -87,7 +87,7 @@ $(document).ready(
   </tbody>
 </table>
 <div class="mail_search">
-	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="deposit" id= "submit_change"><span>Send Request</span></a></div>					
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="deposit" id= "submit_change"><span>Deposit Check</span></a></div>					
 </div>
 </div>
 <!--Deposit end-->	
