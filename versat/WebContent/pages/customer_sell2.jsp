@@ -77,7 +77,7 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Number of shares want to sell:</td>
-		<td class="detail_right">    <input name="inputShareString" value="${inputShareString}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d\d$/.test(value))event.returnValue=false"> 
+		<td class="detail_right"><input name="inputShareString" value="${inputShareString}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d\d$/.test(value))event.returnValue=false"> 
 </td>
 	</tr>
   </tbody>

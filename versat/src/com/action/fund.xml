@@ -35,7 +35,7 @@
     	<action name="funddetail" class="com.action.FundAction" method="showFundDetail">
     		<result name="success">/pages/researchfund.jsp</result>
     	</action>
-    	<action name="fundjson" class="com.action.FundAction" method="listFundByUserId">
+    	<action name="fundjson" class="com.action.FundAction" method="showFundDetail">
     		<result type="json"></result>
     	</action>
     	<action name="listownedfund" class="com.action.FundAction" method="listFundByUserId">

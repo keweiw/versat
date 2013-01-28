@@ -52,7 +52,7 @@ public class FundAction extends ActionSupport {
 	public void setOutputAvaiShareString(String outputAvaiShareString) {
 		this.outputAvaiShareString = outputAvaiShareString;
 	}
-	
+
 	public String getOutputAvaiBalanceString() {
 		return outputAvaiBalanceString;
 	}
@@ -241,11 +241,12 @@ public class FundAction extends ActionSupport {
 				double priceInDouble = price / 100.0;
 				double shareInDouble = p.getShares() / 1000.0;
 				double shareValue = priceInDouble * shareInDouble;
-				
-				//-- calculate shares here --//
+
+				// -- calculate shares here --//
 				long avaiShares = p.getShares();
-				ArrayList<Transaction> transactions = TransactionDao.getInstance()
-						.getPendTransByUserIdFundId(fId, user.getId());
+				ArrayList<Transaction> transactions = TransactionDao
+						.getInstance().getPendTransByUserIdFundId(fId,
+								user.getId());
 				if (transactions.size() != 0) {
 					for (Transaction t : transactions) {
 						if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
@@ -253,7 +254,7 @@ public class FundAction extends ActionSupport {
 						}
 					}
 				}
-				double newAvaiShares = avaiShares/1000.0;
+				double newAvaiShares = avaiShares / 1000.0;
 
 				p.setLastPriceString(cashDFormat.format(priceInDouble));
 				p.setShareString(shareDFormat.format(shareInDouble));
@@ -446,7 +447,7 @@ public class FundAction extends ActionSupport {
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.00;
-		//-- calculate available shares here--//
+		// -- calculate available shares here--//
 		long avaiShares = p.getShares();
 		ArrayList<Transaction> transactions = TransactionDao.getInstance()
 				.getPendTransByUserIdFundId(fundId, user.getId());
@@ -457,7 +458,7 @@ public class FundAction extends ActionSupport {
 				}
 			}
 		}
-		double newAvaiShares = avaiShares/1000.0;
+		double newAvaiShares = avaiShares / 1000.0;
 		outputShareString = shareDFormat.format(shares);
 		outputAvaiShareString = shareDFormat.format(newAvaiShares);
 		return SUCCESS;
@@ -472,6 +473,7 @@ public class FundAction extends ActionSupport {
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.0;
 		outputShareString = shareDFormat.format(shares);
+		//available shares calculate here
 
 		if (inputShareString.equals("") || inputShareString == null) {
 			this.addActionError("You must enter shares!");
@@ -503,6 +505,9 @@ public class FundAction extends ActionSupport {
 				.getPendTransByUserIdFundId(uId, fId);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
 		long avaiShares = p.getShares();
+		if(avaiShares<=0){
+			return false;
+		}
 		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
 				if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
@@ -531,6 +536,9 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
+		if (avaiBalance < 0) {
+			return false;
+		}
 		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
 				avaiBalance -= t.getAmount();
@@ -565,10 +573,39 @@ public class FundAction extends ActionSupport {
 		} else {
 
 			shares = p.getShares() / 1000.0;
-			// Format cashDFormat2 = new DecimalFormat("###,##0.000");
 			outputShareString = shareDFormat.format(shares);
 		}
-		outputAvaiBalanceString = cashDFormat.format(user.getCashes());
+		//available balance check here
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_WITHDRAW);
+		long avaiBalance = user.getCash();
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (transactions2.size() != 0) {
+			for (Transaction t : transactions2) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		//available share check here
+		ArrayList<Transaction> transactions3 = TransactionDao.getInstance()
+				.getPendTransByUserIdFundId(user.getId(), fundId);
+		//Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
+		long avaiShares = p.getShares();
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				if (t.getTransactionType() == Transaction.TRANS_TYPE_SELL) {
+					avaiShares -= t.getShares();
+				}
+			}
+		}
+		double as = avaiShares/1000.0;
+		outputAvaiShareString = shareDFormat.format(as);
+		outputAvaiBalanceString = cashDFormat.format(avaiBalance);
 		name = f.getName();
 		symbol = f.getSymbol();
 		return SUCCESS;
@@ -624,14 +661,7 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 
-		// newAmount*=100;
-		// long a = (long)(newAmount*100);
-		// ---transaction here----//
-		/*
-		 * t.setAmount(a); t.setStatus(Transaction.TRANS_STATUS_PENDING);
-		 * t.setTransactionType(Transaction.TRANS_TYPE_BUY);
-		 * TransitionDay.getInstance().newTransaction(user.getId(), fundId, t);
-		 */
+	
 		isSuccess = 1;
 		return SUCCESS;
 	}

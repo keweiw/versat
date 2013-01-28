@@ -72,12 +72,16 @@ $(document).ready(function() {
 		<td class="detail_right">${outputShareString}</td>
 	</tr>
 	<tr>
+		<td class="detail_left">Shares available:</td>
+		<td class="detail_right">${outputAvaiShareString}</td>
+	</tr>
+	<tr>
 		<td class="detail_left">Balance available:</td>
 		<td class="detail_right">$${outputAvaiBalanceString}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>
-		<td class="detail_right">    <input name="amount" value="${amount}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
+		<td class="detail_right">$ <input name="amount" value="${amount}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
 </td>
 	</tr>
   </tbody>
