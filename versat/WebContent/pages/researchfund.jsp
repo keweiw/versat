@@ -40,7 +40,7 @@ $(document).ready(function() {
       var data = new google.visualization.DataTable(JSONObject, 0.5);
     
       // Create and draw the visualization.
-      visualization = new google.visualization.ColumnChart(document.getElementById('chart'));
+      visualization = new google.visualization.LineChart(document.getElementById('chart'));
       visualization.draw(data, {'allowHtml': true,
                                 title: "Fund Name",
                                 width: 800, height:250,
@@ -48,6 +48,32 @@ $(document).ready(function() {
       }
     google.setOnLoadCallback(drawVisualization);
     </script>
+    
+    <script>
+      function drawVisualization(num) {
+    	// Create and populate the data table.
+    	  var jsonLineChartData = $.ajax({
+    		url: "http://localhost:8080/versat/customer/fund/fundjson?fundId=${fundId}",
+    	    data: "q="+num,
+    	    dataType:"json",
+    	    async: false
+        }).responseText;
+    	    
+    	 // Create our data table out of JSON data loaded from server.
+    	    var linechartdata = new google.visualization.DataTable(jsonLineChartData, 0.5);
+    	 
+    	 // Instantiate and draw our pie chart, passing in some options.
+    	    var visualization = new google.visualization.LineChart(document.getElementById('chart'));
+    	    visualization.draw(linechartdata, {'allowHtml': true,
+    	    									title: "Fund Name",
+    	     								    width: 700,
+    	      									height: 500,
+    	      									chartArea: { left:"5%",top:"5%",width:"90%",height:"90%" }});
+      		}
+    	    google.setOnLoadCallback(drawVisualization);   
+    </script>
+    
+    
 </head>
 
 <body>
