@@ -79,4 +79,11 @@ public class FundPriceHistoryDao extends BaseDao<FundPriceHistory>{
 	public void update(FundPriceHistory fph) throws Exception {
 		super.update(fph);
 	}
+	
+	public ArrayList<FundPriceHistory> getListByFundId(int fundId) throws Exception{
+		List<Criterion> criterions = new ArrayList<Criterion>();
+		Criterion criterion = Restrictions.eq("fund.id", fundId);
+		criterions.add(criterion);
+		return (ArrayList<FundPriceHistory>)super.getList(criterions);
+	}
 }

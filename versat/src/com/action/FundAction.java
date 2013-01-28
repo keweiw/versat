@@ -40,6 +40,8 @@ public class FundAction extends ActionSupport {
 
 	private ArrayList<Fund> funds;
 	private ArrayList<Position> positions;
+	
+	private ArrayList<FundPriceHistory> outputFundPriceHistory;
 
 	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
 	private DecimalFormat shareDFormat = new DecimalFormat("###,##0.000");
@@ -426,6 +428,7 @@ public class FundAction extends ActionSupport {
 
 	public String showFundDetail() throws Exception {
 		Fund f = FundDao.getInstance().getById(fundId);
+		outputFundPriceHistory = FundPriceHistoryDao.getInstance().getListByFundId(fundId);
 		name = f.getName();
 		symbol = f.getSymbol();
 		return SUCCESS;
