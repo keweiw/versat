@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.Set;
 
 import com.bu.TransitionDay;
 import com.dao.FundDao;
@@ -21,21 +22,25 @@ public class TransitionAction extends ActionSupport {
 	private String lastTradingDateString;
 	private Date closingDate;
 	private String closingDateString;
-	private Double closingPrice;
+	private ArrayList<Double> closingPrice;
+	private ArrayList<Integer> fundid;
+
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat df2 = new SimpleDateFormat("MM-dd-yyyy");
 	private int isSuccess;
 
 	public String showTransition() {
+		Map session = ActionContext.getContext().getSession();
 		this.setIsSuccess(0);
 
-		this.lastTradingDate = TransitionDay.getInstance().getLastTransitionDay();
+		this.lastTradingDate = TransitionDay.getInstance()
+				.getLastTransitionDay();
 		if (lastTradingDate != null) {
 			this.lastTradingDateString = df2.format(this.lastTradingDate);
 		} else {
 			this.lastTradingDateString = "-";
 		}
-		
+
 		funds = TransitionDay.getInstance().getFundList();
 
 		return SUCCESS;
@@ -43,6 +48,7 @@ public class TransitionAction extends ActionSupport {
 	}
 
 	public String transition() {
+
 		Map session = ActionContext.getContext().getSession();
 
 		this.isSuccess = 0;
@@ -58,8 +64,8 @@ public class TransitionAction extends ActionSupport {
 
 		funds = TransitionDay.getInstance().getFundList();
 
-		if (closingDateString != null) {
-			System.out.println(closingDateString);
+		if (closingDateString != null && !closingDateString.equals("")) {
+			// System.out.println(closingDateString);
 			try {
 				this.closingDate = df.parse(closingDateString);
 				System.out.println(closingDate);
@@ -75,32 +81,49 @@ public class TransitionAction extends ActionSupport {
 				return ERROR;
 
 			} else {
+
 				for (int i = 0; i < funds.size(); i++) {
-					funds.get(i).setCur(closingPrice);
-					if (funds.get(i).getCur() == 0) {
-						this.addActionError("Fund value can not be empty or zero!");
-						this.setIsSuccess(-1);
-						return ERROR;
-					} else {
-						isSuccess = TransitionDay.getInstance()
-								.commitTransitionDay(funds, closingDate);
-						if (isSuccess == 0) {
-							return SUCCESS;
-						} else if (isSuccess == -1) {
-							this.addActionError("This transition is failed!");
-							return ERROR;
-						} else if (isSuccess == -2) {
-							this.addActionError("System busy, please retry later!");
-							return ERROR;
-						} else if (isSuccess == -3)
-							this.addActionError("There is a new fund, please provide its price.");
-						return ERROR;
+					for (int j = 0; j < fundid.size(); j++) {
+
+						if (funds.get(i).getId().equals(fundid.get(j))) {
+							if (closingPrice.get(j) == null || closingPrice.get(j).equals(0)) {
+								this.addActionError("Fund value can not be empty or zero!");
+								this.setIsSuccess(-1);
+								return ERROR;
+							} else {
+								funds.get(i).setCur(closingPrice.get(j));
+							}
+
+						}
 					}
 				}
 
-			}
+				int checkNum = TransitionDay.getInstance().commitTransitionDay(funds, closingDate);
+				// System.out.println("checkNum=" + checkNum);
+				if(checkNum == -3) {
+					isSuccess = -1;
+					this.addActionError("There is a new fund, please provide its price.");
+				//	this.updatePrice();
+					//checkNum = TransitionDay.getInstance().commitTransitionDay(funds, closingDate);
+			//		this.checkStatus(checkNum);
+					return ERROR;
 
-		} else {
+				}else if (checkNum == 0) {
+					isSuccess = 1;
+					return SUCCESS;
+				} else if (checkNum == -1) {
+					isSuccess = -1;
+					this.addActionError("This transition is failed!");
+					return ERROR;
+				} else if (checkNum == -2) {
+					isSuccess = -1;
+					this.addActionError("System busy, please retry later!");
+					return ERROR;
+				}
+			}
+		}
+
+		else {
 			this.addActionError("Closing date can not be empty!");
 			this.setIsSuccess(-1);
 			return ERROR;
@@ -110,6 +133,58 @@ public class TransitionAction extends ActionSupport {
 		this.setIsSuccess(-1);
 		return SUCCESS;
 
+	}
+
+	private String checkStatus(int checkNum) {
+	//	if (checkNum == -3) {
+		//	isSuccess = -1;
+		//	this.addActionError("There is a new fund, please provide its price.");
+			// checkNum = TransitionDay.getInstance().commitTransitionDay(funds,
+			// closingDate);
+	//		return ERROR;
+	//	}
+		if (checkNum == 0) {
+			isSuccess = 1;
+			return SUCCESS;
+		} else if (checkNum == -1) {
+			isSuccess = -1;
+			this.addActionError("This transition is failed!");
+			return ERROR;
+		} else if (checkNum == -2) {
+			isSuccess = -1;
+			this.addActionError("System busy, please retry later!");
+			return ERROR;
+		} //else if (checkNum == -3) {
+		//	isSuccess = -1;
+		//	this.addActionError("There is a new fund, please provide its price.");
+		//	return ERROR;
+	//	}
+
+		this.addActionError("There is a new fund, please provide its price.");
+		// checkNum = TransitionDay.getInstance().commitTransitionDay(funds,
+		// closingDate)
+		return ERROR;
+
+	}
+	private String updatePrice(){
+
+		for (int i = 0; i < funds.size(); i++) {
+			for (int j = 0; j < fundid.size(); j++) {
+
+				if (funds.get(i).getId().equals(fundid.get(j))) {
+					if (closingPrice.get(j) == null || closingPrice.get(j).equals(0)) {
+						this.addActionError("Fund value can not be empty or zero!");
+						this.setIsSuccess(-1);
+						return ERROR;
+					} else {
+						funds.get(i).setCur(closingPrice.get(j));
+					}
+
+				}
+			}
+		}
+		return SUCCESS;
+		
 	}
 
 	public ArrayList<Fund> getFunds() {
@@ -144,14 +219,6 @@ public class TransitionAction extends ActionSupport {
 		this.closingDate = closingDate;
 	}
 
-	public Double getClosingPrice() {
-		return closingPrice;
-	}
-
-	public void setClosingPrice(Double closingPrice) {
-		this.closingPrice = closingPrice;
-	}
-
 	public String getLastTradingDateString() {
 		return lastTradingDateString;
 	}
@@ -174,6 +241,22 @@ public class TransitionAction extends ActionSupport {
 
 	public void setClosingDateString(String closingDateString) {
 		this.closingDateString = closingDateString;
+	}
+
+	public ArrayList<Double> getClosingPrice() {
+		return closingPrice;
+	}
+
+	public void setClosingPrice(ArrayList<Double> closingPrice) {
+		this.closingPrice = closingPrice;
+	}
+
+	public ArrayList<Integer> getFundid() {
+		return fundid;
+	}
+
+	public void setFundid(ArrayList<Integer> fundid) {
+		this.fundid = fundid;
 	}
 
 }

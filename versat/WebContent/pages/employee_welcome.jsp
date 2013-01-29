@@ -85,7 +85,7 @@ $(document).ready(function() {
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1" id="requestLink"><a href="/versat/employee/showtransition">Transition Day</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>

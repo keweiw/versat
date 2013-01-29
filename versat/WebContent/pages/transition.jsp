@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Transition Day</title>
-<link href="../css/common.css" rel="stylesheet" type="text/css" />
-<link href="../css/display.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery.js" language="javascript"></script>
-<script type="text/javascript" src="../js/animation.js" language="javascript"></script>
+<link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
 $(document).ready(
         function() {
@@ -20,7 +20,7 @@ $(document).ready(
             $("#submit_change").click(
                     function() {
                             $("#form").attr("action",
-                                    "/versat/employee/generate");
+                                    "/versat/employee/transition/do");
                             $("#form").submit();
                     });
         }
@@ -37,7 +37,7 @@ $(document).ready(
 <!--header help-->
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="" /></div>
+<div class="header_image"><img src="../../images/back.gif" title="" /></div>
 <div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
@@ -61,10 +61,11 @@ $(document).ready(
 
 <!-- Date start -->
 <div class="trade_day">Last trading day: ${lastTradingDateString}</div>
-${lastTradingDateString} ${closingDateString}
+
 <div class="trade_day">
 	Closing Date:
- 	<input type="date" name = "closingDateString" value=${closingDateString}/>
+ 	<input type="date" name = "closingDateString" value=${closingDateString} />
+ 	
 </div>
 <!-- Date end -->
 
@@ -87,6 +88,7 @@ ${lastTradingDateString} ${closingDateString}
 	 			<td align ="right"><s:property value="#fund.lastDay" /></td>
 	 			<td>$ <input name="closingPrice" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
 		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.cur} ></td>
+	        <input type="hidden" name="fundid" value=<s:property value="#fund.id" /> />
 	 		</tr>
 	 	</s:iterator>
 	 </tbody>
