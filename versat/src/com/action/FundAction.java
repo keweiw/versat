@@ -560,7 +560,11 @@ public class FundAction extends ActionSupport {
 		t.setShares(shares);
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
 		t.setTransactionType(Transaction.TRANS_TYPE_SELL);
-		TransitionDay.getInstance().newTransaction(uId, fId, t);
+		while (true) {
+			int i = TransitionDay.getInstance().newTransaction(uId, fId, t);
+			if (i == TransitionDay.SUCCESS)
+				break;
+		}
 		return true;
 	}
 
