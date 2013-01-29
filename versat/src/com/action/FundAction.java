@@ -305,7 +305,6 @@ public class FundAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	// --search fund by fund name and user id--//
 	public String searchAllFundByOption() throws Exception {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
@@ -712,7 +711,8 @@ public class FundAction extends ActionSupport {
 				avaiBalance -= t.getAmount();
 			}
 		}
-		outputAvaiBalanceString = cashDFormat.format(avaiBalance / 100.0);
+		double doubleAvaiBalance = avaiBalance / 100.0;
+		outputAvaiBalanceString = cashDFormat.format(doubleAvaiBalance);
 		// -- error check here-- //
 		if (amount.equals("") || amount == null) {
 			this.addActionError("You must enter amount!");
@@ -732,8 +732,8 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (newAmount > 100000) {
-			this.addActionError("You can not buy more than 100000 dollars.");
+		if (newAmount > doubleAvaiBalance) {
+			this.addActionError("You can not buy more than your balance.");
 			isSuccess = -1;
 			return ERROR;
 		}
