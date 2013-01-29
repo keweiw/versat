@@ -24,34 +24,6 @@ $(document).ready(function() {
       google.setOnLoadCallback(drawVisualization);
 </script>
 
-<!-- <script type="text/javascript">
-    function drawVisualization() {
-      // Create and populate the data table.
-      var JSONObject = {
-        cols: [{id: 'Date', type: 'string'},
-               {id: 'Fund', type: 'number'}],
-        rows: [{c:[{v: '01/14'}, {v: 11}]},
-               {c:[{v: '01/15'}, {v: 10}]},
-               {c:[{v: '01/16'}, {v: 12}]},
-               {c:[{v: '01/17'}, {v: 15}]},
-               {c:[{v: '01/18'}, {v: 16}]},
-               {c:[{v: '01/21'}, {v: 17}]},
-               {c:[{v: '01/22'}, {v: 18}]},
-              ]};
-    
-      var data = new google.visualization.DataTable(JSONObject, 0.5);
-    
-      // Create and draw the visualization.
-      visualization = new google.visualization.LineChart(document.getElementById('chart'));
-      visualization.draw(data, {'allowHtml': true,
-                                title: "Fund Name",
-                                width: 800, height:250,
-                                hAxis: {title:"Date"}});
-      }
-      google.setOnLoadCallback(drawVisualization);
-</script>
--->
-
 <script>
       function drawVisualization() {
     	  // Create and populate the data table.
@@ -66,18 +38,17 @@ $(document).ready(function() {
     		  success:  function(json) {
 				var data = json.outputFundPriceHistory;
 				for (var i=0; i<data.length; i++) {
-					dataTable.addRow([data[i].priceDate, data[i].price]);
+					dataTable.addRow([data[i].priceDate.substring(5,10), data[i].price]);
 					}
 				}
     	  });//json 
-    	 
-    	  var formatter_short = new google.visualization.DateFormat({formatType: 'short'});
-    	  formatter_short.format(dataTable, 0);
 
     	  //Instantiate and draw our pie chart, passing in some options.
     	    visualization = new google.visualization.LineChart(document.getElementById('chart'));
     	    visualization.draw(dataTable, {'allowHtml': true,
-    	    								width: 900, height:300 });
+    	    								width: 900, height:300,
+    	    								hAxis: {title:"Date"},
+    	    								vAxis: {title:"Price"}});
       		}
     	    google.setOnLoadCallback(drawVisualization);   
 </script>
