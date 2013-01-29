@@ -113,8 +113,8 @@ public class TransactionAction extends ActionSupport {
 		}
 		try {
 			if (transactionType == -1) {
-				transactions = TransactionDao.getInstance().getListByUserId(
-						userId);
+				transactions = TransactionDao.getInstance().getListByUserId(userId);
+				
 
 			} else {
 				System.out.println(userId);

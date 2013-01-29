@@ -25,7 +25,7 @@ public class TransactionDao extends BaseDao<Transaction> {
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion = Restrictions.eq("sysuser.id", userId);
 		criterions.add(criterion);
-		return (ArrayList<Transaction>) super.getList(criterions);
+		return (ArrayList<Transaction>) super.getList(0, 0, "id", false, criterions);
 	}
 	
 	public Transaction getById(Integer id) throws Exception {
@@ -42,7 +42,7 @@ public class TransactionDao extends BaseDao<Transaction> {
 		criterions.add(criterion1);
 		Criterion criterion2 = Restrictions.eq("transactionType", operation);
 		criterions.add(criterion2);
-		return (ArrayList<Transaction>) super.getList(criterions);	
+		return (ArrayList<Transaction>) super.getList(0, 0, "id",false,criterions);	
 	}
 	
 	public ArrayList<Transaction> getTransByDate(Date date) throws Exception {
