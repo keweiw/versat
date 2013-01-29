@@ -4,16 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.HashMap;
 
 import com.bu.TransitionDay;
-import com.dao.FundDao;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.pojo.Fund;
 import com.pojo.FundPriceHistory;
 
+@SuppressWarnings("serial")
 public class TransitionAction extends ActionSupport {
 
 	private ArrayList<Fund> funds;
@@ -30,9 +28,7 @@ public class TransitionAction extends ActionSupport {
 	private int isSuccess;
 
 	public String showTransition() {
-		Map session = ActionContext.getContext().getSession();
-		this.setIsSuccess(0);
-
+		this.isSuccess = 0;
 		this.lastTradingDate = TransitionDay.getInstance()
 				.getLastTransitionDay();
 		if (lastTradingDate != null) {
@@ -48,11 +44,7 @@ public class TransitionAction extends ActionSupport {
 	}
 
 	public String transition() {
-
-		Map session = ActionContext.getContext().getSession();
-
 		this.isSuccess = 0;
-
 		this.lastTradingDate = TransitionDay.getInstance()
 				.getLastTransitionDay();
 
@@ -73,42 +65,44 @@ public class TransitionAction extends ActionSupport {
 				// System.out.println(lastTradingDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.addActionError("Current closing date is illegal, please choose another date!");
+				this.setIsSuccess(-1);
+				return ERROR;
 			}
 			if (this.lastTradingDate.getTime() >= this.closingDate.getTime()) {
 				this.addActionError("Current closing date is illegal, please choose another date!");
 				this.setIsSuccess(-1);
 				return ERROR;
-
 			} else {
-
-				for (int i = 0; i < funds.size(); i++) {
-					for (int j = 0; j < fundid.size(); j++) {
-
-						if (funds.get(i).getId().equals(fundid.get(j))) {
-							if (closingPrice.get(j) == null || closingPrice.get(j).equals(0)) {
-								this.addActionError("Fund value can not be empty or zero!");
-								this.setIsSuccess(-1);
-								return ERROR;
-							} else {
-								funds.get(i).setCur(closingPrice.get(j));
-							}
-
-						}
-					}
+				HashMap<Integer, Integer> idmaps = new HashMap<Integer, Integer>();
+				for (int j = 0; j < fundid.size(); j++) {
+					idmaps.put(fundid.get(0), j);
 				}
 
-				int checkNum = TransitionDay.getInstance().commitTransitionDay(funds, closingDate);
+				for (int i = 0; i < funds.size(); i++) {
+					Fund fund = funds.get(i);
+					if (idmaps.containsKey(fund.getId())) {
+						int index = idmaps.get(fund.getId());
+						if (index > closingPrice.size() || closingPrice.get(index) == null || closingPrice.get(index).equals(0)) {
+							this.addActionError("Fund value can not be empty or zero!");
+							this.setIsSuccess(-1);
+							return ERROR;
+						} else {
+							fund.setCur(closingPrice.get(index));
+						}
+					}
+					
+				}
+
+				int checkNum = TransitionDay.getInstance().commitTransitionDay(
+						funds, closingDate);
 				// System.out.println("checkNum=" + checkNum);
-				if(checkNum == -3) {
+				if (checkNum == -3) {
 					isSuccess = -1;
 					this.addActionError("There is a new fund, please provide its price.");
-				//	this.updatePrice();
-					//checkNum = TransitionDay.getInstance().commitTransitionDay(funds, closingDate);
-			//		this.checkStatus(checkNum);
 					return ERROR;
 
-				}else if (checkNum == 0) {
+				} else if (checkNum == 0) {
 					isSuccess = 1;
 					return SUCCESS;
 				} else if (checkNum == -1) {
@@ -136,13 +130,13 @@ public class TransitionAction extends ActionSupport {
 	}
 
 	private String checkStatus(int checkNum) {
-	//	if (checkNum == -3) {
-		//	isSuccess = -1;
-		//	this.addActionError("There is a new fund, please provide its price.");
-			// checkNum = TransitionDay.getInstance().commitTransitionDay(funds,
-			// closingDate);
-	//		return ERROR;
-	//	}
+		// if (checkNum == -3) {
+		// isSuccess = -1;
+		// this.addActionError("There is a new fund, please provide its price.");
+		// checkNum = TransitionDay.getInstance().commitTransitionDay(funds,
+		// closingDate);
+		// return ERROR;
+		// }
 		if (checkNum == 0) {
 			isSuccess = 1;
 			return SUCCESS;
@@ -154,11 +148,11 @@ public class TransitionAction extends ActionSupport {
 			isSuccess = -1;
 			this.addActionError("System busy, please retry later!");
 			return ERROR;
-		} //else if (checkNum == -3) {
-		//	isSuccess = -1;
-		//	this.addActionError("There is a new fund, please provide its price.");
-		//	return ERROR;
-	//	}
+		} // else if (checkNum == -3) {
+			// isSuccess = -1;
+			// this.addActionError("There is a new fund, please provide its price.");
+			// return ERROR;
+		// }
 
 		this.addActionError("There is a new fund, please provide its price.");
 		// checkNum = TransitionDay.getInstance().commitTransitionDay(funds,
@@ -166,13 +160,15 @@ public class TransitionAction extends ActionSupport {
 		return ERROR;
 
 	}
-	private String updatePrice(){
+
+	private String updatePrice() {
 
 		for (int i = 0; i < funds.size(); i++) {
 			for (int j = 0; j < fundid.size(); j++) {
 
 				if (funds.get(i).getId().equals(fundid.get(j))) {
-					if (closingPrice.get(j) == null || closingPrice.get(j).equals(0)) {
+					if (closingPrice.get(j) == null
+							|| closingPrice.get(j).equals(0)) {
 						this.addActionError("Fund value can not be empty or zero!");
 						this.setIsSuccess(-1);
 						return ERROR;
@@ -184,7 +180,7 @@ public class TransitionAction extends ActionSupport {
 			}
 		}
 		return SUCCESS;
-		
+
 	}
 
 	public ArrayList<Fund> getFunds() {
