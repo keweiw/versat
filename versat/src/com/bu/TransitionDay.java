@@ -170,9 +170,10 @@ public class TransitionDay {
 			e.printStackTrace();
 		}
 		
-		if (date != null) {
+		if (date == null) {
 			return new Date();
 		}
+		System.out.println(date.toString());
 		return date;
 	}
 
@@ -282,6 +283,7 @@ public class TransitionDay {
 		private static synchronized void operation(Transaction tran, Date date) throws Exception {
 			// TODO Auto-generated method stub
 			Sysuser user = SysuserDao.getInstance().getByUserId(tran.getSysuser().getId());
+			tran.setExecuteDate(date);
 			int operation = TransitionDao.OPERATION_UPDATE;
 			switch (tran.getTransactionType()) {
 			case Transaction.TRANS_TYPE_BUY:
@@ -312,7 +314,7 @@ public class TransitionDay {
 			case Transaction.TRANS_TYPE_SELL:
 				Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
 				if (p.getShares() >= tran.getShares()) {
-					long money = tran.getShares() / 10 * tran.getFundPriceHistory().getPrice();
+					long money = tran.getShares() / 1000 * tran.getFundPriceHistory().getPrice();
 					user.setCash(user.getCash() + money);
 					tran.setAmount(money);
 					if (p.getShares() == tran.getShares()) {

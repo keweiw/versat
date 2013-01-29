@@ -11,11 +11,20 @@
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
-$(document).ready(function() {
- $(".btn_sprites").click(function() {
-  $(this).blur();
- });
-});
+$(document).ready(
+        function() {
+            $(".btn_sprites").click(function() {
+                  $(this).blur();
+                 });
+         
+            $("#submit_change").click(
+                    function() {
+                            $("#form").attr("action",
+                                    "/versat/employee/transition/do");
+                            $("#form").submit();
+                    });
+        }
+);
 </script>
 </head>
 
@@ -38,23 +47,25 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<form action="" method="post">
+<form action="" method="post" id="form" name="form">
 <div class="mail_tab_nav">
-	<div class="straight_line_nav"><div class="new_user_title">Transition Day</div></div>
+	<div class="straight_line_nav"><div class="new_user_title">Transition Day </div></div>
 </div>
 
-<!-- Alert -
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
-<!-- Alert -->
+<!--Alert start-->
+<s:if test='isSuccess == 1'><div class="success_area">Generate Transition Success!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
+<!--Alert end-->
 
 <div class="new_user">
 
 <!-- Date start -->
-<div class="trade_day">Last trading day:</div>
+<div class="trade_day">Last trading day: ${lastTradingDateString}</div>
+
 <div class="trade_day">
 	Closing Date:
-	<input type="text" value="mm/dd/yyyy"/>
+ 	<input type="date" name = "closingDateString" value=${closingDateString} />
+ 	
 </div>
 <!-- Date end -->
 
@@ -70,23 +81,21 @@ $(document).ready(function() {
 		</tr>
 	 </thead>
 	 <tbody>
-	   <tr>
-			<td>Google</td>
-			<td>GOOG</td>
-			<td>$</td>
-			<td><input type="text" name="price" /></td>
-		</tr>
-		<tr>
-			<td>Apple</td>
-			<td>APPL</td>
-			<td>$</td>
-			<td><input type="text" name="price" /></td>
-		</tr>		
+	 	<s:iterator value="funds" id="fund">
+	 		<tr align="center">
+	 			<td><s:property value="#fund.name" /></td>
+	 			<td><s:property value="#fund.symbol" /></td>
+	 			<td align ="right"><s:property value="#fund.lastDay" /></td>
+	 			<td>$ <input name="closingPrice" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.cur} ></td>
+	        <input type="hidden" name="fundid" value=<s:property value="#fund.id" /> />
+	 		</tr>
+	 	</s:iterator>
 	 </tbody>
 	</table>
-	<div class="submit_button">
-		<input class="btn_sprites" type="submit" name="password" value="Submit">
-	</div>					
+<div class="mail_search">
+	<div class="new_user_save_button"><a class="btn_sprites" href="#" name="withdraw" id= "submit_change"><span>Generate Transition</span></a></div>					
+</div>			
 </div>
 </div>
 <!--Account list-->

@@ -22,6 +22,7 @@ public class TransactionAction extends ActionSupport {
 	private Fund fund;
 	private Sysuser user;
 	private Double amount;
+	private String amountString;
 	private int isSuccess;
 
 
@@ -57,13 +58,6 @@ public class TransactionAction extends ActionSupport {
 		this.user = user;
 	}
 
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
 
 	public int getIsSuccess() {
 		return isSuccess;
@@ -90,6 +84,25 @@ public class TransactionAction extends ActionSupport {
 	public void setTransactions(ArrayList<Transaction> transactions) {
 		this.transactions = transactions;
 	}
+	
+	public String getAmountString() {
+		return amountString;
+	}
+
+	public void setAmountString(String amountString) {
+		this.amountString = amountString;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
+	
+	public Double getAmount() {
+		return amount;
+	}
+
+	
+
 
 	public String list() {
 	//	Map session = ActionContext.getContext().getSession();
@@ -155,15 +168,27 @@ public class TransactionAction extends ActionSupport {
 			e1.printStackTrace();
 		}
 		if(user!=null) {
-			if(amount == null||amount == 0){
+			if(amountString == null){
 				this.addActionError("Request amount can not be empty or zero!");
 				this.isSuccess = -1;
 				return ERROR;
-			} else if(amount > user.getCashes()){
-				this.addActionError("Request amount can not larger than cash balance!");
-				this.isSuccess = -1;
+			}  else if(amountString.length() > 16){
+				this.addActionError("The cash number can't be more than 15 digits!");
+				isSuccess = -1;
 				return ERROR;
-			} else {
+			} else if(!checkCashFormat(amountString)){
+				this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+				isSuccess = -1;
+				return ERROR;
+			}else {
+				amount = Double.parseDouble(amountString);
+				
+				if(amount > user.getCashes()){
+					this.addActionError("Request amount can not larger than cash balance!");
+					this.isSuccess = -1;
+					return ERROR;
+				}
+				
 				Transaction t = new Transaction();
 				long a = (long)(amount * 100);
 				//Date date = new Date();			
@@ -226,15 +251,21 @@ public class TransactionAction extends ActionSupport {
 		}
 
 		if(user!=null) {
-			if(amount==null||amount==0){
+
+			if(amountString==null){
 				this.addActionError("Request amount can not be empty or zero!");
 				this.isSuccess = -1;
 				return ERROR;
-			} else if(amount < 0){
-				this.addActionError("Amount can not smaller than zero!");
-				this.isSuccess = -1;
+			} else if(amountString.length() > 16){
+				this.addActionError("The cash number can't be more than 15 digits!");
+				isSuccess = -1;
+				return ERROR;
+			} else if (!checkCashFormat(amountString)){
+				this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+				isSuccess = -1;
 				return ERROR;
 			} else {
+			    amount = Double.parseDouble(amountString);
 				Transaction t = new Transaction();
 				long a = (long)(amount * 100);
 				//Date date = new Date();			
@@ -259,6 +290,29 @@ public class TransactionAction extends ActionSupport {
 		return ERROR;
 	}
 
+	private boolean checkCashFormat(String cashString){
+		int i, flag = 0, loopTime = 0;
+		for(i = 0; i < cashString.length(); i ++){
+			int asc = cashString.charAt(i);
+			if(i == 0){
+				if(asc < 48 || asc > 57) return false;
+			}
+			if((asc < 48 || asc > 57) && asc != 46) return false;
+			if(asc == 46){
+				flag = 1;
+				break;
+			}
+		}
+		for(i ++; i < cashString.length() && flag == 1; ){
+			int asc = cashString.charAt(i);
+			if(asc < 48 || asc > 57) return false;
+			i++;
+			loopTime ++;
+		}
+		if(loopTime > 2) return false;
+		return true;
+	}
 
+	
 
 }

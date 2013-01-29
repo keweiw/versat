@@ -5,8 +5,12 @@
 
 <struts>
     <package name="transition-action" namespace="/employee/transition" extends="versat">
-        <action name="showfundlist" class="com.action.TransitionAction" method="showFundList">
+        <action name="generate" class="com.action.TransitionAction" method="showTransition">
             <result>/pages/transition.jsp</result>
+        </action>
+        <action name="do" class="com.action.TransitionAction" method="transition">
+            <result name="error">/pages/transition.jsp</result>
+            <result name="success">/pages/transition.jsp</result>     
         </action>
     </package>
     

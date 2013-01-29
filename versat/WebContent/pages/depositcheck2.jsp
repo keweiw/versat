@@ -81,8 +81,8 @@ $(document).ready(
   </tr>
   <tr>
     <td class="detail_left">Deposit Amount:</td>
-    <td class="detail_right">$ <input name="amount" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
-		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amount}  ></td>
+    <td class="detail_right">$ <input name="amountString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amountString}  ></td>
   </tr>
   </tbody>
 </table>
