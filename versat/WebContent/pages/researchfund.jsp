@@ -19,15 +19,17 @@ $(document).ready(function() {
  });
 });
 </script>
-    <script type="text/javascript">
+<script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart']});
-    </script>
-    <script type="text/javascript">
+      google.setOnLoadCallback(drawVisualization);
+</script>
+
+<!-- <script type="text/javascript">
     function drawVisualization() {
       // Create and populate the data table.
       var JSONObject = {
-        cols: [{id: 'Date', label: 'Date', type: 'string'},
-               {id: 'Fund', label: 'Name', type: 'number'}],
+        cols: [{id: 'Date', type: 'string'},
+               {id: 'Fund', type: 'number'}],
         rows: [{c:[{v: '01/14'}, {v: 11}]},
                {c:[{v: '01/15'}, {v: 10}]},
                {c:[{v: '01/16'}, {v: 12}]},
@@ -46,34 +48,39 @@ $(document).ready(function() {
                                 width: 800, height:250,
                                 hAxis: {title:"Date"}});
       }
-    google.setOnLoadCallback(drawVisualization);
-    </script>
-    
-    <script>
-      function drawVisualization(num) {
-    	// Create and populate the data table.
-    	  var jsonLineChartData = $.ajax({
-    		url: "http://localhost:8080/versat/customer/fund/fundjson?fundId=${fundId}",
-    	    data: "q="+num,
-    	    dataType:"json",
-    	    async: false
-        }).responseText;
-    	    
-    	 // Create our data table out of JSON data loaded from server.
-    	    var linechartdata = new google.visualization.DataTable(jsonLineChartData, 0.5);
+      google.setOnLoadCallback(drawVisualization);
+</script>
+-->
+
+<script>
+      function drawVisualization() {
+    	  // Create and populate the data table.
+    	  var dataTable = new google.visualization.DataTable();
+    	  dataTable.addColumn('string', 'Date');
+    	  dataTable.addColumn('number', '${name}');
+    	  
+    	  $.ajax({
+    		  async: false,
+    		  url: "http://localhost:8080/versat/customer/fund/fundjson?fundId=${fundId}",
+    		  dataType: "json",
+    		  success:  function(json) {
+				var data = json.outputFundPriceHistory;
+				for (var i=0; i<data.length; i++) {
+					dataTable.addRow([data[i].priceDate, data[i].price]);
+					}
+				}
+    	  });//json 
     	 
-    	 // Instantiate and draw our pie chart, passing in some options.
-    	    var visualization = new google.visualization.LineChart(document.getElementById('chart'));
-    	    visualization.draw(linechartdata, {'allowHtml': true,
-    	    									title: "Fund Name",
-    	     								    width: 700,
-    	      									height: 500,
-    	      									chartArea: { left:"5%",top:"5%",width:"90%",height:"90%" }});
+    	  var formatter_short = new google.visualization.DateFormat({formatType: 'short'});
+    	  formatter_short.format(dataTable, 0);
+
+    	  //Instantiate and draw our pie chart, passing in some options.
+    	    visualization = new google.visualization.LineChart(document.getElementById('chart'));
+    	    visualization.draw(dataTable, {'allowHtml': true,
+    	    								width: 900, height:300 });
       		}
     	    google.setOnLoadCallback(drawVisualization);   
-    </script>
-    
-    
+</script>
 </head>
 
 <body>
@@ -105,7 +112,7 @@ $(document).ready(function() {
 <!--Alert end-->
 
 <div class="new_user">
-<div class="new_user_title" id="chart">Fund Statistics</div>
+<div id="chart"></div>
 
 <!--Google Chart start-->
 
@@ -116,11 +123,11 @@ $(document).ready(function() {
   <tbody>
   	<tr>
 		<td class="detail_left">Fund Name:</td>
-		<td class="detail_right"></td>
+		<td class="detail_right">${name}</td>
 	</tr>
 	<tr>
 		<td class="detail_left">Fund Symbol:</td>
-		<td class="detail_right"></td>
+		<td class="detail_right">${symbol}</td>
 	</tr>
   <tr>
     <td class="detail_left">Last day price:</td>
