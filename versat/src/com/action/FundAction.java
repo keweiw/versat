@@ -8,6 +8,7 @@ import com.bu.TransitionDay;
 import com.dao.FundDao;
 import com.dao.FundPriceHistoryDao;
 import com.dao.PositionDao;
+import com.dao.SysuserDao;
 import com.dao.TransactionDao;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -248,9 +249,8 @@ public class FundAction extends ActionSupport {
 							.getLatestFundHistoryById(fId) != null) {
 						price = FundPriceHistoryDao.getInstance()
 								.getLatestFundHistoryById(fId).getPrice();
-					}
-					else
-						price=0;
+					} else
+						price = 0;
 				} else {
 					price = 0;
 				}
@@ -262,11 +262,12 @@ public class FundAction extends ActionSupport {
 				// -- calculate shares here --//
 				long avaiShares = p.getShares();
 				ArrayList<Transaction> transactions = TransactionDao
-						.getInstance().getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_SELL);
+						.getInstance().getPendTransByUserIdOp(user.getId(),
+								Transaction.TRANS_TYPE_SELL);
 				if (transactions.size() != 0) {
 					for (Transaction t : transactions) {
-						
-						if (t.getFundPriceHistory().getFund().getId()==fId) {
+
+						if (t.getFundPriceHistory().getFund().getId() == fId) {
 							avaiShares -= t.getShares();
 						}
 					}
@@ -287,10 +288,8 @@ public class FundAction extends ActionSupport {
 
 	public String employeeListFundByUserId() {
 		try {
-			Sysuser user;
-			Map session = ActionContext.getContext().getSession();
-			user = (Sysuser) session.get(LoginAction.SYSUSER);
-			name=user.getFirstname();
+			Sysuser user = SysuserDao.getInstance().getByUserId(userId);
+			name = user.getFirstname();
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					userId);
 		} catch (Exception e) {
@@ -472,12 +471,14 @@ public class FundAction extends ActionSupport {
 		shares = p.getShares() / 1000.00;
 		// -- calculate available shares here--//
 		long avaiShares = p.getShares();
-		ArrayList<Transaction> transactions = TransactionDao
-				.getInstance().getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_SELL);
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_SELL);
 		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
-				
-				if (t.getFundPriceHistory().getFund().getId()==p.getFund().getId()) {
+
+				if (t.getFundPriceHistory().getFund().getId() == p.getFund()
+						.getId()) {
 					avaiShares -= t.getShares();
 				}
 			}
@@ -499,11 +500,13 @@ public class FundAction extends ActionSupport {
 		outputShareString = shareDFormat.format(shares);
 		// -- calculate available shares here--//
 		long avaiShares = p.getShares();
-		ArrayList<Transaction> transactions = TransactionDao
-				.getInstance().getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_SELL);
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_SELL);
 		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
-				if (t.getFundPriceHistory().getFund().getId()==p.getFund().getId()) {
+				if (t.getFundPriceHistory().getFund().getId() == p.getFund()
+						.getId()) {
 					avaiShares -= t.getShares();
 				}
 			}
@@ -535,17 +538,18 @@ public class FundAction extends ActionSupport {
 
 	public static synchronized boolean checkAndSell(int fId, int uId,
 			long shares) throws Exception {
-		
+
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(uId, fId);
 		long avaiShares = p.getShares();
 		if (avaiShares <= 0) {
 			return false;
 		}
-		ArrayList<Transaction> transactions = TransactionDao
-				.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_SELL);
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_SELL);
 		if (transactions.size() != 0) {
 			for (Transaction t : transactions) {
-				if (t.getFundPriceHistory().getFund().getId()==p.getFund().getId()) {
+				if (t.getFundPriceHistory().getFund().getId() == p.getFund()
+						.getId()) {
 					avaiShares -= t.getShares();
 				}
 			}
@@ -636,10 +640,13 @@ public class FundAction extends ActionSupport {
 			}
 		}
 		// available share check here
-		ArrayList<Transaction> transactions3 = TransactionDao.getInstance().getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_SELL);
+		ArrayList<Transaction> transactions3 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_SELL);
 		if (transactions3.size() != 0) {
 			for (Transaction t : transactions3) {
-				if (t.getFundPriceHistory().getFund().getId()==p.getFund().getId()) {
+				if (t.getFundPriceHistory().getFund().getId() == p.getFund()
+						.getId()) {
 					avaiShares -= t.getShares();
 				}
 			}
@@ -672,11 +679,13 @@ public class FundAction extends ActionSupport {
 			outputShareString = shareDFormat.format(shares);
 			avaiShares = p.getShares();
 			// calculation share here
-			ArrayList<Transaction> transactions = TransactionDao
-					.getInstance().getPendTransByUserIdOp(user.getId(), Transaction.TRANS_TYPE_SELL);
+			ArrayList<Transaction> transactions = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_SELL);
 			if (transactions.size() != 0) {
 				for (Transaction t : transactions) {
-					if (t.getFundPriceHistory().getFund().getId()==p.getFund().getId()) {
+					if (t.getFundPriceHistory().getFund().getId() == p
+							.getFund().getId()) {
 						avaiShares -= t.getShares();
 					}
 				}
@@ -693,7 +702,7 @@ public class FundAction extends ActionSupport {
 						Transaction.TRANS_TYPE_WITHDRAW);
 		long avaiBalance = user.getCash();
 		if (transactions.size() != 0) {
-			
+
 			for (Transaction t : transactions) {
 				avaiBalance -= t.getAmount();
 			}
