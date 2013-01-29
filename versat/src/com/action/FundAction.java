@@ -287,6 +287,10 @@ public class FundAction extends ActionSupport {
 
 	public String employeeListFundByUserId() {
 		try {
+			Sysuser user;
+			Map session = ActionContext.getContext().getSession();
+			user = (Sysuser) session.get(LoginAction.SYSUSER);
+			name=user.getFirstname();
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					userId);
 		} catch (Exception e) {
