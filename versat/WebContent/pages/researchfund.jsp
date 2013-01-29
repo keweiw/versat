@@ -10,8 +10,9 @@
 <link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/chart.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<!--<script type="text/javascript" src="http://www.google.com/jsapi"></script>-->
 <script type="text/javascript" language="javascript">
 $(document).ready(function() {
  $(".btn_sprites").click(function() {
@@ -22,9 +23,6 @@ $(document).ready(function() {
 <script type="text/javascript">
       google.load('visualization', '1', {packages: ['corechart']});
       google.setOnLoadCallback(drawVisualization);
-</script>
-
-<script>
       function drawVisualization() {
     	  // Create and populate the data table.
     	  var dataTable = new google.visualization.DataTable();
@@ -46,9 +44,6 @@ $(document).ready(function() {
     	  
     	  //Instantiate and draw our pie chart, passing in some options.
     	    visualization = new google.visualization.LineChart(document.getElementById('chart'));
-    	  
-    	    
-  		  
     	    visualization.draw(dataTable, {'allowHtml': true,
     	    								width: 900, height:300,
     	    						        pointSize: 5,
@@ -70,7 +65,7 @@ $(document).ready(function() {
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
 <div class="header_image"><img src="../../images/back.gif" title="log out" /></div>
-<div class="header_ues">Welcome, ${sessionScope.NAME}</a></div>
+<div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>
 <!--header end-->
