@@ -48,7 +48,7 @@ $(document).ready(function() {
     	    visualization.draw(dataTable, {'allowHtml': true,
     	    								width: 900, height:300,
     	    								hAxis: {title:"Date"},
-    	    								vAxis: {title:"Price"}});
+    	    								vAxis: {title:"Price($)"}});
       		}
     	    google.setOnLoadCallback(drawVisualization);   
 </script>
