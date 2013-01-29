@@ -97,7 +97,12 @@
 			<option value="default"  >Search By:</option>
 			<option value="username" <s:if test='optionC == "username"'>selected</s:if>>Username</option>
 			<option value="firstname"<s:if test='optionC == "firstname"'>selected</s:if> >First Name</option>
-			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select></td>
+			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select>
+			<select class="list_text_width_normal" name="optionCOrd" >
+			<option value="default"  >Order By:</option>
+			<option value="username" <s:if test='optionCOrd == "username"'>selected</s:if>>Username</option>
+			<option value="firstname"<s:if test='optionCOrd == "firstname"'>selected</s:if> >First Name</option>
+			<option value="lastname" <s:if test='optionCOrd == "lastname"'>selected</s:if>>Last Name</option></select></td>
 		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
 	</table>	

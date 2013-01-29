@@ -17,45 +17,25 @@ public class AccountAction extends ActionSupport {
 	public double cash;
 	private String cashString;
 	private int isSuccess = 0;
-	public String optionC="";
+	public String optionC = "";
+	public String optionCOrd = "";
 	public String searchKeyC;
 	public String searchKeyE;
 
 
 
 	public String customerlist() {
+		String searchBy;
+		String orderBy;
+		boolean isAsc;
 		if(optionC.equals("username")){
-			try {
-				users = SysuserDao.getInstance().getUsersByUsername(searchKeyC,0);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+			searchBy = SysuserDao.USERNAMENAME;
 		}
 		if(optionC.equals("firstname")){
-			try {
-				users = SysuserDao.getInstance().getUsersByFirstname(searchKeyC,0);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+			searchBy = SysuserDao.FIRSTNAME;
 		}
 		if(optionC.equals("lastname")){
-			try {
-				users = SysuserDao.getInstance().getUsersByLastname(searchKeyC,0);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+			searchBy = SysuserDao.LASTNAME;
 		}else{
 			try {
 				this.users = SysuserDao.getInstance().getUsersByType(Sysuser.USER_TYPE_COSTOMER);
@@ -68,6 +48,15 @@ public class AccountAction extends ActionSupport {
 			}
 			return SUCCESS;
 		}
+		try {
+			users = SysuserDao.getInstance().getUser(searchBy, orderBy, true, searchkey, type);
+		} catch (Exception e) {
+			e.printStackTrace();
+			this.addActionError("Can't find this user!");
+			isSuccess = -2;
+			return SUCCESS;
+		}
+		return SUCCESS;
 		
 	}
 	public String employeelist() {
