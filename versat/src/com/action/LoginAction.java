@@ -56,7 +56,7 @@ public class LoginAction extends ActionSupport {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (loginUser != null && loginUser.getPassword().equals(password)) {
+			if (loginUser != null && loginUser.getPassword().equals(AuthorizationFilter.MD5(password))) {
 				session.put(LoginAction.USER_TYPE, loginUser.getType());
 				session.put(LoginAction.SYSUSER, loginUser);
 				session.put(LoginAction.USER_NAME, loginUser.getFirstname()
