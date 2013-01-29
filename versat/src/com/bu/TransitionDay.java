@@ -2,10 +2,10 @@ package com.bu;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.dao.BaseDao;
 import com.dao.FundDao;
 import com.dao.FundPriceHistoryDao;
 import com.dao.PositionDao;
@@ -64,20 +64,24 @@ public class TransitionDay {
 	public ArrayList<Fund> getFundList() {
 		try {
 			Date d = FundPriceHistoryDao.getInstance().getLastDay();
+			ArrayList<Fund> funds = FundDao.getInstance().getAllList();
 			if (d != null) {
 				ArrayList<FundPriceHistory> fundList = FundPriceHistoryDao
 						.getInstance().getListByDate(d);
-				ArrayList<Fund> funds = new ArrayList<Fund>();
+				HashMap<Integer, Double> lastprice = new HashMap<Integer, Double>();
 				for (FundPriceHistory f : fundList) {
 					Fund test = f.getFund();
-					test.setLastDay(f.getPrice() / 100.0);
-					funds.add(test);
+					lastprice.put(test.getId(), f.getPrice() / 100.0);
 				}
-				return funds;
-			} else {
-				ArrayList<Fund> funds = FundDao.getInstance().getAllList();
-				return funds;
+				if (funds != null) {
+					for (Fund fund : funds) {
+						if (lastprice.containsKey(fund.getId())) {
+							fund.setLastDay(lastprice.get(fund.getId()));
+						}
+					}
+				}
 			}
+			return funds;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,9 +148,8 @@ public class TransitionDay {
 				}
 				ArrayList<Transaction> trans = null;
 				try {
-					trans = TransactionDao.getInstance()
-							.getTransByStatus();
-					
+					trans = TransactionDao.getInstance().getTransByStatus();
+
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -169,10 +172,11 @@ public class TransitionDay {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		if (date != null) {
+
+		if (date == null) {
 			return new Date();
 		}
+		System.out.println(date.toString());
 		return date;
 	}
 
@@ -190,7 +194,7 @@ public class TransitionDay {
 					} else {
 						transaction.setSysuser(user);
 						transaction.setFundPriceHistory(fph);
-//						transaction.setExecuteDate(fph.getPriceDate());
+						// transaction.setExecuteDate(fph.getPriceDate());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -227,7 +231,7 @@ public class TransitionDay {
 						ret = FAILED;
 					} else {
 						transaction.setSysuser(user);
-//						transaction.setExecuteDate(getLastTransitionDay());
+						// transaction.setExecuteDate(getLastTransitionDay());
 						TransactionDao.getInstance().createTransaction(
 								transaction);
 					}
@@ -264,7 +268,7 @@ public class TransitionDay {
 		@Override
 		public void run() {
 			try {
-				
+
 				if (this.trans != null) {
 					for (Transaction tran : trans) {
 						operation(tran, this.date);
@@ -279,17 +283,25 @@ public class TransitionDay {
 
 		}
 
-		private static synchronized void operation(Transaction tran, Date date) throws Exception {
+		private static synchronized void operation(Transaction tran, Date date)
+				throws Exception {
 			// TODO Auto-generated method stub
-			Sysuser user = SysuserDao.getInstance().getByUserId(tran.getSysuser().getId());
+			Sysuser user = SysuserDao.getInstance().getByUserId(
+					tran.getSysuser().getId());
+			tran.setExecuteDate(date);
 			int operation = TransitionDao.OPERATION_UPDATE;
 			switch (tran.getTransactionType()) {
 			case Transaction.TRANS_TYPE_BUY:
 				if (user.getCash() >= tran.getAmount()) {
 					user.setCash(user.getCash() - tran.getAmount());
-					long shares = 1000 * tran.getAmount() / tran.getFundPriceHistory().getPrice() ;
+					long shares = 1000 * tran.getAmount()
+							/ tran.getFundPriceHistory().getPrice();
 					tran.setShares(shares);
-					Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
+					Position p = PositionDao.getInstance()
+							.getByCustomerIdFundId(
+									user.getId(),
+									tran.getFundPriceHistory().getFund()
+											.getId());
 					if (p == null) {
 						p = new Position();
 						p.setFund(tran.getFundPriceHistory().getFund());
@@ -300,7 +312,8 @@ public class TransitionDay {
 						p.setShares(shares + p.getShares());
 					}
 					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-					if (!TransitionDao.getInstance().buyAndSell(p, user, tran, operation)) {
+					if (!TransitionDao.getInstance().buyAndSell(p, user, tran,
+							operation)) {
 						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 						TransactionDao.getInstance().update(tran);
 					}
@@ -310,9 +323,12 @@ public class TransitionDay {
 				}
 				break;
 			case Transaction.TRANS_TYPE_SELL:
-				Position p = PositionDao.getInstance().getByCustomerIdFundId(user.getId(), tran.getFundPriceHistory().getFund().getId());
+				Position p = PositionDao.getInstance().getByCustomerIdFundId(
+						user.getId(),
+						tran.getFundPriceHistory().getFund().getId());
 				if (p.getShares() >= tran.getShares()) {
-					long money = tran.getShares() / 10 * tran.getFundPriceHistory().getPrice();
+					long money = tran.getShares() / 1000
+							* tran.getFundPriceHistory().getPrice();
 					user.setCash(user.getCash() + money);
 					tran.setAmount(money);
 					if (p.getShares() == tran.getShares()) {
@@ -321,7 +337,8 @@ public class TransitionDay {
 						p.setShares(p.getShares() - tran.getShares());
 					}
 					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-					if (!TransitionDao.getInstance().buyAndSell(p, user, tran, operation)) {
+					if (!TransitionDao.getInstance().buyAndSell(p, user, tran,
+							operation)) {
 						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 						TransactionDao.getInstance().update(tran);
 					}
@@ -342,7 +359,8 @@ public class TransitionDay {
 				if (user.getCash() >= tran.getAmount()) {
 					user.setCash(user.getCash() - tran.getAmount());
 					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-					if (!TransitionDao.getInstance().withDrawAndDepsit(user, tran)) {
+					if (!TransitionDao.getInstance().withDrawAndDepsit(user,
+							tran)) {
 						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 						TransactionDao.getInstance().update(tran);
 					}
@@ -352,7 +370,7 @@ public class TransitionDay {
 				}
 				break;
 			}
-			
+
 		}
 	}
 }

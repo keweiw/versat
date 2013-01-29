@@ -1,6 +1,8 @@
 package com.action;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -156,5 +158,30 @@ public class AuthorizationFilter implements Filter {
 
 	private enum Status {
 		ALLOW, LOGIN, DENY;
+	}
+	
+	public static String MD5(String plainText) {
+		String str = new String();
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(plainText.getBytes());
+			byte b[] = md.digest();
+			int i;
+			StringBuffer buf = new StringBuffer("");
+			for (int offset = 0; offset < b.length; offset++) {
+				i = b[offset];
+				if (i < 0) {
+					i += 256;
+				}
+				if (i < 16) {
+					buf.append("0");
+				}
+				buf.append(Integer.toHexString(i));
+			}
+			str = buf.toString().substring(8, 24);
+		} catch (NoSuchAlgorithmException e) {
+			// empty
+		}
+		return str;
 	}
 }
