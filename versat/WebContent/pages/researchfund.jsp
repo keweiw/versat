@@ -39,18 +39,24 @@ $(document).ready(function() {
 				var data = json.outputFundPriceHistory;
 				for (var i=0; i<data.length; i++) {
 					dataTable.addRow([data[i].priceDate.substring(5,10), data[i].price]);
+					document.getElementById('lastPrice').innerHTML = data[data.length-1].price.toFixed(2);
 					}
 				}
     	  });//json 
-
+    	  
     	  //Instantiate and draw our pie chart, passing in some options.
     	    visualization = new google.visualization.LineChart(document.getElementById('chart'));
+    	  
+    	    
+  		  
     	    visualization.draw(dataTable, {'allowHtml': true,
     	    								width: 900, height:300,
+    	    						        pointSize: 5,
     	    								hAxis: {title:"Date"},
     	    								vAxis: {title:"Price($)"}});
       		}
     	    google.setOnLoadCallback(drawVisualization);   
+    	   
 </script>
 </head>
 
@@ -102,7 +108,7 @@ $(document).ready(function() {
 	</tr>
   <tr>
     <td class="detail_left">Last day price:</td>
-    <td class="detail_right"></td>
+    <td class="detail_right">$<span id="lastPrice"></span></td>
   </tr>
   </tbody>
 </table>
