@@ -293,29 +293,35 @@ public class TransitionDay {
 			switch (tran.getTransactionType()) {
 			case Transaction.TRANS_TYPE_BUY:
 				if (user.getCash() >= tran.getAmount()) {
-					user.setCash(user.getCash() - tran.getAmount());
 					long shares = 1000 * tran.getAmount()
 							/ tran.getFundPriceHistory().getPrice();
-					tran.setShares(shares);
-					Position p = PositionDao.getInstance()
-							.getByCustomerIdFundId(
-									user.getId(),
-									tran.getFundPriceHistory().getFund()
-											.getId());
-					if (p == null) {
-						p = new Position();
-						p.setFund(tran.getFundPriceHistory().getFund());
-						p.setIduser(user.getId());
-						p.setShares(shares);
-						operation = TransitionDao.OPERATION_NEW;
-					} else {
-						p.setShares(shares + p.getShares());
-					}
-					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-					if (!TransitionDao.getInstance().buyAndSell(p, user, tran,
-							operation)) {
+					if (shares == 0) {
 						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 						TransactionDao.getInstance().update(tran);
+					} else {
+						tran.setShares(shares);
+						tran.setAmount((long) (shares / 1000.0 * tran.getFundPriceHistory().getPrice()));
+						user.setCash(user.getCash() - tran.getAmount());
+						Position p = PositionDao.getInstance()
+								.getByCustomerIdFundId(
+										user.getId(),
+										tran.getFundPriceHistory().getFund()
+												.getId());
+						if (p == null) {
+							p = new Position();
+							p.setFund(tran.getFundPriceHistory().getFund());
+							p.setIduser(user.getId());
+							p.setShares(shares);
+							operation = TransitionDao.OPERATION_NEW;
+						} else {
+							p.setShares(shares + p.getShares());
+						}
+						tran.setStatus(Transaction.TRANS_STATUS_FINISH);
+						if (!TransitionDao.getInstance().buyAndSell(p, user,
+								tran, operation)) {
+							tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+							TransactionDao.getInstance().update(tran);
+						}
 					}
 				} else {
 					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
