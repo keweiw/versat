@@ -301,7 +301,7 @@ public class FundAction extends ActionSupport {
 	// --search fund by fund name--//
 	public String searchFundByName() throws Exception {
 		keyword = keyword.trim();
-		funds = FundDao.getInstance().getByName(keyword);
+		funds = FundDao.getInstance().getByName(keyword,true);
 		return SUCCESS;
 	}
 
@@ -322,7 +322,7 @@ public class FundAction extends ActionSupport {
 			funds = FundDao.getInstance().getAllList();
 			return SUCCESS;
 		} else if (optionC.equals("fundName")) {
-			funds = FundDao.getInstance().getByName(keyword);
+			funds = FundDao.getInstance().getByName(keyword,true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -331,7 +331,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = 1;
 			return SUCCESS;
 		} else if (optionC.equals("fundSymbol")) {
-			funds = FundDao.getInstance().getBySymbol(keyword);
+			funds = FundDao.getInstance().getBySymbol(keyword,true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -362,7 +362,7 @@ public class FundAction extends ActionSupport {
 			positions = PositionDao.getInstance().getAllList();
 			return SUCCESS;
 		} else if (optionC.equals("fundName")) {
-			funds = FundDao.getInstance().getByName(keyword);
+			funds = FundDao.getInstance().getByName(keyword,true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -378,7 +378,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = 1;
 			return SUCCESS;
 		} else if (optionC.equals("fundSymbol")) {
-			funds = FundDao.getInstance().getBySymbol(keyword);
+			funds = FundDao.getInstance().getBySymbol(keyword,true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -421,13 +421,13 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		// --check if the fund name or symbol is duplicate --//
-		ArrayList<Fund> fs = FundDao.getInstance().getByName(name);
+		ArrayList<Fund> fs = FundDao.getInstance().getByName(name,false);
 		if (fs.size() != 0) {
 			this.addActionError("The fund name is already exist!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		fs = FundDao.getInstance().getBySymbol(symbol);
+		fs = FundDao.getInstance().getBySymbol(symbol,false);
 		if (fs.size() != 0) {
 			this.addActionError("The fund symbol is already exist!");
 			isSuccess = -1;
@@ -435,7 +435,7 @@ public class FundAction extends ActionSupport {
 		}
 
 		FundDao.getInstance().createFund(name, symbol);
-		ArrayList<Fund> f = FundDao.getInstance().getByName(name);
+		ArrayList<Fund> f = FundDao.getInstance().getByName(name,false);
 		FundPriceHistory fph = new FundPriceHistory();
 		fph.setFund(f.get(0));
 		FundPriceHistoryDao.getInstance().create(fph);
