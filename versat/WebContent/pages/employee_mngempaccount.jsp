@@ -7,9 +7,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Manage Account</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
 
 
@@ -71,7 +73,8 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="searchKeyE" type="text" class="list_text_width_normal" value="${searchKeyE}" /></td>
+		Search Key: 
+		<input name="searchKeyE" type="text" class="list_text_width_normal" <s:if test='searchKeyC == null'>value = "Input Search Key!"</s:if>value="${searchKeyE}" /></td>
 		<td><select class="list_text_width_normal" name="optionE" >
 			<option value="default" >Search By:</option>
 			<option value="username" <s:if test='optionE == "username"'>selected</s:if>>Username</option>

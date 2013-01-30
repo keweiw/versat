@@ -92,7 +92,7 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="searchKeyC" type="text" class="list_text_width_normal" value="${searchKeyC}" /></td>
+		<input name="searchKeyC" type="text" class="list_text_width_normal"  <s:if test='searchKeyC == null'>value = "Input Search Key!"</s:if>value="${searchKeyC}" /></td>
 		<td><select class="list_text_width_normal" name="optionC" >
 			<option value="default"  >Search By:</option>
 			<option value="username" <s:if test='optionC == "username"'>selected</s:if>>Username</option>
