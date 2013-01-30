@@ -231,7 +231,6 @@ public class FundAction extends ActionSupport {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
-		// int o = user.getId();
 		try {
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					user.getId());
@@ -623,6 +622,18 @@ public class FundAction extends ActionSupport {
 			shares = p.getShares() / 1000.0;
 			outputShareString = shareDFormat.format(shares);
 			avaiShares = p.getShares();
+			// available share check here
+			ArrayList<Transaction> transactions3 = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_SELL);
+			if (transactions3.size() != 0) {
+				for (Transaction t : transactions3) {
+					if (t.getFundPriceHistory().getFund().getId() == p.getFund()
+							.getId()) {
+						avaiShares -= t.getShares();
+					}
+				}
+			}
 		}
 		// available balance check here
 		ArrayList<Transaction> transactions = TransactionDao.getInstance()
@@ -642,18 +653,7 @@ public class FundAction extends ActionSupport {
 				avaiBalance -= t.getAmount();
 			}
 		}
-		// available share check here
-		ArrayList<Transaction> transactions3 = TransactionDao.getInstance()
-				.getPendTransByUserIdOp(user.getId(),
-						Transaction.TRANS_TYPE_SELL);
-		if (transactions3.size() != 0) {
-			for (Transaction t : transactions3) {
-				if (t.getFundPriceHistory().getFund().getId() == p.getFund()
-						.getId()) {
-					avaiShares -= t.getShares();
-				}
-			}
-		}
+		
 		double as = avaiShares / 1000.0;
 		if (p != null)
 			outputAvaiShareString = shareDFormat.format(as);
