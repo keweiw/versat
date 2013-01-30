@@ -110,7 +110,7 @@
 									               <s:if test='#transaction.transactionType == 2'><td>Deposit Check</td></s:if>
 									               <s:if test='#transaction.transactionType == 3'><td>Request Check</td></s:if>
 									               <td><s:property value="#transaction.fundNameString" /></td>
-									               <td><s:property value="#transaction.sharesString" /></td>
+									               <td align="right"><s:property value="#transaction.sharesString" /></td>
 									               <td align="right"><s:property value="#transaction.unitPriceString" /></td>
 									               <td align="right"><s:property value="#transaction.amountString" /></td>
 									               <td><s:property value="#transaction.stringDate" /></td>

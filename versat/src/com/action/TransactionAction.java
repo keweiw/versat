@@ -26,7 +26,6 @@ public class TransactionAction extends ActionSupport {
 	private String amountString;
 	private String availBalanceString;
 	private int isSuccess;
-//	private String url = "/versat/employee/trans/list?isSuccess&&userId="+userId;
 	
 	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
 
@@ -281,7 +280,7 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
-		if (avaiBalance <= 0) {
+		if (avaiBalance < 0) {
 			return false;
 		}
 		if (transactions.size() != 0) {
@@ -439,7 +438,7 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = SysuserDao.getInstance().getByUserId(uId);
 		long avaiBalance = user.getCash();
-		if (avaiBalance <= 0) {
+		if (avaiBalance < 0) {
 			return false;
 		}
 		if (transactions.size() != 0) {
