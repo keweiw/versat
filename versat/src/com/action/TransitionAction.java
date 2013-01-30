@@ -21,6 +21,7 @@ public class TransitionAction extends ActionSupport {
 	private Date closingDate;
 	private String closingDateString;
 	private ArrayList<Double> closingPrice;
+	private ArrayList<String> closingPriceString;
 	private ArrayList<Integer> fundid;
 
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -76,19 +77,34 @@ public class TransitionAction extends ActionSupport {
 			} else {
 				HashMap<Integer, Integer> idmaps = new HashMap<Integer, Integer>();
 				for (int j = 0; j < fundid.size(); j++) {
-					idmaps.put(fundid.get(0), j);
+					idmaps.put(fundid.get(j), j);
 				}
 
 				for (int i = 0; i < funds.size(); i++) {
 					Fund fund = funds.get(i);
 					if (idmaps.containsKey(fund.getId())) {
 						int index = idmaps.get(fund.getId());
-						if (index > closingPrice.size() || closingPrice.get(index) == null || closingPrice.get(index).equals(0)) {
+						if (index >= closingPriceString.size() || closingPriceString.get(index) == null || closingPriceString.get(index).equals(0)) {
 							this.addActionError("Fund value can not be empty or zero!");
 							this.setIsSuccess(-1);
 							return ERROR;
 						} else {
-							fund.setCur(closingPrice.get(index));
+							if(closingPriceString.get(index).length() > 16){
+								this.addActionError("The cash number can't be more than 15 digits!");
+								isSuccess = -1;
+								return ERROR;
+							} else if (!checkCashFormat(closingPriceString.get(index))){
+								this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+								isSuccess = -1;
+								return ERROR;
+							} else if (Double.parseDouble(closingPriceString.get(index))>=100000){
+								this.addActionError("UnitPrice can not larger than 10,000");
+								isSuccess = -1;
+								return ERROR;
+							} else
+								fund.setCur(Double.parseDouble(closingPriceString.get(index)));
+							}
+							
 						}
 					}
 					
@@ -115,7 +131,7 @@ public class TransitionAction extends ActionSupport {
 					return ERROR;
 				}
 			}
-		}
+		
 
 		else {
 			this.addActionError("Closing date can not be empty!");
@@ -128,7 +144,30 @@ public class TransitionAction extends ActionSupport {
 		return SUCCESS;
 
 	}
-
+	
+	private boolean checkCashFormat(String cashString){
+		int i, flag = 0, loopTime = 0;
+		for(i = 0; i < cashString.length(); i ++){
+			int asc = cashString.charAt(i);
+			if(i == 0){
+				if(asc < 48 || asc > 57) return false;
+			}
+			if((asc < 48 || asc > 57) && asc != 46) return false;
+			if(asc == 46){
+				flag = 1;
+				break;
+			}
+		}
+		for(i ++; i < cashString.length() && flag == 1; ){
+			int asc = cashString.charAt(i);
+			if(asc < 48 || asc > 57) return false;
+			i++;
+			loopTime ++;
+		}
+		if(loopTime > 2) return false;
+		return true;
+	}
+	
 	private String checkStatus(int checkNum) {
 		// if (checkNum == -3) {
 		// isSuccess = -1;
@@ -253,6 +292,14 @@ public class TransitionAction extends ActionSupport {
 
 	public void setFundid(ArrayList<Integer> fundid) {
 		this.fundid = fundid;
+	}
+
+	public ArrayList<String> getClosingPriceString() {
+		return closingPriceString;
+	}
+
+	public void setClosingPriceString(ArrayList<String> closingPriceString) {
+		this.closingPriceString = closingPriceString;
 	}
 
 }

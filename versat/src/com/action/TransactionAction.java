@@ -168,7 +168,7 @@ public class TransactionAction extends ActionSupport {
 			e1.printStackTrace();
 		}
 		if(user!=null) {
-			if(amountString == null){
+			if(amountString == null||Double.parseDouble(amountString)==0){
 				this.addActionError("Request amount can not be empty or zero!");
 				this.isSuccess = -1;
 				return ERROR;
@@ -252,7 +252,7 @@ public class TransactionAction extends ActionSupport {
 
 		if(user!=null) {
 
-			if(amountString==null){
+			if(amountString==null||Double.parseDouble(amountString)==0){
 				this.addActionError("Request amount can not be empty or zero!");
 				this.isSuccess = -1;
 				return ERROR;
