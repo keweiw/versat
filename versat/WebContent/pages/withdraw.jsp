@@ -66,7 +66,7 @@ $(document).ready(
 <tbody>
   	<tr>
 		<td class="detail_left">Cash Balance:</td>
-		<td class="detail_right">$${user.cashesString}</td>
+		<td class="detail_right">$ ${user.cashesString}</td>
 	</tr>
 	
   	<tr>
