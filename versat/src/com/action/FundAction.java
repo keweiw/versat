@@ -728,6 +728,11 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
+		if(amount.length() > 10){
+			this.addActionError("You can not enter more than 10 digits.");
+			isSuccess = -1;
+			return ERROR;
+		}
 		// --can not buy too much or too less check here --//
 		Double newAmount = Double.valueOf(amount);
 
