@@ -23,6 +23,18 @@ $(document).ready(function() {
 		});
 });
 </script>
+<script type="text/javascript">
+	function stopRKey(evt) {
+		var evt = (evt) ? evt : ((event) ? event : null);
+		var node = (evt.target) ? evt.target
+				: ((evt.srcElement) ? evt.srcElement : null);
+		if (evt.keyCode == 13) {
+			return false;
+		}
+	}
+
+	document.onkeypress = stopRKey;
+</script>
 </head>
 
 <body>
@@ -69,8 +81,8 @@ $(document).ready(function() {
 		<input name="keyword" type="text" class="list_text_width_normal" value="${keyword}" /></td>
 		<td><select class="list_text_width_normal" name="optionC" >
 			<option value="default"  >Search By:</option>
-			<option value="fundName" >Fund Name</option>
-			<option value="fundSymbol">Fund Symbol</option>
+			<option value="fundName" <s:if test='optionC =="fundName"'>selected</s:if> >Fund Name</option>
+			<option value="fundSymbol" <s:if test='optionC =="fundSymbol"'>selected</s:if>>Fund Symbol</option>
 			</select></td>
 		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 	</tr>
