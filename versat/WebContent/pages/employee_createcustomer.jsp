@@ -88,7 +88,7 @@ $(document).ready(function() {
     <td class="detail_right"><input name="user.zip" class="list_text_width_normal" /></td>
   </tr>
   <tr>
-    <td class="detail_left">Cash Balance($):</td>
+    <td class="detail_left">*Cash Balance($):</td>
     <td class="detail_right">
     <input name="cashString" value="${cashString}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
     </td>
