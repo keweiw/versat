@@ -10,9 +10,8 @@
 <link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
-<script type="text/javascript" src="../../js/chart.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
-<!--<script type="text/javascript" src="http://www.google.com/jsapi"></script>-->
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript" language="javascript">
 $(document).ready(function() {
  $(".btn_sprites").click(function() {
