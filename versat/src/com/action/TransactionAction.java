@@ -388,7 +388,7 @@ public class TransactionAction extends ActionSupport {
 			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
 			
 
-			if (amountString == null || Double.parseDouble(amountString) == 0 || Double.parseDouble(amountString) < 0.01) {
+			if (amountString == null ||amountString.equals("")|| Double.parseDouble(amountString) == 0 || Double.parseDouble(amountString) < 0.01) {
 				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
