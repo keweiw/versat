@@ -7,9 +7,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 <title>Carnegie Financial Service | Manage Account</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
+<script type="text/javascript" src="../../js/new_user.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
 
 
@@ -71,13 +73,23 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="searchKeyE" type="text" class="list_text_width_normal" value="${searchKeyE}" /></td>
-		<td><select class="list_text_width_normal" name="optionC" >
+		Search Key: 
+		<input name="searchKeyE" type="text" class="list_text_width_normal" <s:if test='searchKeyC == null'>value = "Input Search Key!"</s:if>value="${searchKeyE}" /></td>
+		<td><select class="list_text_width_normal" name="optionE" >
 			<option value="default" >Search By:</option>
-			<option value="username" <s:if test='optionC == "username"'>selected</s:if>>Username</option>
-			<option value="firstname"<s:if test='optionC == "firstname"'>selected</s:if> >First Name</option>
-			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select></td>
-		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
+			<option value="username" <s:if test='optionE == "username"'>selected</s:if>>Username</option>
+			<option value="firstname"<s:if test='optionE == "firstname"'>selected</s:if> >First Name</option>
+			<option value="lastname" <s:if test='optionE == "lastname"'>selected</s:if>>Last Name</option></select>
+			<select class="list_text_width_normal" name="optionEOrd" >
+			<option value="default"  >Order By:</option>
+			<option value="usernameA" <s:if test='optionEOrd == "usernameA"'>selected</s:if>>Username↑</option>
+			<option value="usernameD" <s:if test='optionEOrd == "usernameD"'>selected</s:if>>Username↓</option>
+			<option value="firstnameA"<s:if test='optionEOrd == "firstnameA"'>selected</s:if> >First Name↑</option>
+			<option value="firstnameD"<s:if test='optionEOrd == "firstnameD"'>selected</s:if> >First Name↓</option>
+			<option value="lastnameA" <s:if test='optionEOrd == "lastnameA"'>selected</s:if>>Last Name↑</option>
+			<option value="lastnameD" <s:if test='optionEOrd == "lastnameD"'>selected</s:if>>Last Name↓</option></select></td>
+			</select></td></td>
+		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Process</span></a></td>
 	</tr>
 	</table>	
 </div>

@@ -17,106 +17,114 @@ public class AccountAction extends ActionSupport {
 	public double cash;
 	private String cashString;
 	private int isSuccess = 0;
-	public String optionC="";
+	public String optionC = "";
+	public String optionCOrd = "";
+	public String optionE = "";
+	public String optionEOrd = "";
 	public String searchKeyC;
 	public String searchKeyE;
 
 
 
 	public String customerlist() {
-		if(optionC.equals("username")){
-			try {
-				users = SysuserDao.getInstance().getUsersByUsername(searchKeyC,0);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+		String searchBy = null;
+		String orderBy = null;
+		boolean isAsc = true;
+		if (optionC.equals("username")) {
+			searchBy = SysuserDao.USERNAME;
 		}
-		if(optionC.equals("firstname")){
-			try {
-				users = SysuserDao.getInstance().getUsersByFirstname(searchKeyC,0);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+		if (optionC.equals("firstname")) {
+			searchBy = SysuserDao.FIRSTNAME;
 		}
-		if(optionC.equals("lastname")){
-			try {
-				users = SysuserDao.getInstance().getUsersByLastname(searchKeyC,0);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
-		}else{
-			try {
-				this.users = SysuserDao.getInstance().getUsersByType(Sysuser.USER_TYPE_COSTOMER);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (this.users == null) {
-				this.users = new ArrayList<Sysuser>();
-			}
-			return SUCCESS;
+		if (optionC.equals("lastname")) {
+			searchBy = SysuserDao.LASTNAME;
 		}
-		
+		if (optionCOrd.equals("usernameA")) {
+			orderBy = SysuserDao.USERNAME;
+			isAsc = true;
+		}
+		if (optionCOrd.equals("usernameD")) {
+			orderBy = SysuserDao.USERNAME;
+			isAsc = false;
+		}
+		if (optionCOrd.equals("firstnameA")) {
+			orderBy = SysuserDao.FIRSTNAME;
+			isAsc = true;
+		}
+		if (optionCOrd.equals("firstnameD")) {
+			orderBy = SysuserDao.FIRSTNAME;
+			isAsc = false;
+		}
+		if (optionCOrd.equals("lastnameA")) {
+			orderBy = SysuserDao.LASTNAME;
+			isAsc = true;
+		}
+		if(optionCOrd.equals("lastnameD")){
+			orderBy = SysuserDao.LASTNAME;
+			isAsc = false;
+		}
+		try {
+			this.users = SysuserDao.getInstance().getUser(searchBy, orderBy, isAsc, searchKeyC, Sysuser.USER_TYPE_COSTOMER);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (this.users == null) {
+			this.users = new ArrayList<Sysuser>();
+		}
+		return SUCCESS;
 	}
 	public String employeelist() {
-		if(optionC.equals("username")){
-			try {
-				users = SysuserDao.getInstance().getUsersByUsername(searchKeyE,1);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+		String searchBy = null;
+		String orderBy = null;
+		boolean isAsc = true;
+		if(optionE.equals("username")){
+			searchBy = SysuserDao.USERNAME;
 		}
-		if(optionC.equals("firstname")){
-			try {
-				users = SysuserDao.getInstance().getUsersByFirstname(searchKeyE,1);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
+		if(optionE.equals("firstname")){
+			searchBy = SysuserDao.FIRSTNAME;
 		}
-		if(optionC.equals("lastname")){
-			try {
-				users = SysuserDao.getInstance().getUsersByLastname(searchKeyE,1);
-			} catch (Exception e) {
-				e.printStackTrace();
-				this.addActionError("Can't find this user!");
-				isSuccess = -2;
-				return SUCCESS;
-			}
-			return SUCCESS;
-		}else{
-			try {
-				this.users = SysuserDao.getInstance().getUsersByType(Sysuser.USER_TYPE_EMPLOYEE);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (this.users == null) {
-				this.users = new ArrayList<Sysuser>();
-			}
-			return SUCCESS;
+		if(optionE.equals("lastname")){
+			searchBy = SysuserDao.LASTNAME;
 		}
+		if(optionE.equals("default")){
+			searchBy = SysuserDao.USERNAME;
+		}
+		if(optionEOrd.equals("usernameA")){
+			orderBy = SysuserDao.USERNAME;
+			isAsc = true;
+		}
+		if(optionEOrd.equals("usernameD")){
+			orderBy = SysuserDao.USERNAME;
+			isAsc = false;
+		}
+		if(optionEOrd.equals("firstnameA")){
+			orderBy = SysuserDao.FIRSTNAME;
+			isAsc = true;
+		}
+		if(optionEOrd.equals("firstnameD")){
+			orderBy = SysuserDao.FIRSTNAME;
+			isAsc = false;
+		}
+		if(optionEOrd.equals("lastnameA")){
+			orderBy = SysuserDao.LASTNAME;
+			isAsc = true;
+		}
+		if(optionEOrd.equals("lastnameD")){
+			orderBy = SysuserDao.LASTNAME;
+			isAsc = false;
+		}	
+		try {
+			this.users = SysuserDao.getInstance().getUser(searchBy, orderBy, isAsc, searchKeyE, Sysuser.USER_TYPE_EMPLOYEE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (this.users == null) {
+			this.users = new ArrayList<Sysuser>();
+		}
+		return SUCCESS;
 	}
-
 	public String createCustomer() {
 		isSuccess = 0;
 		if(user != null){	
@@ -142,7 +150,7 @@ public class AccountAction extends ActionSupport {
 				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("")){
 					if (!checkCashFormat(cashString)){
-						this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+						this.addActionError("The cash amount can't be too big, and you must input number with no more than 2 decimals!");
 						isSuccess = -1;
 						return ERROR;
 					}else cash = Double.parseDouble(cashString);
@@ -161,7 +169,7 @@ public class AccountAction extends ActionSupport {
 						user.getState().trim();
 					if(user.getZip() != null)
 						user.getZip().trim();
-					user.setPassword("111111");
+					user.setPassword(AuthorizationFilter.MD5("111111"));
 					user.setCash((long) (cash*100));
 					user.setType(0);
 					try {
@@ -212,7 +220,7 @@ public class AccountAction extends ActionSupport {
 						isSuccess = -1;
 						return ERROR;
 					}
-					user.setPassword("111111");
+					user.setPassword(AuthorizationFilter.MD5("111111"));
 					user.setAddrLine1("");
 					user.setAddrLine2("");
 					user.setCash(0);
@@ -264,6 +272,9 @@ public class AccountAction extends ActionSupport {
 					break;
 				}
 			}
+			
+			if(i > 16) return false;
+			
 			for(i ++; i < cashString.length() && flag == 1; ){
 				int asc = cashString.charAt(i);
 				if(asc < 48 || asc > 57) return false;
@@ -293,7 +304,7 @@ public class AccountAction extends ActionSupport {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		user.setPassword("111111");
+		user.setPassword(AuthorizationFilter.MD5("111111"));
 		try {
 			SysuserDao.getInstance().update(user);
 		} catch (Exception e) {

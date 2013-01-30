@@ -92,13 +92,22 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-		<input name="searchKeyC" type="text" class="list_text_width_normal" value="${searchKeyC}" /></td>
+		<input name="searchKeyC" type="text" class="list_text_width_normal"  <s:if test='searchKeyC == null'>value = "Input Search Key!"</s:if>value="${searchKeyC}" /></td>
 		<td><select class="list_text_width_normal" name="optionC" >
 			<option value="default"  >Search By:</option>
 			<option value="username" <s:if test='optionC == "username"'>selected</s:if>>Username</option>
 			<option value="firstname"<s:if test='optionC == "firstname"'>selected</s:if> >First Name</option>
-			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select></td>
-		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
+			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select>
+			<select class="list_text_width_normal" name="optionCOrd" >
+			<option value="default"  >Order By:</option>
+			<option value="usernameA" <s:if test='optionCOrd == "usernameA"'>selected</s:if>>Username↑</option>
+			<option value="usernameD" <s:if test='optionCOrd == "usernameD"'>selected</s:if>>Username↓</option>
+			<option value="firstnameA"<s:if test='optionCOrd == "firstnameA"'>selected</s:if> >First Name↑</option>
+			<option value="firstnameD"<s:if test='optionCOrd == "firstnameD"'>selected</s:if> >First Name↓</option>
+			<option value="lastnameA" <s:if test='optionCOrd == "lastnameA"'>selected</s:if>>Last Name↑</option>
+			<option value="lastnameD" <s:if test='optionCOrd == "lastnameD"'>selected</s:if>>Last Name↓</option></select></td>
+			</select></td>
+		<td><a href="#" class="btn_sprites" name="search button" id="search"><span>Process</span></a></td>
 	</tr>
 	</table>	
 </div>
@@ -146,7 +155,7 @@
    <div class="content_menubd"></div>
    <div class="content_menu4" id="researchLink"><a href="/versat/employee/fund/listallfund">Manage Fund</a></div>
    <div class="content_menubd"></div>
-   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/showtransition">Transition Day</a></div>
+   <div class="content_menu1" id="requestLink"><a href="/versat/employee/transition/generate">Transition Day</a></div>
    <div class="content_menubd"></div>
    <div class="content_menubd"></div>
    <div class="content_line"></div>

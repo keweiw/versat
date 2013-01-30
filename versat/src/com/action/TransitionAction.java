@@ -84,54 +84,59 @@ public class TransitionAction extends ActionSupport {
 					Fund fund = funds.get(i);
 					if (idmaps.containsKey(fund.getId())) {
 						int index = idmaps.get(fund.getId());
-						if (index >= closingPriceString.size() || closingPriceString.get(index) == null || closingPriceString.get(index).equals(0)) {
+						if (index >= closingPriceString.size()
+								|| closingPriceString.get(index) == null
+								|| closingPriceString.get(index).equals(0)) {
 							this.addActionError("Fund value can not be empty or zero!");
 							this.setIsSuccess(-1);
 							return ERROR;
 						} else {
-							if(closingPriceString.get(index).length() > 16){
+							if (closingPriceString.get(index).length() > 16) {
 								this.addActionError("The cash number can't be more than 15 digits!");
 								isSuccess = -1;
 								return ERROR;
-							} else if (!checkCashFormat(closingPriceString.get(index))){
+							} else if (!checkCashFormat(closingPriceString
+									.get(index))) {
 								this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
 								isSuccess = -1;
 								return ERROR;
-							} else if (Double.parseDouble(closingPriceString.get(index))>=100000){
+							} else if (Double.parseDouble(closingPriceString
+									.get(index)) >= 100000) {
 								this.addActionError("UnitPrice can not larger than 10,000");
 								isSuccess = -1;
 								return ERROR;
 							} else
-								fund.setCur(Double.parseDouble(closingPriceString.get(index)));
-							}
-							
+								fund.setCur(Double
+										.parseDouble(closingPriceString
+												.get(index)));
 						}
+
 					}
-					
 				}
 
-				int checkNum = TransitionDay.getInstance().commitTransitionDay(
-						funds, closingDate);
-				// System.out.println("checkNum=" + checkNum);
-				if (checkNum == -3) {
-					isSuccess = -1;
-					this.addActionError("There is a new fund, please provide its price.");
-					return ERROR;
-
-				} else if (checkNum == 0) {
-					isSuccess = 1;
-					return SUCCESS;
-				} else if (checkNum == -1) {
-					isSuccess = -1;
-					this.addActionError("This transition is failed!");
-					return ERROR;
-				} else if (checkNum == -2) {
-					isSuccess = -1;
-					this.addActionError("System busy, please retry later!");
-					return ERROR;
-				}
 			}
-		
+
+			int checkNum = TransitionDay.getInstance().commitTransitionDay(
+					funds, closingDate);
+			// System.out.println("checkNum=" + checkNum);
+			if (checkNum == -3) {
+				isSuccess = -1;
+				this.addActionError("There is a new fund, please provide its price.");
+				return ERROR;
+
+			} else if (checkNum == 0) {
+				isSuccess = 1;
+				return SUCCESS;
+			} else if (checkNum == -1) {
+				isSuccess = -1;
+				this.addActionError("This transition is failed!");
+				return ERROR;
+			} else if (checkNum == -2) {
+				isSuccess = -1;
+				this.addActionError("System busy, please retry later!");
+				return ERROR;
+			}
+		}
 
 		else {
 			this.addActionError("Closing date can not be empty!");
@@ -144,30 +149,34 @@ public class TransitionAction extends ActionSupport {
 		return SUCCESS;
 
 	}
-	
-	private boolean checkCashFormat(String cashString){
+
+	private boolean checkCashFormat(String cashString) {
 		int i, flag = 0, loopTime = 0;
-		for(i = 0; i < cashString.length(); i ++){
+		for (i = 0; i < cashString.length(); i++) {
 			int asc = cashString.charAt(i);
-			if(i == 0){
-				if(asc < 48 || asc > 57) return false;
+			if (i == 0) {
+				if (asc < 48 || asc > 57)
+					return false;
 			}
-			if((asc < 48 || asc > 57) && asc != 46) return false;
-			if(asc == 46){
+			if ((asc < 48 || asc > 57) && asc != 46)
+				return false;
+			if (asc == 46) {
 				flag = 1;
 				break;
 			}
 		}
-		for(i ++; i < cashString.length() && flag == 1; ){
+		for (i++; i < cashString.length() && flag == 1;) {
 			int asc = cashString.charAt(i);
-			if(asc < 48 || asc > 57) return false;
+			if (asc < 48 || asc > 57)
+				return false;
 			i++;
-			loopTime ++;
+			loopTime++;
 		}
-		if(loopTime > 2) return false;
+		if (loopTime > 2)
+			return false;
 		return true;
 	}
-	
+
 	private String checkStatus(int checkNum) {
 		// if (checkNum == -3) {
 		// isSuccess = -1;
