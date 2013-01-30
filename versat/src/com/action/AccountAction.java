@@ -160,7 +160,7 @@ public class AccountAction extends ActionSupport {
 				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("") && !cashString.equals("")){
 					if (!checkCashFormat(cashString, 16, 2)){
-						this.addActionError("The cash amount can't be too big, and you must input number with no more than 2 decimals!");
+						this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be too big; 2.Must be a number with no more than 2 decimals");
 						isSuccess = -1;
 						return ERROR;
 					}else cash = Double.parseDouble(cashString);
@@ -275,15 +275,16 @@ public class AccountAction extends ActionSupport {
 		else return false;
 	}
 	private static boolean checkCashFormat(String cashString, int beforeD, int afterD){
-			int i, flag = 0, loopTime = 0, flag2 = 0;
+			int i, j, flag = 0, loopTime = 0, flag2 = 0;
 			StringBuffer cashCheckZero = new StringBuffer();
-			for(int j = 0 ; j < cashString.length(); j++){
-				if(cashString.charAt(j) == '0' && flag2 == 0);
+			for(j = 0 ; j < cashString.length() - 1; j++){
+				if(cashString.charAt(j) == '0' && flag2 == 0 && cashString.charAt(j+1) != '.');
 				else {
 					flag2 = 1;
 					cashCheckZero.append(cashString.charAt(j));
 				}
 			}
+			cashCheckZero.append(cashString.charAt(j));
 			cashString = cashCheckZero.toString();
 			for(i = 0; i < cashString.length(); i ++){
 				int asc = cashString.charAt(i);
@@ -298,7 +299,6 @@ public class AccountAction extends ActionSupport {
 			}
 			
 			if(i > beforeD) return false;
-			
 			for(i ++; i < cashString.length() && flag == 1; ){
 				int asc = cashString.charAt(i);
 				if(asc < 48 || asc > 57) return false;

@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `sysuser` (
   `cash` bigint(20) NOT NULL DEFAULT '0',
   `type` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
   KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
@@ -58,6 +59,8 @@ CREATE TABLE IF NOT EXISTS `fund` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `symbol` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL,
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `symbol` (`symbol`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 

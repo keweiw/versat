@@ -13,7 +13,7 @@
         </action>
         <action name="deposit" class="com.action.TransactionAction" method="deposit">
             <result name="error">/pages/depositcheck2.jsp</result>
-            <result name="success">/pages/depositcheck2.jsp</result>
+            <result name="success" type="redirect">/employee/trans/list?isSuccess=1&amp;userId=${userId}</result>
         </action>
     </package>
     <package name="transaction-customer-action" namespace="/customer/trans" extends="versat">
@@ -25,7 +25,7 @@
         </action>
        <action name="withdraw" class="com.action.TransactionAction" method="withdraw">
             <result name="error">/pages/withdraw.jsp</result>
-            <result name="success">/pages/withdraw.jsp</result>        
+            <result name="success" type="redirect">/customer/trans/list?isSuccess=1</result>        
         </action>
         <action name="sort" class="com.action.TransactionAction" method="displayByTransactionType">
             <result>/pages/customer-transactionhistory.jsp</result>

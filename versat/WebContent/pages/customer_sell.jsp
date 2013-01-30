@@ -111,9 +111,9 @@ $(document).ready(function() {
 				<td><s:property value="#position.fundName"/></td>
 				<td><s:property value="#position.fundSymbol"/></td>
 				<td><s:property value="#position.shareString"/></td>
-				<td><s:property value="#position.avaiShareString"/></td>
-				<td><s:property value="#position.lastPriceString"/></td>
-				<td><s:property value="#position.shareValueString"/></td>
+				<td align="right"><s:property value="#position.avaiShareString"/></td>
+				<td align="right">$ <s:property value="#position.lastPriceString"/></td>
+				<td align="right">$ <s:property value="#position.shareValueString"/></td>
 				<td><a href="/versat/customer/fund/showsellfund?fundId=${fund.id}">Sell Fund</a></td>
 			</tr>
 			</s:iterator>

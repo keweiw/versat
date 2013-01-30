@@ -56,9 +56,9 @@
 					<div class="straight_line_nav"><div class="new_user_title">Transaction History</div></div>
 				</div>
 
-				<!-- Alert 
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<!-- Alert  --> 
+<s:if test='isSuccess == 1'><div class="success_area">Request be processed successfully!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 
 				<!-- Search -->
@@ -110,7 +110,7 @@
 									               <s:if test='#transaction.transactionType == 2'><td>Deposit Check</td></s:if>
 									               <s:if test='#transaction.transactionType == 3'><td>Request Check</td></s:if>
 									               <td><s:property value="#transaction.fundNameString" /></td>
-									               <td><s:property value="#transaction.sharesString" /></td>
+									               <td align="right"><s:property value="#transaction.sharesString" /></td>
 									               <td align="right"><s:property value="#transaction.unitPriceString" /></td>
 									               <td align="right"><s:property value="#transaction.amountString" /></td>
 									               <td><s:property value="#transaction.stringDate" /></td>

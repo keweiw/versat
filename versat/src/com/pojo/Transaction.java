@@ -133,7 +133,7 @@ public class Transaction implements java.io.Serializable {
 		if (unitPrice == null || unitPrice == 0) {
 			this.setUnitPriceString("-");
 		} else {
-			this.setUnitPriceString(dFormat2.format(unitPrice));
+			this.setUnitPriceString("$ "+dFormat2.format(unitPrice));
 		}
 	}
 
@@ -190,7 +190,7 @@ public class Transaction implements java.io.Serializable {
 		this.amount = amount;
 		if (amount != null) {
 			this.doubleamount = this.amount / 100.00;
-			this.amountString = dFormat2.format(doubleamount);
+			this.amountString = "$ "+dFormat2.format(doubleamount);
 		} else {
 			this.setAmountString("-");
 		}

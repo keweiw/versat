@@ -102,8 +102,8 @@ public class TransactionAction extends ActionSupport {
 	}
 
 	public String list() {
-		// Map session = ActionContext.getContext().getSession();
-		// userId = this.getUserId();
+	//	Map session = ActionContext.getContext().getSession();
+	//	userId = this.getUserId();
 
 		if (userId == null || transactionType == null) {
 			userId = 0;
@@ -280,7 +280,7 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
-		if (avaiBalance <= 0) {
+		if (avaiBalance < 0) {
 			return false;
 		}
 		if (transactions.size() != 0) {
@@ -438,7 +438,7 @@ public class TransactionAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = SysuserDao.getInstance().getByUserId(uId);
 		long avaiBalance = user.getCash();
-		if (avaiBalance <= 0) {
+		if (avaiBalance < 0) {
 			return false;
 		}
 		if (transactions.size() != 0) {

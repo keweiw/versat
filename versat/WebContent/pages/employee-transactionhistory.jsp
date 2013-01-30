@@ -56,9 +56,9 @@
 					<div class="straight_line_nav"><div class="new_user_title">Transaction History</div></div>
 				</div>
 
-				<!-- Alert 
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<!-- Alert  --> 
+<s:if test='isSuccess == 1'><div class="success_area">Request be processed successfully!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 
 				
@@ -77,21 +77,12 @@
 							<td>&nbsp;</td>
 							<td><select id="select_trans_type" name=transactionType>
 									<option value=-1 selected>All</option>
-									<option value=0
-										<s:if test='transactionType == 0'>selected</s:if>>Buy
-										Fund</option>
-									<option value=1
-										<s:if test='transactionType == 1'>selected</s:if>>Sell
-										Fund</option>
-									<option value=2
-										<s:if test='transactionType == 2'>selected</s:if>>Deposit
-										Check</option>
-									<option value=3
-										<s:if test='transactionType == 3'>selected</s:if>>Request
-										Check</option>
+									<option value=0 <s:if test='transactionType == 0'>selected</s:if>>Buy Fund</option>
+									<option value=1 <s:if test='transactionType == 1'>selected</s:if>>Sell Fund</option>
+									<option value=2 <s:if test='transactionType == 2'>selected</s:if>>Deposit Check</option>
+									<option value=3 <s:if test='transactionType == 3'>selected</s:if>>Request Check</option>
 							</select></td>
-							<td><a href="#" title="search" class="btn_sprites"
-								name="search button" id="search"><span>Search</span></a></td>
+							<td><a href="#" title="search" class="btn_sprites" name="search button" id="search"><span>Search</span></a></td>
 						</tr>
 					</table>
 				</div>
@@ -113,36 +104,18 @@
 						</thead>
 						<tbody>
 							<s:iterator value="transactions" id="transaction">
-								<tr align="center">
-
-									<s:if test='#transaction.status == 0'>
-										<td>Pending</td>
-									</s:if>
-									<s:if test='#transaction.status == 1'>
-										<td>Processed</td>
-									</s:if>
-									<s:if test='#transaction.status == 2'>
-										<td>Failed</td>
-									</s:if>
-
-									<s:if test='#transaction.transactionType == 0'>
-										<td>Buy fund</td>
-									</s:if>
-									<s:if test='#transaction.transactionType == 1'>
-										<td>Sell fund</td>
-									</s:if>
-									<s:if test='#transaction.transactionType == 2'>
-										<td>Deposit check</td>
-									</s:if>
-									<s:if test='#transaction.transactionType == 3'>
-										<td>Request check</td>
-									</s:if>
-									<td><s:property value="#transaction.fundNameString" /></td>
-									<td><s:property value="#transaction.sharesString" /></td>
-									<td align="right"><s:property
-											value="#transaction.unitPriceString" /></td>
-									<td align="right"><s:property value="#transaction.amountString" /></td>
-									<td><s:property value="#transaction.stringDate" /></td>
+								<tr align="center"> <s:if test='#transaction.status == 0'> <td>Pending</td></s:if>
+								<s:if test='#transaction.status == 1'><td>Processed</td></s:if>
+								<s:if test='#transaction.status == 2'><td>Failed</td></s:if>
+								<s:if test='#transaction.transactionType == 0'><td>Buy fund</td></s:if> 
+								<s:if test='#transaction.transactionType == 1'><td>Sell fund</td></s:if>
+								<s:if test='#transaction.transactionType == 2'><td>Deposit check</td></s:if>
+								<s:if test='#transaction.transactionType == 3'><td>Request check</td></s:if>
+								<td><s:property value="#transaction.fundNameString" /></td>
+								<td align="right"><s:property value="#transaction.sharesString" /></td>
+								<td align="right"><s:property value="#transaction.unitPriceString" /></td>
+								<td align="right"><s:property value="#transaction.amountString" /></td>
+								<td><s:property value="#transaction.stringDate" /></td>
 								</tr>
 							</s:iterator>
 						</tbody>

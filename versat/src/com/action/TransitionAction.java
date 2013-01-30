@@ -56,6 +56,44 @@ public class TransitionAction extends ActionSupport {
 		}
 
 		funds = TransitionDay.getInstance().getFundList();
+		
+		if(fundid!=null&&closingPriceString!=null){
+			HashMap<Integer, Integer> idmaps = new HashMap<Integer, Integer>();
+			for (int j = 0; j < fundid.size(); j++) {
+				idmaps.put(fundid.get(j), j);
+			}
+
+			for (int i = 0; i < funds.size(); i++) {
+				Fund fund = funds.get(i);
+				if (idmaps.containsKey(fund.getId())) {
+					int index = idmaps.get(fund.getId());
+					if (index >= closingPriceString.size()
+							|| closingPriceString.get(index) == null
+							|| closingPriceString.get(index).equals(0)) {
+						this.addActionError("Fund value can not be empty or zero!");
+						isSuccess = -1;
+					} else {
+						if (closingPriceString.get(index).length() > 16) {
+							this.addActionError("The cash number can't be more than 15 digits!");
+							isSuccess = -1;
+						} else if (!checkCashFormat(closingPriceString
+								.get(index))) {
+							this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+							isSuccess = -1;
+						} else if (Double.parseDouble(closingPriceString
+								.get(index)) >= 100000) {
+							this.addActionError("UnitPrice can not larger than 10,000");
+							isSuccess = -1;
+						} else
+							fund.setCur(Double.parseDouble(closingPriceString.get(index)));
+					}
+
+				}
+			}
+		}else {
+			isSuccess = -1;
+			this.addActionError("There is no funds!");
+		}
 
 		if (closingDateString != null && !closingDateString.equals("")) {
 			// System.out.println(closingDateString);
@@ -74,7 +112,8 @@ public class TransitionAction extends ActionSupport {
 				this.addActionError("Current closing date is illegal, please choose another date!");
 				this.setIsSuccess(-1);
 				return ERROR;
-			} else {
+			} /*else if(fundid!=null&&closingPriceString!=null){
+				
 				HashMap<Integer, Integer> idmaps = new HashMap<Integer, Integer>();
 				for (int j = 0; j < fundid.size(); j++) {
 					idmaps.put(fundid.get(j), j);
@@ -88,42 +127,45 @@ public class TransitionAction extends ActionSupport {
 								|| closingPriceString.get(index) == null
 								|| closingPriceString.get(index).equals(0)) {
 							this.addActionError("Fund value can not be empty or zero!");
-							this.setIsSuccess(-1);
-							return ERROR;
+							isSuccess = -1;
 						} else {
 							if (closingPriceString.get(index).length() > 16) {
 								this.addActionError("The cash number can't be more than 15 digits!");
 								isSuccess = -1;
-								return ERROR;
 							} else if (!checkCashFormat(closingPriceString
 									.get(index))) {
 								this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
 								isSuccess = -1;
-								return ERROR;
 							} else if (Double.parseDouble(closingPriceString
 									.get(index)) >= 100000) {
 								this.addActionError("UnitPrice can not larger than 10,000");
 								isSuccess = -1;
-								return ERROR;
 							} else
-								fund.setCur(Double
-										.parseDouble(closingPriceString
-												.get(index)));
+								fund.setCur(Double.parseDouble(closingPriceString.get(index)));
 						}
 
 					}
 				}
-
+			} else {
+				isSuccess = -1;
+				this.addActionError("There is no funds!");
+			}*/
+			
+			if (isSuccess == -1) {
+				return ERROR;
 			}
 
-			int checkNum = TransitionDay.getInstance().commitTransitionDay(
-					funds, closingDate);
-			// System.out.println("checkNum=" + checkNum);
+			if (funds.size() != fundid.size()) {
+				isSuccess = -1;
+				this.addActionError("There is a new fund, please provide its price.");
+				return ERROR;
+			}
+
+			int checkNum = TransitionDay.getInstance().commitTransitionDay(funds, closingDate);
 			if (checkNum == -3) {
 				isSuccess = -1;
 				this.addActionError("There is a new fund, please provide its price.");
 				return ERROR;
-
 			} else if (checkNum == 0) {
 				isSuccess = 1;
 				return SUCCESS;
@@ -133,7 +175,7 @@ public class TransitionAction extends ActionSupport {
 				return ERROR;
 			} else if (checkNum == -2) {
 				isSuccess = -1;
-				this.addActionError("System busy, please retry later!");
+				this.addActionError("Another transition is processing, please retry later!");
 				return ERROR;
 			}
 		}
