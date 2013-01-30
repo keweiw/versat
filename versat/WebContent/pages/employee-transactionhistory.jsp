@@ -152,7 +152,7 @@
 
 			</form>
 		</div>
-		<!--content fearture-->
+		<!--content feature-->
 	</div>
 	<!--content end-->
 
