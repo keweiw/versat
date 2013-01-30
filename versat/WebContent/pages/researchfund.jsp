@@ -35,8 +35,9 @@ $(document).ready(function() {
     		  success:  function(json) {
 				var data = json.outputFundPriceHistory;
 				for (var i=0; i<data.length-1; i++) {
-					dataTable.addRow([data[i].priceDate.substring(5,10), data[i].price]);
-					document.getElementById('lastPrice').innerHTML = data[data.length-2].price.toFixed(2);
+					dataTable.addRow([data[i].priceDate.substring(5,10), data[i].price/100]);
+					var price = data[data.length-2].price/100;
+					document.getElementById('lastPrice').innerHTML = price.toFixed(2);
 					}
 				}
     	  });//json 
