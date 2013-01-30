@@ -91,14 +91,16 @@
 	<table cellspacing="0" cellpadding="0" class="search_detail_list">
 	<tr>
 		<td>&nbsp;</td>
-		<td>
-		<input name="searchKeyC" type="text" class="list_text_width_normal"  <s:if test='searchKeyC == null'>value = "Input Search Key!"</s:if>value="${searchKeyC}" /></td>
+		
 		<td><select class="list_text_width_normal" name="optionC" >
 			<option value="default"  >Search By:</option>
 			<option value="username" <s:if test='optionC == "username"'>selected</s:if>>Username</option>
 			<option value="firstname"<s:if test='optionC == "firstname"'>selected</s:if> >First Name</option>
 			<option value="lastname" <s:if test='optionC == "lastname"'>selected</s:if>>Last Name</option></select>
-			<select class="list_text_width_normal" name="optionCOrd" >
+			</td>
+			<td>
+			<input name="searchKeyC" type="text" class="list_text_width_normal" value="${searchKeyC}" /></td>
+			<td><select class="list_text_width_normal" name="optionCOrd" >
 			<option value="default"  >Order By:</option>
 			<option value="usernameA" <s:if test='optionCOrd == "usernameA"'>selected</s:if>>Username↑</option>
 			<option value="usernameD" <s:if test='optionCOrd == "usernameD"'>selected</s:if>>Username↓</option>

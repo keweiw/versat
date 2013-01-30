@@ -28,6 +28,18 @@
         });
 	});
 </script>
+<script type="text/javascript">
+	function stopRKey(evt) {
+		var evt = (evt) ? evt : ((event) ? event : null);
+		var node = (evt.target) ? evt.target
+				: ((evt.srcElement) ? evt.srcElement : null);
+		if (evt.keyCode == 13) {
+			return false;
+		}
+	}
+
+	document.onkeypress = stopRKey;
+</script>
 </head>
 
 <body>
@@ -72,15 +84,16 @@
 	<table cellspacing="0" cellpadding="0" class="search_detail_list">
 	<tr>
 		<td>&nbsp;</td>
-		<td>
-		Search Key: 
-		<input name="searchKeyE" type="text" class="list_text_width_normal" <s:if test='searchKeyC == null'>value = "Input Search Key!"</s:if>value="${searchKeyE}" /></td>
+		
 		<td><select class="list_text_width_normal" name="optionE" >
 			<option value="default" >Search By:</option>
 			<option value="username" <s:if test='optionE == "username"'>selected</s:if>>Username</option>
 			<option value="firstname"<s:if test='optionE == "firstname"'>selected</s:if> >First Name</option>
 			<option value="lastname" <s:if test='optionE == "lastname"'>selected</s:if>>Last Name</option></select>
-			<select class="list_text_width_normal" name="optionEOrd" >
+			</td>
+			<td>
+			<input name="searchKeyE" type="text" class="list_text_width_normal" value="${searchKeyE}" /></td>
+			<td><select class="list_text_width_normal" name="optionEOrd" >
 			<option value="default"  >Order By:</option>
 			<option value="usernameA" <s:if test='optionEOrd == "usernameA"'>selected</s:if>>Username↑</option>
 			<option value="usernameD" <s:if test='optionEOrd == "usernameD"'>selected</s:if>>Username↓</option>

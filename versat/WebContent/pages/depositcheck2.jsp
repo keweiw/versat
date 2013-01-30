@@ -75,9 +75,13 @@ $(document).ready(
     <td class="detail_left">Customer Last Name:</td>
     <td class="detail_right">${user.lastname}</td>
   </tr>
-	<tr>
+  <tr>
     <td class="detail_left">Cash Balance:</td>
     <td class="detail_right">$ ${user.cashesString}</td>
+  </tr>
+	<tr>
+    <td class="detail_left">Available Cash Balance:</td>
+    <td class="detail_right">$ ${availBalanceString}</td>
   </tr>
   <tr>
     <td class="detail_left">Deposit Amount:</td>

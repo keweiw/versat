@@ -68,6 +68,11 @@ $(document).ready(
 		<td class="detail_left">Cash Balance:</td>
 		<td class="detail_right">$${user.cashesString}</td>
 	</tr>
+	
+  	<tr>
+		<td class="detail_left">Available Cash Balance:</td>
+		<td class="detail_right">$ ${availBalanceString}</td>
+	</tr>
 	<tr>
 		<td class="detail_left">Request Check Amount:</td>
 		<td class="detail_right">$ <input name="amountString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"

@@ -94,12 +94,12 @@ public class CustomerWelcomeAction extends ActionSupport {
 				e.printStackTrace();
 			}
 			
-			if(!oldPassword.equals(changePswUser.getPassword())){
+			if(!AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword())){
 				this.addActionError("Current password is Incorrect!");
 				this.isSuccess = -1;
 				return ERROR;
 			}else{
-				changePswUser.setPassword(newPassword);
+				changePswUser.setPassword(AuthorizationFilter.MD5(newPassword));
 				try {
 					SysuserDao.getInstance().update(changePswUser);
 				} catch (Exception e) {
