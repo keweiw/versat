@@ -150,7 +150,7 @@ public class AccountAction extends ActionSupport {
 				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("")){
 					if (!checkCashFormat(cashString)){
-						this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+						this.addActionError("The cash amount can't be too big, and you must input number with no more than 2 decimals!");
 						isSuccess = -1;
 						return ERROR;
 					}else cash = Double.parseDouble(cashString);
@@ -272,6 +272,9 @@ public class AccountAction extends ActionSupport {
 					break;
 				}
 			}
+			
+			if(i > 16) return false;
+			
 			for(i ++; i < cashString.length() && flag == 1; ){
 				int asc = cashString.charAt(i);
 				if(asc < 48 || asc > 57) return false;
