@@ -1,5 +1,6 @@
 package com.action;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -23,7 +24,10 @@ public class TransactionAction extends ActionSupport {
 	private Sysuser user;
 	private Double amount;
 	private String amountString;
+	private String availBalanceString;
 	private int isSuccess;
+	
+	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
 
 	public Integer getTransactionType() {
 		return transactionType;
@@ -206,9 +210,47 @@ public class TransactionAction extends ActionSupport {
 		return ERROR;
 
 	}
+	
+	public static synchronized boolean checkAndWithdraw(int uId,long inputAmount) throws Exception {
+		// -- the transaction dao needs to be fixed here
+		ArrayList<Transaction> transactions = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
+		long avaiBalance = user.getCash();
+		if (avaiBalance <= 0) {
+			return false;
+		}
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (transactions2.size() != 0) {
+			for (Transaction t : transactions2) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (avaiBalance < inputAmount) {
+			return false;
+		}
+		Transaction t = new Transaction();
+		t.setAmount(inputAmount);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);
+		while (true) {
+			int i = TransitionDay.getInstance().newTransaction(uId,t);
+			if (i == TransitionDay.SUCCESS)
+				break;
+		}
+		return true;
+	}
 
-	public String showDeposit() {
+	
+
+	public String showDeposit() throws Exception {
 		// Map session = ActionContext.getContext().getSession();
+		isSuccess = 0;
 		if (userId == null) {
 			userId = 0;
 		} else {
@@ -220,12 +262,32 @@ public class TransactionAction extends ActionSupport {
 				e.printStackTrace();
 			}
 		}
-		isSuccess = 0;
+		// available balance check here
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_WITHDRAW);
+		long avaiBalance = user.getCash();
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (transactions2.size() != 0) {
+			for (Transaction t : transactions2) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		double as = avaiBalance / 100.0;
+		setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
+
 		return SUCCESS;
 
 	}
 
-	public String deposit() {
+	public String deposit() throws Exception {
 		// Map session = ActionContext.getContext().getSession();
 		isSuccess = 0;
 
@@ -243,9 +305,29 @@ public class TransactionAction extends ActionSupport {
 		}
 
 		if (user != null) {
+			ArrayList<Transaction> transactions = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_BUY);
+			ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_WITHDRAW);
+			long avaiBalance = user.getCash();
+			if (transactions.size() != 0) {
+				for (Transaction t : transactions) {
+					avaiBalance -= t.getAmount();
+				}
+			}
+			if (transactions2.size() != 0) {
+				for (Transaction t : transactions2) {
+					avaiBalance -= t.getAmount();
+				}
+			}
+		//	double as = avaiBalance / 100.0;
+			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
+			
 
-			if (amountString == null || Double.parseDouble(amountString) == 0) {
-				this.addActionError("Request amount can not be empty or zero!");
+			if (amountString == null || Double.parseDouble(amountString) == 0 || Double.parseDouble(amountString) < 0.01) {
+				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
 			} else if (amountString.length() > 16) {
@@ -258,19 +340,24 @@ public class TransactionAction extends ActionSupport {
 				return ERROR;
 			} else {
 				amount = Double.parseDouble(amountString);
-				Transaction t = new Transaction();
+			//	Transaction t = new Transaction();
 				long a = (long) (amount * 100);
-				// Date date = new Date();
-				t.setAmount(a);
-				// t.setExecuteDate(date);
-				t.setStatus(Transaction.TRANS_STATUS_PENDING);
-				t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
-				try {
-					TransitionDay.getInstance().newTransaction(user.getId(), t);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (checkAndDeposit(user.getId(), a) == false) {
+					this.addActionError("You do not have enough balance.");
+					isSuccess = -1;
+					return ERROR;
 				}
+				// Date date = new Date();
+		//		t.setAmount(a);
+				// t.setExecuteDate(date);
+			//	t.setStatus(Transaction.TRANS_STATUS_PENDING);
+				//t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
+			//	try {
+				//	TransitionDay.getInstance().newTransaction(user.getId(), t);
+			//	} catch (Exception e) {
+					// TODO Auto-generated catch block
+				//	e.printStackTrace();
+			//	}
 				this.isSuccess = 1;
 				return SUCCESS;
 
@@ -281,6 +368,43 @@ public class TransactionAction extends ActionSupport {
 		this.isSuccess = -1;
 		return ERROR;
 	}
+	
+	public static synchronized boolean checkAndDeposit(int uId,long inputAmount) throws Exception {
+		// -- the transaction dao needs to be fixed here
+		ArrayList<Transaction> transactions = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user = SysuserDao.getInstance().getByUserId(uId);
+		long avaiBalance = user.getCash();
+		if (avaiBalance <= 0) {
+			return false;
+		}
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (transactions2.size() != 0) {
+			for (Transaction t : transactions2) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+	//	if (avaiBalance < inputAmount) {
+		//	return false;
+	//	}
+		Transaction t = new Transaction();
+		t.setAmount(inputAmount);
+		t.setStatus(Transaction.TRANS_STATUS_PENDING);
+		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
+		while (true) {
+			int i = TransitionDay.getInstance().newTransaction(uId,t);
+			if (i == TransitionDay.SUCCESS)
+				break;
+		}
+		return true;
+	}
+
+
 
 	private boolean checkCashFormat(String cashString) {
 		int i, flag = 0, loopTime = 0;
@@ -307,6 +431,15 @@ public class TransactionAction extends ActionSupport {
 		if (loopTime > 2)
 			return false;
 		return true;
+	}
+
+
+	public String getAvailBalanceString() {
+		return availBalanceString;
+	}
+
+	public void setAvailBalanceString(String availBalanceString) {
+		this.availBalanceString = availBalanceString;
 	}
 
 }
