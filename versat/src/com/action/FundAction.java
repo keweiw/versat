@@ -2,6 +2,7 @@ package com.action;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.bu.TransitionDay;
@@ -232,6 +233,12 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		try {
+			ArrayList <Fund> fs = TransitionDay.getInstance().getFundList();
+			HashMap priceMap = new HashMap <Integer,Double>();
+			for(Fund f:fs){
+				priceMap.put(f.getId(), f.getLastDay());
+			}
+			
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					user.getId());
 			if (positions.size() == 0) {
@@ -239,22 +246,7 @@ public class FundAction extends ActionSupport {
 			}
 			for (Position p : positions) {
 				Integer fId = p.getFund().getId();
-				FundPriceHistory fph = FundPriceHistoryDao.getInstance()
-						.getLatestFundHistoryById(fId);
-				long price;
-				// -- if no history then set price to zero -- //
-				if (fph != null) {
-					if (FundPriceHistoryDao.getInstance()
-							.getLatestFundHistoryById(fId) != null) {
-						price = FundPriceHistoryDao.getInstance()
-								.getLatestFundHistoryById(fId).getPrice();
-					} else
-						price = 0;
-				} else {
-					price = 0;
-				}
-
-				double priceInDouble = price / 100.0;
+				double priceInDouble = (Double) priceMap.get(fId);
 				double shareInDouble = p.getShares() / 1000.0;
 				double shareValue = priceInDouble * shareInDouble;
 
@@ -300,7 +292,7 @@ public class FundAction extends ActionSupport {
 	// --search fund by fund name--//
 	public String searchFundByName() throws Exception {
 		keyword = keyword.trim();
-		funds = FundDao.getInstance().getByName(keyword,true);
+		funds = FundDao.getInstance().getByName(keyword, true);
 		return SUCCESS;
 	}
 
@@ -321,7 +313,7 @@ public class FundAction extends ActionSupport {
 			funds = FundDao.getInstance().getAllList();
 			return SUCCESS;
 		} else if (optionC.equals("fundName")) {
-			funds = FundDao.getInstance().getByName(keyword,true);
+			funds = FundDao.getInstance().getByName(keyword, true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -330,7 +322,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = 1;
 			return SUCCESS;
 		} else if (optionC.equals("fundSymbol")) {
-			funds = FundDao.getInstance().getBySymbol(keyword,true);
+			funds = FundDao.getInstance().getBySymbol(keyword, true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -361,7 +353,7 @@ public class FundAction extends ActionSupport {
 			positions = PositionDao.getInstance().getAllList();
 			return SUCCESS;
 		} else if (optionC.equals("fundName")) {
-			funds = FundDao.getInstance().getByName(keyword,true);
+			funds = FundDao.getInstance().getByName(keyword, true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -377,7 +369,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = 1;
 			return SUCCESS;
 		} else if (optionC.equals("fundSymbol")) {
-			funds = FundDao.getInstance().getBySymbol(keyword,true);
+			funds = FundDao.getInstance().getBySymbol(keyword, true);
 			if (funds.size() == 0) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
@@ -420,13 +412,13 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		// --check if the fund name or symbol is duplicate --//
-		ArrayList<Fund> fs = FundDao.getInstance().getByName(name,false);
+		ArrayList<Fund> fs = FundDao.getInstance().getByName(name, false);
 		if (fs.size() != 0) {
 			this.addActionError("The fund name is already exist!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		fs = FundDao.getInstance().getBySymbol(symbol,false);
+		fs = FundDao.getInstance().getBySymbol(symbol, false);
 		if (fs.size() != 0) {
 			this.addActionError("The fund symbol is already exist!");
 			isSuccess = -1;
@@ -434,7 +426,7 @@ public class FundAction extends ActionSupport {
 		}
 
 		FundDao.getInstance().createFund(name, symbol);
-		ArrayList<Fund> f = FundDao.getInstance().getByName(name,false);
+		ArrayList<Fund> f = FundDao.getInstance().getByName(name, false);
 		FundPriceHistory fph = new FundPriceHistory();
 		fph.setFund(f.get(0));
 		FundPriceHistoryDao.getInstance().create(fph);
@@ -628,8 +620,8 @@ public class FundAction extends ActionSupport {
 							Transaction.TRANS_TYPE_SELL);
 			if (transactions3.size() != 0) {
 				for (Transaction t : transactions3) {
-					if (t.getFundPriceHistory().getFund().getId() == p.getFund()
-							.getId()) {
+					if (t.getFundPriceHistory().getFund().getId() == p
+							.getFund().getId()) {
 						avaiShares -= t.getShares();
 					}
 				}
@@ -653,7 +645,7 @@ public class FundAction extends ActionSupport {
 				avaiBalance -= t.getAmount();
 			}
 		}
-		
+
 		double as = avaiShares / 1000.0;
 		if (p != null)
 			outputAvaiShareString = shareDFormat.format(as);
@@ -728,7 +720,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		if(amount.length() > 10){
+		if (amount.length() > 10) {
 			this.addActionError("You can not enter more than 10 digits.");
 			isSuccess = -1;
 			return ERROR;
