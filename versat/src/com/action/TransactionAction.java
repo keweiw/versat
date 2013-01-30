@@ -143,17 +143,37 @@ public class TransactionAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String showWithdraw() {
+	public String showWithdraw() throws Exception {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-		this.user = user;
-
 		isSuccess = 0;
+		this.user = user;
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(user.getId(),
+						Transaction.TRANS_TYPE_WITHDRAW);
+		long avaiBalance = user.getCash();
+		if (transactions.size() != 0) {
+			for (Transaction t : transactions) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+		if (transactions2.size() != 0) {
+			for (Transaction t : transactions2) {
+				avaiBalance -= t.getAmount();
+			}
+		}
+	//	double as = avaiBalance / 100.0;
+		setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
+
+		
 		return SUCCESS;
 
 	}
 
-	public String withdraw() {
+	public String withdraw() throws Exception {
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		isSuccess = 0;
@@ -165,6 +185,26 @@ public class TransactionAction extends ActionSupport {
 			e1.printStackTrace();
 		}
 		if (user != null) {
+			ArrayList<Transaction> transactions = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_BUY);
+			ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_WITHDRAW);
+			long avaiBalance = user.getCash();
+			if (transactions.size() != 0) {
+				for (Transaction t : transactions) {
+					avaiBalance -= t.getAmount();
+				}
+			}
+			if (transactions2.size() != 0) {
+				for (Transaction t : transactions2) {
+					avaiBalance -= t.getAmount();
+				}
+			}
+		//	double as = avaiBalance / 100.0;
+			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
+			
 			if (amountString == null || Double.parseDouble(amountString) == 0) {
 				this.addActionError("Request amount can not be empty or zero!");
 				this.isSuccess = -1;
@@ -179,6 +219,28 @@ public class TransactionAction extends ActionSupport {
 				return ERROR;
 			} else {
 				amount = Double.parseDouble(amountString);
+				//	Transaction t = new Transaction();
+					long a = (long) (amount * 100);
+					if (checkAndWithdraw(user.getId(), a) == false) {
+						this.addActionError("You do not have enough balance.");
+						isSuccess = -1;
+						return ERROR;
+					}
+					// Date date = new Date();
+			//		t.setAmount(a);
+					// t.setExecuteDate(date);
+				//	t.setStatus(Transaction.TRANS_STATUS_PENDING);
+					//t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
+				//	try {
+					//	TransitionDay.getInstance().newTransaction(user.getId(), t);
+				//	} catch (Exception e) {
+						// TODO Auto-generated catch block
+					//	e.printStackTrace();
+				//	}
+					this.isSuccess = 1;
+					return SUCCESS;
+			}
+				/*amount = Double.parseDouble(amountString);
 
 				if (amount > user.getCashes()) {
 					this.addActionError("Request amount can not larger than cash balance!");
@@ -202,7 +264,7 @@ public class TransactionAction extends ActionSupport {
 				this.isSuccess = 1;
 				return SUCCESS;
 
-			}
+			}*/
 
 		}
 		this.addActionError("error!");
