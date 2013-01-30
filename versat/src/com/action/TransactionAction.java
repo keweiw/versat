@@ -26,6 +26,7 @@ public class TransactionAction extends ActionSupport {
 	private String amountString;
 	private String availBalanceString;
 	private int isSuccess;
+//	private String url = "/versat/employee/trans/list?isSuccess&&userId="+userId;
 	
 	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
 
@@ -102,8 +103,8 @@ public class TransactionAction extends ActionSupport {
 	}
 
 	public String list() {
-		// Map session = ActionContext.getContext().getSession();
-		// userId = this.getUserId();
+	//	Map session = ActionContext.getContext().getSession();
+	//	userId = this.getUserId();
 
 		if (userId == null || transactionType == null) {
 			userId = 0;

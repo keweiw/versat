@@ -56,9 +56,9 @@
 					<div class="straight_line_nav"><div class="new_user_title">Transaction History</div></div>
 				</div>
 
-				<!-- Alert 
-<div class="success_area">Success!</div>
-<div class="warning">Error!</div>
+<!-- Alert  --> 
+<s:if test='isSuccess == 1'><div class="success_area">Request be processed successfully!</div></s:if>
+<s:if test='isSuccess == -1'><div class="warning"><s:actionerror /></div></s:if>
 <!-- Alert -->
 
 				
