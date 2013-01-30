@@ -88,23 +88,19 @@ public class TransitionAction extends ActionSupport {
 								|| closingPriceString.get(index) == null
 								|| closingPriceString.get(index).equals(0)) {
 							this.addActionError("Fund value can not be empty or zero!");
-							this.setIsSuccess(-1);
-							return ERROR;
+							isSuccess = -1;
 						} else {
 							if (closingPriceString.get(index).length() > 16) {
 								this.addActionError("The cash number can't be more than 15 digits!");
 								isSuccess = -1;
-								return ERROR;
 							} else if (!checkCashFormat(closingPriceString
 									.get(index))) {
 								this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
 								isSuccess = -1;
-								return ERROR;
 							} else if (Double.parseDouble(closingPriceString
 									.get(index)) >= 100000) {
 								this.addActionError("UnitPrice can not larger than 10,000");
 								isSuccess = -1;
-								return ERROR;
 							} else
 								fund.setCur(Double
 										.parseDouble(closingPriceString
@@ -113,7 +109,15 @@ public class TransitionAction extends ActionSupport {
 
 					}
 				}
-
+			}
+			if (isSuccess == -1) {
+				return ERROR;
+			}
+			
+			if (funds.size() != fundid.size()) {
+				isSuccess = -1;
+				this.addActionError("There is a new fund, please provide its price.");
+				return ERROR;
 			}
 
 			int checkNum = TransitionDay.getInstance().commitTransitionDay(
@@ -123,7 +127,6 @@ public class TransitionAction extends ActionSupport {
 				isSuccess = -1;
 				this.addActionError("There is a new fund, please provide its price.");
 				return ERROR;
-
 			} else if (checkNum == 0) {
 				isSuccess = 1;
 				return SUCCESS;
