@@ -333,8 +333,8 @@ public class TransitionDay {
 						user.getId(),
 						tran.getFundPriceHistory().getFund().getId());
 				if (p.getShares() >= tran.getShares()) {
-					long money = tran.getShares() / 1000
-							* tran.getFundPriceHistory().getPrice();
+					long money = (long) (tran.getShares() / 1000.0
+							* tran.getFundPriceHistory().getPrice());
 					user.setCash(user.getCash() + money);
 					tran.setAmount(money);
 					if (p.getShares() == tran.getShares()) {
