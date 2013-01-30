@@ -62,7 +62,7 @@
 <!-- Alert -->
 
 				
-				<input type="hidden" name="hdField" value=userId />
+				<input type="hidden" name="userId" value=${userId} />
 				<!-- Search -->
 				<div class="list_search clearfix">
 					<div class="search">
@@ -152,7 +152,7 @@
 
 			</form>
 		</div>
-		<!--content fearture-->
+		<!--content feature-->
 	</div>
 	<!--content end-->
 
