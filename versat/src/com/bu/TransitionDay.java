@@ -25,6 +25,7 @@ public class TransitionDay {
 	public static final int NEWFUNDS = -3; // funds need vale
 	private static TransitionDay instance = new TransitionDay();
 	private boolean inTransition;
+	public static final long MAX_VALUE = 100000000000000000L;
 
 	private AtomicInteger inProcessingTransition;
 
@@ -293,14 +294,15 @@ public class TransitionDay {
 			switch (tran.getTransactionType()) {
 			case Transaction.TRANS_TYPE_BUY:
 				if (user.getCash() >= tran.getAmount()) {
-					long shares = 1000 * tran.getAmount()
-							/ tran.getFundPriceHistory().getPrice();
+					long shares = Math.round(1000 * tran.getAmount()
+							/ tran.getFundPriceHistory().getPrice());
 					if (shares == 0) {
 						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 						TransactionDao.getInstance().update(tran);
 					} else {
 						tran.setShares(shares);
-						tran.setAmount((long) (shares / 1000.0 * tran.getFundPriceHistory().getPrice()));
+						tran.setAmount(Math.round((shares / 1000.0 * tran
+								.getFundPriceHistory().getPrice())));
 						user.setCash(user.getCash() - tran.getAmount());
 						Position p = PositionDao.getInstance()
 								.getByCustomerIdFundId(
@@ -332,9 +334,10 @@ public class TransitionDay {
 				Position p = PositionDao.getInstance().getByCustomerIdFundId(
 						user.getId(),
 						tran.getFundPriceHistory().getFund().getId());
-				if (p.getShares() >= tran.getShares()) {
-					long money = (long) (tran.getShares() / 1000.0
-							* tran.getFundPriceHistory().getPrice());
+				long money = Math.round((tran.getShares() / 1000.0 * tran
+						.getFundPriceHistory().getPrice()));
+				if (p.getShares() >= tran.getShares()
+						&& MAX_VALUE - money > user.getCash()) {
 					user.setCash(user.getCash() + money);
 					tran.setAmount(money);
 					if (p.getShares() == tran.getShares()) {
@@ -354,9 +357,15 @@ public class TransitionDay {
 				}
 				break;
 			case Transaction.TRANS_TYPE_DEPOSIT:
-				user.setCash(user.getCash() + tran.getAmount());
-				tran.setStatus(Transaction.TRANS_STATUS_FINISH);
-				if (!TransitionDao.getInstance().withDrawAndDepsit(user, tran)) {
+				if (MAX_VALUE - tran.getAmount() > user.getCash()) {
+					user.setCash(user.getCash() + tran.getAmount());
+					tran.setStatus(Transaction.TRANS_STATUS_FINISH);
+					if (!TransitionDao.getInstance().withDrawAndDepsit(user,
+							tran)) {
+						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+						TransactionDao.getInstance().update(tran);
+					}
+				} else {
 					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 					TransactionDao.getInstance().update(tran);
 				}

@@ -1,5 +1,7 @@
 package com.pojo;
 
+import java.text.DecimalFormat;
+
 // Generated Jan 15, 2013 9:10:07 PM by Hibernate Tools 3.4.0.CR1
 
 /**
@@ -11,8 +13,12 @@ public class Fund implements java.io.Serializable {
 	private String name;
 	private String symbol;
 	private double lastDay;
+	private String lastDayString;
 	private double cur; 
+	private String curString;
 //	private Set fundPriceHistories = new HashSet(0);
+	
+	DecimalFormat df = new DecimalFormat("###,##0.00");
 
 	public Fund() {
 	}
@@ -24,20 +30,36 @@ public class Fund implements java.io.Serializable {
 //		this.fundPriceHistories = fundPriceHistories;
 	}
 	
-	public double getLastDay() {
+	public Double getLastDay() {
 		return lastDay;
 	}
 
-	public void setLastDay(double lastDay) {
+	public void setLastDay(Double lastDay) {
+		
 		this.lastDay = lastDay;
+		if(lastDay == 0){
+			this.lastDayString = "-";
+		}else {
+			this.lastDayString = "$" + df.format(lastDay);
+			
+		}
+		
 	}
 
-	public double getCur() {
+	public Double getCur() {
 		return cur;
 	}
 
-	public void setCur(double cur) {
+	public void setCur(Double cur) {
+		
 		this.cur = cur;
+		
+		if(cur == 0){
+			this.curString = "0.00";
+		}else {
+			this.curString = df.format(cur);
+		}
+		
 	}
 
 	public Integer getId() {
@@ -62,5 +84,21 @@ public class Fund implements java.io.Serializable {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+	}
+
+	public String getLastDayString() {
+		return lastDayString;
+	}
+
+	public void setLastDayString(String lastDayString) {
+		this.lastDayString = lastDayString;
+	}
+
+	public String getCurString() {
+		return curString;
+	}
+
+	public void setCurString(String curString) {
+		this.curString = curString;
 	}
 }

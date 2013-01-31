@@ -10,7 +10,7 @@
         </action>
         <action name="do" class="com.action.TransitionAction" method="transition">
             <result name="error">/pages/transition.jsp</result>
-            <result name="success">/pages/transition.jsp</result>     
+            <result name="success" type="redirect">/employee/transition/generate?isSuccess=1</result>     
         </action>
     </package>
     
