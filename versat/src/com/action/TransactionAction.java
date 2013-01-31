@@ -26,7 +26,7 @@ public class TransactionAction extends ActionSupport {
 	private String amountString;
 	private String availBalanceString;
 	private int isSuccess;
-	
+
 	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
 
 	public Integer getTransactionType() {
@@ -101,12 +101,21 @@ public class TransactionAction extends ActionSupport {
 		return amount;
 	}
 
+	public String getAvailBalanceString() {
+		return availBalanceString;
+	}
+
+	public void setAvailBalanceString(String availBalanceString) {
+		this.availBalanceString = availBalanceString;
+	}
+	
 	public String list() {
-	//	Map session = ActionContext.getContext().getSession();
-	//	userId = this.getUserId();
 
 		if (userId == null || transactionType == null) {
 			userId = 0;
+			isSuccess = -1;
+			this.addActionError("Error, Can not get User ID.");
+			return ERROR;
 		}
 		try {
 			if (transactionType == -1) {
@@ -165,10 +174,9 @@ public class TransactionAction extends ActionSupport {
 				avaiBalance -= t.getAmount();
 			}
 		}
-	//	double as = avaiBalance / 100.0;
+		// double as = avaiBalance / 100.0;
 		setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
 
-		
 		return SUCCESS;
 
 	}
@@ -202,70 +210,32 @@ public class TransactionAction extends ActionSupport {
 					avaiBalance -= t.getAmount();
 				}
 			}
-		//	double as = avaiBalance / 100.0;
+
 			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
-		//	amount = Double.parseDouble(amountString);
-			if (amountString == null ||amountString.equals("")|| 
-					Double.parseDouble(amountString)==0 || Double.parseDouble(amountString) < 0.01) {
+
+			if (amountString == null || amountString.equals("")
+					|| Double.parseDouble(amountString) == 0
+					|| Double.parseDouble(amountString) < 0.01) {
 				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
-			} else if (amountString.length() > 16) {
-				this.addActionError("The cash number can't be more than 15 digits!");
-				isSuccess = -1;
-				return ERROR;
-			} else if (!checkCashFormat(amountString)) {
-				this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+			}else if (!checkCashFormat(amountString, 15, 2)) {
+				this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be larger than 1,000,000,000,000,000.00; 2.Must be a number with no more than 2 decimals");
 				isSuccess = -1;
 				return ERROR;
 			} else {
-				amount = Double.parseDouble(amountString);
-				//	Transaction t = new Transaction();
-					long a = (long) (amount * 100);
-					if (checkAndWithdraw(user.getId(), a) == false) {
-						this.addActionError("You do not have enough balance.");
-						isSuccess = -1;
-						return ERROR;
-					}
-					// Date date = new Date();
-			//		t.setAmount(a);
-					// t.setExecuteDate(date);
-				//	t.setStatus(Transaction.TRANS_STATUS_PENDING);
-					//t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
-				//	try {
-					//	TransitionDay.getInstance().newTransaction(user.getId(), t);
-				//	} catch (Exception e) {
-						// TODO Auto-generated catch block
-					//	e.printStackTrace();
-				//	}
-					this.isSuccess = 1;
-					return SUCCESS;
-			}
-				/*amount = Double.parseDouble(amountString);
+				amount = 100 * Double.parseDouble(amountString);
+				Long a = Math.round(amount);
 
-				if (amount > user.getCashes()) {
-					this.addActionError("Request amount can not larger than cash balance!");
-					this.isSuccess = -1;
+				if (checkAndWithdraw(user.getId(), a) == false) {
+					this.addActionError("You do not have enough balance.");
+					isSuccess = -1;
 					return ERROR;
 				}
 
-				Transaction t = new Transaction();
-				long a = (long) (amount * 100);
-				// Date date = new Date();
-				t.setAmount(a);
-				// t.setExecuteDate(date);
-				t.setStatus(Transaction.TRANS_STATUS_PENDING);
-				t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);
-				try {
-					TransitionDay.getInstance().newTransaction(user.getId(), t);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				this.isSuccess = 1;
 				return SUCCESS;
-
-			}*/
+			}
 
 		}
 		this.addActionError("error!");
@@ -273,11 +243,14 @@ public class TransactionAction extends ActionSupport {
 		return ERROR;
 
 	}
-	
-	public static synchronized boolean checkAndWithdraw(int uId,long inputAmount) throws Exception {
+
+	public static synchronized boolean checkAndWithdraw(int uId,
+			long inputAmount) throws Exception {
 		// -- the transaction dao needs to be fixed here
-		ArrayList<Transaction> transactions = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
-		ArrayList<Transaction> transactions2 = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		long avaiBalance = user.getCash();
@@ -302,20 +275,21 @@ public class TransactionAction extends ActionSupport {
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
 		t.setTransactionType(Transaction.TRANS_TYPE_WITHDRAW);
 		while (true) {
-			int i = TransitionDay.getInstance().newTransaction(uId,t);
+			int i = TransitionDay.getInstance().newTransaction(uId, t);
 			if (i == TransitionDay.SUCCESS)
 				break;
 		}
 		return true;
 	}
 
-	
-
 	public String showDeposit() throws Exception {
 		// Map session = ActionContext.getContext().getSession();
 		isSuccess = 0;
 		if (userId == null) {
 			userId = 0;
+			isSuccess = -1;
+			this.addActionError("Error, Can not get User ID.");
+			return ERROR;
 		} else {
 			try {
 				this.user = SysuserDao.getInstance().getByUserId(userId);
@@ -343,7 +317,7 @@ public class TransactionAction extends ActionSupport {
 				avaiBalance -= t.getAmount();
 			}
 		}
-		double as = avaiBalance / 100.0;
+	//	double as = avaiBalance / 100.0;
 		setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
 
 		return SUCCESS;
@@ -358,6 +332,7 @@ public class TransactionAction extends ActionSupport {
 			if (userId == null) {
 				userId = 0;
 				isSuccess = -1;
+				this.addActionError("Error, Can not get User ID.");
 				return ERROR;
 			} else {
 				user = SysuserDao.getInstance().getByUserId(userId);
@@ -385,41 +360,35 @@ public class TransactionAction extends ActionSupport {
 					avaiBalance -= t.getAmount();
 				}
 			}
-		//	double as = avaiBalance / 100.0;
+			// double as = avaiBalance / 100.0;
 			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
-		//	amount = Double.parseDouble(amountString);
-			if (amountString == null ||amountString.equals("")|| Double.parseDouble(amountString)==0 || Double.parseDouble(amountString) < 0.01) {
+			// amount = Double.parseDouble(amountString);
+			if (amountString == null || amountString.equals("")
+					|| Double.parseDouble(amountString) == 0
+					|| Double.parseDouble(amountString) < 0.01) {
 				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
-			} else if (amountString.length() > 16) {
-				this.addActionError("The cash number can't be more than 15 digits!");
-				isSuccess = -1;
-				return ERROR;
-			} else if (!checkCashFormat(amountString)) {
-				this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
+			} /*
+			 * else if (amountString.length() > 16) {
+			 * this.addActionError("The cash number can't be more than 15 digits!"
+			 * ); isSuccess = -1; return ERROR;}
+			 */else if (!checkCashFormat(amountString, 15, 2)) {
+				this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be larger than 1,000,000,000,000,000.00; 2.Must be a number with no more than 2 decimals");
 				isSuccess = -1;
 				return ERROR;
 			} else {
-				amount = Double.parseDouble(amountString);
-			//	Transaction t = new Transaction();
-				long a = (long) (amount * 100);
+				// amount = Double.parseDouble(amountString);
+				// long a = (long) (amount * 100);
+				amount = 100 * Double.parseDouble(amountString);
+				System.out.println("amount" + amount);
+				Long a = Math.round(amount);
+				System.out.println("a" + a);
 				if (checkAndDeposit(user.getId(), a) == false) {
 					this.addActionError("You do not have enough balance.");
 					isSuccess = -1;
 					return ERROR;
 				}
-				// Date date = new Date();
-		//		t.setAmount(a);
-				// t.setExecuteDate(date);
-			//	t.setStatus(Transaction.TRANS_STATUS_PENDING);
-				//t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
-			//	try {
-				//	TransitionDay.getInstance().newTransaction(user.getId(), t);
-			//	} catch (Exception e) {
-					// TODO Auto-generated catch block
-				//	e.printStackTrace();
-			//	}
 				this.isSuccess = 1;
 				return SUCCESS;
 
@@ -430,11 +399,14 @@ public class TransactionAction extends ActionSupport {
 		this.isSuccess = -1;
 		return ERROR;
 	}
-	
-	public static synchronized boolean checkAndDeposit(int uId,long inputAmount) throws Exception {
+
+	public static synchronized boolean checkAndDeposit(int uId, long inputAmount)
+			throws Exception {
 		// -- the transaction dao needs to be fixed here
-		ArrayList<Transaction> transactions = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
-		ArrayList<Transaction> transactions2 = TransactionDao.getInstance().getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
+		ArrayList<Transaction> transactions = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_BUY);
+		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+				.getPendTransByUserIdOp(uId, Transaction.TRANS_TYPE_WITHDRAW);
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = SysuserDao.getInstance().getByUserId(uId);
 		long avaiBalance = user.getCash();
@@ -451,25 +423,35 @@ public class TransactionAction extends ActionSupport {
 				avaiBalance -= t.getAmount();
 			}
 		}
-	//	if (avaiBalance < inputAmount) {
-		//	return false;
-	//	}
+
 		Transaction t = new Transaction();
 		t.setAmount(inputAmount);
+		System.out.println("inpuAmount" + inputAmount);
 		t.setStatus(Transaction.TRANS_STATUS_PENDING);
 		t.setTransactionType(Transaction.TRANS_TYPE_DEPOSIT);
 		while (true) {
-			int i = TransitionDay.getInstance().newTransaction(uId,t);
+			int i = TransitionDay.getInstance().newTransaction(uId, t);
 			if (i == TransitionDay.SUCCESS)
 				break;
 		}
 		return true;
 	}
 
-
-
-	private boolean checkCashFormat(String cashString) {
-		int i, flag = 0, loopTime = 0;
+	private static boolean checkCashFormat(String cashString, int beforeD,
+			int afterD) {
+		int i, j, flag = 0, loopTime = 0, flag2 = 0;
+		StringBuffer cashCheckZero = new StringBuffer();
+		for (j = 0; j < cashString.length() - 1; j++) {
+			if (cashString.charAt(j) == '0' && flag2 == 0
+					&& cashString.charAt(j + 1) != '.')
+				;
+			else {
+				flag2 = 1;
+				cashCheckZero.append(cashString.charAt(j));
+			}
+		}
+		cashCheckZero.append(cashString.charAt(j));
+		cashString = cashCheckZero.toString();
 		for (i = 0; i < cashString.length(); i++) {
 			int asc = cashString.charAt(i);
 			if (i == 0) {
@@ -483,6 +465,9 @@ public class TransactionAction extends ActionSupport {
 				break;
 			}
 		}
+
+		if (i > beforeD)
+			return false;
 		for (i++; i < cashString.length() && flag == 1;) {
 			int asc = cashString.charAt(i);
 			if (asc < 48 || asc > 57)
@@ -490,18 +475,11 @@ public class TransactionAction extends ActionSupport {
 			i++;
 			loopTime++;
 		}
-		if (loopTime > 2)
+		if (loopTime > afterD)
 			return false;
 		return true;
 	}
 
 
-	public String getAvailBalanceString() {
-		return availBalanceString;
-	}
-
-	public void setAvailBalanceString(String availBalanceString) {
-		this.availBalanceString = availBalanceString;
-	}
 
 }
