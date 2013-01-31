@@ -1,5 +1,6 @@
 package com.action;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,13 +24,17 @@ public class TransitionAction extends ActionSupport {
 	private ArrayList<Double> closingPrice;
 	private ArrayList<String> closingPriceString;
 	private ArrayList<Integer> fundid;
-
+	private int isSuccess;
+	
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat df2 = new SimpleDateFormat("MM-dd-yyyy");
-	private int isSuccess;
+	
+	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
+	
+
 
 	public String showTransition() {
-		this.isSuccess = 0;
+	//	this.isSuccess = 0;
 		this.lastTradingDate = TransitionDay.getInstance()
 				.getLastTransitionDay();
 		if (lastTradingDate != null) {
@@ -67,21 +72,21 @@ public class TransitionAction extends ActionSupport {
 				Fund fund = funds.get(i);
 				if (idmaps.containsKey(fund.getId())) {
 					int index = idmaps.get(fund.getId());
-					if (index >= closingPriceString.size()
-							|| closingPriceString.get(index) == null
-							|| closingPriceString.get(index).equals(0)) {
-						this.addActionError("Fund value can not be empty or zero!");
+					boolean why = closingPriceString.get(index).equals(0);
+					if (index >= closingPriceString.size()|| closingPriceString.get(index) == null|| closingPriceString.get(index)=="") {
+						this.addActionError("Fund value can not be empty or zero, and it should be larger than $0.01!");
 						isSuccess = -1;
 					} else {
-						if (closingPriceString.get(index).length() > 16) {
+						if (Double.parseDouble(closingPriceString.get(index))==0 || Double.parseDouble(closingPriceString.get(index)) < 0.01) {
+							this.addActionError("Fund value can not be empty or zero, and it should be larger than $0.01!");
+							isSuccess = -1;
+						} else if(closingPriceString.get(index).length() > 16) {
 							this.addActionError("The cash number can't be more than 15 digits!");
 							isSuccess = -1;
-						} else if (!checkCashFormat(closingPriceString
-								.get(index))) {
+						} else if (!checkCashFormat(closingPriceString.get(index))) {
 							this.addActionError("The cash format isn't correct. You must input number with no more than 2 decimals!");
 							isSuccess = -1;
-						} else if (Double.parseDouble(closingPriceString
-								.get(index)) >= 100000) {
+						} else if (Double.parseDouble(closingPriceString.get(index)) >= 100000) {
 							this.addActionError("UnitPrice can not larger than 10,000");
 							isSuccess = -1;
 						} else

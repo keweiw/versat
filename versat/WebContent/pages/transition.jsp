@@ -85,9 +85,9 @@ $(document).ready(
 	 		<tr align="center">
 	 			<td><s:property value="#fund.name" /></td>
 	 			<td><s:property value="#fund.symbol" /></td>
-	 			<td align ="right"><s:property value="#fund.lastDay" /></td>
+	 			<td align ="right"><s:property value="#fund.lastDayString" /></td>
 	 			<td>$ <input name="closingPriceString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
-		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.cur} ></td>
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.curString} ></td>
 	        <input type="hidden" name="fundid" value=<s:property value="#fund.id" /> />
 	 		</tr>
 	 	</s:iterator>

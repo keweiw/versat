@@ -204,9 +204,10 @@ public class TransactionAction extends ActionSupport {
 			}
 		//	double as = avaiBalance / 100.0;
 			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
-			
-			if (amountString == null || Double.parseDouble(amountString) == 0) {
-				this.addActionError("Request amount can not be empty or zero!");
+		//	amount = Double.parseDouble(amountString);
+			if (amountString == null ||amountString.equals("")|| 
+					Double.parseDouble(amountString)==0 || Double.parseDouble(amountString) < 0.01) {
+				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
 			} else if (amountString.length() > 16) {
@@ -386,9 +387,8 @@ public class TransactionAction extends ActionSupport {
 			}
 		//	double as = avaiBalance / 100.0;
 			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
-			
-
-			if (amountString == null ||amountString.equals("")|| Double.parseDouble(amountString) == 0 || Double.parseDouble(amountString) < 0.01) {
+		//	amount = Double.parseDouble(amountString);
+			if (amountString == null ||amountString.equals("")|| Double.parseDouble(amountString)==0 || Double.parseDouble(amountString) < 0.01) {
 				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
