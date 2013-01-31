@@ -19,7 +19,8 @@ public class Fund implements java.io.Serializable {
 //	private Set fundPriceHistories = new HashSet(0);
 	
 	DecimalFormat df = new DecimalFormat("###,##0.00");
-
+	DecimalFormat df2 = new DecimalFormat("#####0.00");
+	
 	public Fund() {
 	}
 
@@ -57,7 +58,7 @@ public class Fund implements java.io.Serializable {
 		if(cur == 0){
 			this.curString = "0.00";
 		}else {
-			this.curString = df.format(cur);
+			this.curString = df2.format(cur);
 		}
 		
 	}
