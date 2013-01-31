@@ -2,12 +2,30 @@
 <!DOCTYPE struts PUBLIC
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
+
 <struts>
+<global-exception-mappings>
+    <exception-mapping exception="java.lang.Exception" result="unhandledExceptionHandler"/>
+</global-exception-mappings>
+
+<global-results>
+    <result name="unhandledExceptionHandler" type="chain">
+        <param name="actionName">actionUnhandledExceptionHandler</param>
+        <param name="namespace">/namespaceWhereActionIsDefined</param>
+    </result>
+</global-results>
+
+<action name="actionUnhandledExceptionHandler" class="my.package.struts2.action.UnhandledExceptionHandler">
+    <result name="canNotLogDatabaseError">/WEB-INF/page/error.jsp</result><!-- Used only if there is an error trying to log the exception -->
+</action>
+
+
     <constant name="struts.multipart.maxSize" value="1073741824" />
     <constant name="struts.ui.theme" value="simple" />
     <package name="versat" namespace="/" extends="json-default">
     	<default-action-ref name="index"></default-action-ref>
     </package>
+    
     <package name="login-action" namespace="/" extends="versat">
         <action name="index" class="com.action.LoginAction" method="index">
             <result>/pages/login.jsp</result>
@@ -34,4 +52,5 @@
     <include file="com/action/account.xml"></include>
     <include file="com/action/transition.xml"></include>
     <include file="com/action/customerwelcome.xml"></include>
+ 
 </struts>

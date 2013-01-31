@@ -689,6 +689,11 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		Fund f = FundDao.getInstance().getById(fundId);
+		if(f==null){
+			this.addActionError("Can not find this fund");
+			isSuccess=-1;
+			return ERROR;
+		}
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
 		name = f.getName();
