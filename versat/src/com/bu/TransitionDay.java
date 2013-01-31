@@ -25,7 +25,7 @@ public class TransitionDay {
 	public static final int NEWFUNDS = -3; // funds need vale
 	private static TransitionDay instance = new TransitionDay();
 	private boolean inTransition;
-	public static final long MAX_VALUE = 100000000000000L;
+	public static final long MAX_VALUE = 100000000000000000L;
 
 	private AtomicInteger inProcessingTransition;
 
