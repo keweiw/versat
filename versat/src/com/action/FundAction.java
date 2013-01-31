@@ -466,6 +466,7 @@ public class FundAction extends ActionSupport {
 				user.getId(), fundId);
 		if (p == null) {
 			this.addActionError("Can not find this fund");
+			isSuccess=-1;
 			return ERROR;
 		}
 		name = p.getFundName();
@@ -496,6 +497,11 @@ public class FundAction extends ActionSupport {
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
+		if(p==null){
+			this.addActionError("Can not find this fund");
+			isSuccess=-1;
+			return ERROR;
+		}
 		name = p.getFundName();
 		symbol = p.getFundSymbol();
 		shares = p.getShares() / 1000.0;
@@ -515,17 +521,24 @@ public class FundAction extends ActionSupport {
 		}
 		double newAvaiShares = avaiShares / 1000.0;
 		outputAvaiShareString = shareDFormat.format(newAvaiShares);
+		// -- input check here --//
 		if (inputShareString.equals("") || inputShareString == null) {
 			this.addActionError("You must enter shares!");
 			isSuccess = -1;
 			return ERROR;
 		}
 		inputShareString = inputShareString.trim();
-		if (inputShareString.matches("^[0-9]+([.][0-9]+)?$") == false) {
-			this.addActionError("You must enter numbers!");
+		if (inputShareString.equals("") || inputShareString == null) {
+			this.addActionError("You must enter shares!");
 			isSuccess = -1;
 			return ERROR;
 		}
+		if (inputShareString.matches("^[0-9]+([.][0-9][0-9][0-9])?$") == false) {
+			this.addActionError("You can only enter numbers.!You can not enter more than the third digit after the decimal point");
+			isSuccess = -1;
+			return ERROR;
+		}
+		inputShareString = inputShareString.replaceFirst("^0*", "");
 		double ds = Double.valueOf(inputShareString);
 		long ls = (long) (ds * 1000);
 		if (checkAndSell(fundId, user.getId(), ls) == false) {
@@ -616,6 +629,11 @@ public class FundAction extends ActionSupport {
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
 		Fund f = FundDao.getInstance().getById(fundId);
+		if(f==null){
+			this.addActionError("Can not find this fund");
+			isSuccess=-1;
+			return ERROR;
+		}
 		long avaiShares;
 		if (p == null) {
 			shares = 0 / 1000.0;
@@ -727,14 +745,21 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (amount.matches("^[0-9]+([.][0-9]+)?$") == false) {
-			this.addActionError("You must enter numbers and it can not be negtive.");
+		amount=amount.trim();
+		if (amount.equals("")) {
+			this.addActionError("You must enter amount!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if (amount.matches("^[0-9]+([.][0-9][0-9])?$") == false) {
+			this.addActionError("You must enter numbers and it can not be negtive. You can not enter more than the second digit after the decimal point");
 			isSuccess = -1;
 			return ERROR;
 		}
 		// -- input amount should not more than 1,000,000,000--//
+		amount = amount.replaceFirst("^0*", "");
 		if (amount.length() > 10) {
-			this.addActionError("You can not enter more than 1,000,000,000.");
+			this.addActionError("You can not buy more than 1,000,000,000.");
 			isSuccess = -1;
 			return ERROR;
 		}
@@ -742,7 +767,7 @@ public class FundAction extends ActionSupport {
 		Double newAmount = Double.valueOf(amount);
 
 		if (newAmount == 0 || newAmount < 0.01) {
-			this.addActionError("You must enter non-zero numbers and it should be greater than 0.01.");
+			this.addActionError("You must enter non-zero numbers and it should be smaller than 0.01.");
 			isSuccess = -1;
 			return ERROR;
 		}
