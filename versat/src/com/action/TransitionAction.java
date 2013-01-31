@@ -98,7 +98,7 @@ public class TransitionAction extends ActionSupport {
 			}
 		} else {
 			isSuccess = -1;
-			this.addActionError("There is no funds!");
+			this.addActionError("Error!");
 		}
 
 		if (closingDateString != null && !closingDateString.equals("")) {

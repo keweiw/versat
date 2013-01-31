@@ -360,9 +360,10 @@ public class TransactionAction extends ActionSupport {
 					avaiBalance -= t.getAmount();
 				}
 			}
-			// double as = avaiBalance / 100.0;
+			double as = avaiBalance / 100.0;
 			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
 			// amount = Double.parseDouble(amountString);
+			
 			if (amountString == null || amountString.equals("")
 					|| Double.parseDouble(amountString) == 0
 					|| Double.parseDouble(amountString) < 0.01) {
