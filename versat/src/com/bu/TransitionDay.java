@@ -301,8 +301,8 @@ public class TransitionDay {
 						TransactionDao.getInstance().update(tran);
 					} else {
 						tran.setShares(shares);
-						tran.setAmount(Math.round((shares / 1000.0 * tran
-								.getFundPriceHistory().getPrice())));
+						tran.setAmount(shares * tran
+								.getFundPriceHistory().getPrice() / 1000);
 						user.setCash(user.getCash() - tran.getAmount());
 						Position p = PositionDao.getInstance()
 								.getByCustomerIdFundId(
