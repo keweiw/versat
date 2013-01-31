@@ -38,7 +38,7 @@ public class FundDao extends BaseDao<Fund>{
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion;
 		if(isLike==true)
-			criterion = Restrictions.like("name", name);
+			criterion = Restrictions.like("name", "%"+name+"%");
 		else
 			criterion = Restrictions.eq("name", name);
 		criterions.add(criterion);
@@ -48,7 +48,7 @@ public class FundDao extends BaseDao<Fund>{
 		List<Criterion> criterions = new ArrayList<Criterion>();
 		Criterion criterion;
 		if(isLike==true)
-			criterion = Restrictions.like("symbol", symbol);
+			criterion = Restrictions.like("symbol", "%"+symbol+"%");
 		else
 			criterion = Restrictions.eq("symbol", symbol);
 		criterions.add(criterion);

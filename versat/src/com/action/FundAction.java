@@ -290,12 +290,12 @@ public class FundAction extends ActionSupport {
 	}
 
 	// --search fund by fund name--//
-	public String searchFundByName() throws Exception {
+/*	public String searchFundByName() throws Exception {
 		keyword = keyword.trim();
 		funds = FundDao.getInstance().getByName(keyword, true);
 		return SUCCESS;
 	}
-
+*/
 	public String searchAllFundByOption() throws Exception {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
@@ -308,6 +308,12 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		keyword = keyword.trim();
+		if(keyword.equals("")){
+			funds = FundDao.getInstance().getAllList();
+			this.addActionError("you must enter the search key!");
+			isSuccess = -1;
+			return ERROR;
+		}
 		// --if the user choose default--//
 		if (optionC.equals("default")) {
 			funds = FundDao.getInstance().getAllList();
@@ -334,7 +340,7 @@ public class FundAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	// --search fund by fund name and user id--//
+	// - search owned fund--//
 	public String searchFundByOption() throws Exception {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
@@ -348,6 +354,12 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		keyword = keyword.trim();
+		if(keyword.equals("")){
+			funds = FundDao.getInstance().getAllList();
+			this.addActionError("you must enter the search key!");
+			isSuccess = -1;
+			return ERROR;
+		}
 		// --if the user choose default--//
 		if (optionC.equals("default")) {
 			positions = PositionDao.getInstance().getAllList();
@@ -709,7 +721,7 @@ public class FundAction extends ActionSupport {
 		}
 		double doubleAvaiBalance = avaiBalance / 100.0;
 		outputAvaiBalanceString = cashDFormat.format(doubleAvaiBalance);
-		// -- error check here-- //
+		// -- input error check here-- //
 		if (amount.equals("") || amount == null) {
 			this.addActionError("You must enter amount!");
 			isSuccess = -1;
@@ -720,8 +732,9 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
+		// -- input amount should not more than 1,000,000,000--//
 		if (amount.length() > 10) {
-			this.addActionError("You can not enter more than 10 digits.");
+			this.addActionError("You can not enter more than 1,000,000,000.");
 			isSuccess = -1;
 			return ERROR;
 		}
