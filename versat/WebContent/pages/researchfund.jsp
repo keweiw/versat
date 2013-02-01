@@ -30,7 +30,7 @@ $(document).ready(function() {
     	  
     	  $.ajax({
     		  async: false,
-    		  url: "http://localhost:8080/versat/customer/fund/fundjson?fundId=${fundId}",
+    		  url: "/versat/customer/fund/fundjson?fundId=${fundId}",
     		  dataType: "json",
     		  success:  function(json) {
 				var data = json.outputFundPriceHistory;
