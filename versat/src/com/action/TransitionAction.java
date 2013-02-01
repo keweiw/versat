@@ -111,7 +111,7 @@ public class TransitionAction extends ActionSupport {
 				return ERROR;
 			}
 			if (this.lastTradingDate.getTime() >= this.closingDate.getTime()) {
-				this.addActionError("The choosen date passed, please choose a future date!");
+				this.addActionError("The chosen date passed, please choose a future date!");
 				this.setIsSuccess(-1);
 				return ERROR;
 			} /*

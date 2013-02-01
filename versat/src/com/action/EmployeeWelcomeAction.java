@@ -66,6 +66,22 @@ public class EmployeeWelcomeAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public static synchronized boolean checkAndChange(Sysuser user, String oldPassword, String newPassword) {
+		if(!AuthorizationFilter.MD5(oldPassword).equals(user.getPassword())){
+			return false;
+		}else{
+			user.setPassword(AuthorizationFilter.MD5(newPassword));
+			try {
+				SysuserDao.getInstance().update(user);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}		
+	}
+	
 	public String submit(){
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
@@ -91,18 +107,11 @@ public class EmployeeWelcomeAction extends ActionSupport {
 				e.printStackTrace();
 			}
 			
-			if(!AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword())){
+			if(checkAndChange(changePswUser, oldPassword, newPassword)){
 				this.addActionError("Current password is Incorrect!");
 				this.isSuccess = -1;
 				return ERROR;
 			}else{
-				changePswUser.setPassword(AuthorizationFilter.MD5(newPassword));
-				try {
-					SysuserDao.getInstance().update(changePswUser);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				this.isSuccess = 1;
 				return SUCCESS;
 			}			

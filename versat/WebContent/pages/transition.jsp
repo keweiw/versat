@@ -8,6 +8,7 @@
 <title>Carnegie Financial Service | Transition Day</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
+<link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../../js/jquery.js" language="javascript"></script>
 <script type="text/javascript" src="../../js/animation.js" language="javascript"></script>
 <script type="text/javascript" language="javascript">
@@ -65,13 +66,13 @@ $(document).ready(
 <div class="trade_day">
 	Closing Date:
  	<input type="date" name = "closingDateString" value=${closingDateString} />
- 	
+ 	<span id="guide"> (Must later than last trading day)</span>
 </div>
 <!-- Date end -->
 
 <!-- Account List -->
 <div class="mail_table">
-	<table class="list_table list_table_choose">
+	<table class="list_table list_table_choose" >
 	 <thead>
 		<tr>
 			<th class="row_4">Fund Name</th>
@@ -87,8 +88,10 @@ $(document).ready(
 	 			<td><s:property value="#fund.symbol" /></td>
 	 			<td align ="right"><s:property value="#fund.lastDayString" /></td>
 	 			<td>$ <input name="closingPriceString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
-		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.curString} ></td>
-	        <input type="hidden" name="fundid" value=<s:property value="#fund.id" /> />
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.curString} >
+		 			  <span id="guide"> (Minimum $0.01; Less than $10,000.00)</span>
+		 		</td>
+	        	<input type="hidden" name="fundid" value=<s:property value="#fund.id" /> />
 	 		</tr>
 	 	</s:iterator>
 	 </tbody>
