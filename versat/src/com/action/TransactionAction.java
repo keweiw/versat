@@ -219,8 +219,8 @@ public class TransactionAction extends ActionSupport {
 				this.addActionError("Request amount can not be empty or zero, and it should be larger than $0.01!");
 				this.isSuccess = -1;
 				return ERROR;
-			}else if (!checkCashFormat(amountString, 15, 2)) {
-				this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be larger than 1,000,000,000,000,000.00; 2.Must be a number with no more than 2 decimals");
+			}else if (!checkCashFormat(amountString, 9, 2)) {
+				this.addActionError("Cahs Fomat Incorrect! 1.Cash amount should be than 1,000,000,000.00; 2.Must be a number with no more than 2 decimals");
 				isSuccess = -1;
 				return ERROR;
 			} else {
@@ -374,8 +374,8 @@ public class TransactionAction extends ActionSupport {
 			 * else if (amountString.length() > 16) {
 			 * this.addActionError("The cash number can't be more than 15 digits!"
 			 * ); isSuccess = -1; return ERROR;}
-			 */else if (!checkCashFormat(amountString, 15, 2)) {
-				this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be larger than 1,000,000,000,000,000.00; 2.Must be a number with no more than 2 decimals");
+			 */else if (!checkCashFormat(amountString, 9, 2)) {
+				this.addActionError("Cahs Fomat Incorrect! 1.Cash amount should be less than 1,000,000,000.00; 2.Must be a number with no more than 2 decimals");
 				isSuccess = -1;
 				return ERROR;
 			} else {

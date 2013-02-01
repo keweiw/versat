@@ -102,7 +102,6 @@ public class TransitionAction extends ActionSupport {
 			// System.out.println(closingDateString);
 			try {
 				this.closingDate = df.parse(closingDateString);
-				System.out.println(closingDate);
 				// this.lastTradingDate = df.parse(lastTradingDateString);
 				// System.out.println(lastTradingDate);
 			} catch (ParseException e) {

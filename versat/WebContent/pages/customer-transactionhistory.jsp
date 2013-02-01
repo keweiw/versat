@@ -105,6 +105,7 @@
 								<tr align="center"><s:if test='#transaction.status == 0'><td>Pending</td></s:if>
 								                   <s:if test='#transaction.status == 1'><td>Processed</td></s:if>
 									               <s:if test='#transaction.status == 2'><td>Failed</td></s:if>
+									               <s:if test='#transaction.status == 3'><td>Rejected</td></s:if>
 									               <s:if test='#transaction.transactionType == 0'><td>Buy Fund</td></s:if>
 									               <s:if test='#transaction.transactionType == 1'><td>Sell Fund</td></s:if>
 									               <s:if test='#transaction.transactionType == 2'><td>Deposit Check</td></s:if>
