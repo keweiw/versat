@@ -7,12 +7,7 @@
     <constant name="struts.multipart.maxSize" value="1073741824" />
     <constant name="struts.ui.theme" value="simple" />
     <package name="versat" namespace="/" extends="json-default">
-    	
     	<default-action-ref name="index"></default-action-ref>
-    	<global-exception-mappings>
-         <exception-mapping exception="java.lang.NullPointerException" result="error" />
-     	</global-exception-mappings>
-     	
     </package>
     
     <package name="login-action" namespace="/" extends="versat">

@@ -45,8 +45,8 @@ public class FundAction extends ActionSupport {
 
 	private ArrayList<FundPriceHistory> outputFundPriceHistory;
 
-	private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
-	private DecimalFormat shareDFormat = new DecimalFormat("###,##0.000");
+	private static DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
+	private static DecimalFormat shareDFormat = new DecimalFormat("###,##0.000");
 
 	// --getters and setters to be here--//
 	public String getOutputAvaiShareString() {
@@ -373,22 +373,74 @@ public class FundAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	private static void calculateAvaiShare(ArrayList<Position> positions,
+			int userId) throws Exception {
+		ArrayList<Fund> fs = TransitionDay.getInstance().getFundList();
+		HashMap priceMap = new HashMap<Integer, Double>();
+		for (Fund f : fs) {
+			priceMap.put(f.getId(), f.getLastDay());
+		}
+		for (Position p : positions) {
+			Integer fId = p.getFund().getId();
+			double priceInDouble = (Double) priceMap.get(fId);
+			double shareInDouble = p.getShares() / 1000.0;
+			double shareValue = priceInDouble * shareInDouble;
+
+			// -- calculate shares here --//
+			long avaiShares = p.getShares();
+			ArrayList<Transaction> transactions = TransactionDao
+					.getInstance()
+					.getPendTransByUserIdOp(userId, Transaction.TRANS_TYPE_SELL);
+			if (transactions.size() != 0) {
+				for (Transaction t : transactions) {
+
+					if (t.getFundPriceHistory().getFund().getId() == fId) {
+						avaiShares -= t.getShares();
+					}
+				}
+			}
+			double newAvaiShares = avaiShares / 1000.0;
+
+			p.setLastPriceString(cashDFormat.format(priceInDouble));
+			p.setShareString(shareDFormat.format(shareInDouble));
+			p.setAvaiShareString(shareDFormat.format(newAvaiShares));
+			p.setShareValueString(cashDFormat.format(shareValue));
+
+		}
+	}
+
 	// - search owned fund--//
 	public String searchFundByOption() throws Exception {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 
+		ArrayList<Fund> fs = TransitionDay.getInstance().getFundList();
+		HashMap priceMap = new HashMap<Integer, Double>();
+		for (Fund f : fs) {
+			priceMap.put(f.getId(), f.getLastDay());
+		}
+
+		positions = PositionDao.getInstance().getPositionByCostomerId(
+				user.getId());
+		if (positions.size() == 0) {
+			this.addActionError("You do not have any fund!");
+			isSuccess = -1;
+			return ERROR;
+		}
 		if (keyword.equals("") || keyword == null) {
 			this.addActionError("you must enter the search key!");
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					user.getId());
+			calculateAvaiShare(positions, user.getId());
 			isSuccess = -1;
 			return ERROR;
 		}
 		keyword = keyword.trim();
 		if (keyword.equals("")) {
-			funds = FundDao.getInstance().getAllList();
+			positions = PositionDao.getInstance().getPositionByCostomerId(
+					user.getId());
+			calculateAvaiShare(positions, user.getId());
 			this.addActionError("you must enter the search key!");
 			isSuccess = -1;
 			return ERROR;
@@ -396,6 +448,7 @@ public class FundAction extends ActionSupport {
 		// --if the user choose default--//
 		if (optionC.equals("default")) {
 			positions = PositionDao.getInstance().getAllList();
+			calculateAvaiShare(positions, user.getId());
 			return SUCCESS;
 		} else if (optionC.equals("fundName")) {
 			funds = FundDao.getInstance().getByName(keyword, true);
@@ -404,13 +457,22 @@ public class FundAction extends ActionSupport {
 				isSuccess = -1;
 				return ERROR;
 			}
-			positions = PositionDao.getInstance().getListByCustomerIdFundId(
-					user.getId(), funds.get(0).getId());
-			if (positions.size() == 0) {
+			positions.clear();
+			boolean isFind = false;
+			for (Fund f : funds) {
+				ArrayList<Position> p = PositionDao.getInstance()
+						.getListByCustomerIdFundId(user.getId(), f.getId());
+				if (p.size() != 0) {
+					positions.add(p.get(0));
+					isFind = true;
+				}
+			}
+			if (isFind == false) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
 				return ERROR;
 			}
+			calculateAvaiShare(positions, user.getId());
 			isSuccess = 1;
 			return SUCCESS;
 		} else if (optionC.equals("fundSymbol")) {
@@ -420,13 +482,21 @@ public class FundAction extends ActionSupport {
 				isSuccess = -1;
 				return ERROR;
 			}
-			positions = PositionDao.getInstance().getListByCustomerIdFundId(
-					user.getId(), funds.get(0).getId());
-			if (positions.size() == 0) {
+			boolean isFind = false;
+			for (Fund f : funds) {
+				ArrayList<Position> p = PositionDao.getInstance()
+						.getListByCustomerIdFundId(user.getId(), f.getId());
+				if (p.size() != 0) {
+					positions.add(p.get(0));
+					isFind = true;
+				}
+			}
+			if (isFind == false) {
 				this.addActionError("Can not find this fund!");
 				isSuccess = -1;
 				return ERROR;
 			}
+			calculateAvaiShare(positions, user.getId());
 			isSuccess = 1;
 			return SUCCESS;
 		}
@@ -571,14 +641,19 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (inputShareString.matches("^[0-9]+([.][0-9][0-9][0-9])?$") == false) {
+		if (inputShareString.matches("^[0-9]+([.][0-9]{1,3})?$") == false) {
 			this.addActionError("You can only enter numbers.!You can not enter more than the third digit after the decimal point");
 			isSuccess = -1;
 			return ERROR;
 		}
-		inputShareString = inputShareString.replaceFirst("^0*", "");
+		// inputShareString = inputShareString.replaceFirst("^0*", "");
 		double ds = Double.valueOf(inputShareString);
-		long ls = Math.round (ds * 1000);
+		if (ds == 0) {
+			this.addActionError("You can not enter zero!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		long ls = Math.round(ds * 1000);
 		if (checkAndSell(fundId, user.getId(), ls) == false) {
 			this.addActionError("You can not over sell!");
 			isSuccess = -1;
@@ -794,13 +869,16 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (amount.matches("^[0-9]+([.][0-9][0-9])?$") == false) {
+		if (amount.matches("^[0-9]+([.][0-9]{1,2})?$") == false) {
 			this.addActionError("You must enter numbers and it can not be negtive. You can not enter more than the second digit after the decimal point");
 			isSuccess = -1;
 			return ERROR;
 		}
 		// -- input amount should not more than 1,000,000,000--//
 		amount = amount.replaceFirst("^0*", "");
+		if (amount.equals("")) {
+			amount = "0";
+		}
 		if (amount.length() > 13) {
 			this.addActionError("You can not buy more than 999,999,999.");
 			isSuccess = -1;
@@ -815,7 +893,7 @@ public class FundAction extends ActionSupport {
 		Double newAmount = Double.valueOf(amount);
 
 		if (newAmount == 0 || newAmount < 0.01) {
-			this.addActionError("You must enter non-zero numbers and it should be smaller than 0.01.");
+			this.addActionError("You must enter non-zero numbers and it should not be smaller than 0.01.");
 			isSuccess = -1;
 			return ERROR;
 		}
@@ -824,7 +902,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		long la = Math.round (newAmount * 100);
+		long la = Math.round(newAmount * 100);
 
 		if (checkAndBuy(fundId, user.getId(), la) == false) {
 			this.addActionError("You do not have enough balance.");
