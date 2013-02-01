@@ -298,7 +298,7 @@ public class TransitionDay {
 					long b = tran.getFundPriceHistory().getPrice();
 					long shares = Math.round(1000.0 * a / b);
 					if (shares == 0) {
-						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+						tran.setStatus(Transaction.TRANS_STATUS_REJECT);
 						TransactionDao.getInstance().update(tran);
 					} else {
 						tran.setShares(shares);
@@ -327,7 +327,7 @@ public class TransitionDay {
 						}
 					}
 				} else {
-					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+					tran.setStatus(Transaction.TRANS_STATUS_REJECT);
 					TransactionDao.getInstance().update(tran);
 				}
 				break;
@@ -353,7 +353,7 @@ public class TransitionDay {
 						TransactionDao.getInstance().update(tran);
 					}
 				} else {
-					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+					tran.setStatus(Transaction.TRANS_STATUS_REJECT);
 					TransactionDao.getInstance().update(tran);
 				}
 				break;
@@ -367,7 +367,7 @@ public class TransitionDay {
 						TransactionDao.getInstance().update(tran);
 					}
 				} else {
-					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+					tran.setStatus(Transaction.TRANS_STATUS_REJECT);
 					TransactionDao.getInstance().update(tran);
 				}
 				break;
@@ -381,7 +381,7 @@ public class TransitionDay {
 						TransactionDao.getInstance().update(tran);
 					}
 				} else {
-					tran.setStatus(Transaction.TRANS_STATUS_FAIL);
+					tran.setStatus(Transaction.TRANS_STATUS_REJECT);
 					TransactionDao.getInstance().update(tran);
 				}
 				break;
