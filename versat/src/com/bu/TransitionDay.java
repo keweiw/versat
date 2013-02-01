@@ -294,15 +294,16 @@ public class TransitionDay {
 			switch (tran.getTransactionType()) {
 			case Transaction.TRANS_TYPE_BUY:
 				if (user.getCash() >= tran.getAmount()) {
-					long shares = Math.round(1000 * tran.getAmount()
-							/ tran.getFundPriceHistory().getPrice());
+					long a = tran.getAmount();
+					long b = tran.getFundPriceHistory().getPrice();
+					long shares = Math.round(1000.0 * a / b);
 					if (shares == 0) {
 						tran.setStatus(Transaction.TRANS_STATUS_FAIL);
 						TransactionDao.getInstance().update(tran);
 					} else {
 						tran.setShares(shares);
-						tran.setAmount(shares * tran
-								.getFundPriceHistory().getPrice() / 1000);
+						tran.setAmount(shares
+								* b / 1000);
 						user.setCash(user.getCash() - tran.getAmount());
 						Position p = PositionDao.getInstance()
 								.getByCustomerIdFundId(
@@ -334,8 +335,8 @@ public class TransitionDay {
 				Position p = PositionDao.getInstance().getByCustomerIdFundId(
 						user.getId(),
 						tran.getFundPriceHistory().getFund().getId());
-				long money = Math.round((tran.getShares() / 1000.0 * tran
-						.getFundPriceHistory().getPrice()));
+				long money = Math.round(0.001 * tran.getShares()
+						* tran.getFundPriceHistory().getPrice());
 				if (p.getShares() >= tran.getShares()
 						&& MAX_VALUE - money > user.getCash()) {
 					user.setCash(user.getCash() + money);

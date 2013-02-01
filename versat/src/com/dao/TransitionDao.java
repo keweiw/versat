@@ -73,5 +73,4 @@ public class TransitionDao extends BaseDao {
 		}
 		return flag;
 	}
-	
 }
