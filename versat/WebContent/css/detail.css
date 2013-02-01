@@ -1,4 +1,4 @@
-﻿.detail_content{
+.detail_content{
 padding:15px;
 line-height:20px;
 }
@@ -8,6 +8,9 @@ width:100%;
 .http_content_detail td{
 padding:5px 5px 5px 10px;
 border:1px #c6cfd8 solid;
+}
+.http_content_detail td #guide{
+color: #c1c1c1;
 }
 .detail_left{
 text-align:right;

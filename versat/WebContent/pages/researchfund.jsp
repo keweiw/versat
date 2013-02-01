@@ -58,7 +58,7 @@ $(document).ready(function() {
 <body>
 <!--header begin-->
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/index">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->
@@ -83,11 +83,9 @@ $(document).ready(function() {
 <div class="warning">Error!</div>
 <!--Alert end-->
 
+<!--Google Chart start-->
 <div class="new_user">
 <div id="chart"></div>
-
-<!--Google Chart start-->
-
 <!--Google Chart end-->
 
 <!--Fund Information start--> 

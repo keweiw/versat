@@ -32,7 +32,7 @@ $(document).ready(
 <body>
 <!--header begin-->
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/index">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->
@@ -76,7 +76,9 @@ $(document).ready(
 	<tr>
 		<td class="detail_left">Request Check Amount:</td>
 		<td class="detail_right">$ <input name="amountString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
-		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amountString}  ></td>
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amountString}  >
+		 						   <span id="guide"> (Minimum $0.01)</span>
+		</td>
 
 	</tr>
 </tbody>

@@ -30,7 +30,7 @@
 	<!--header begin-->
 	<div class="header_container">
 		<h1 class="header_logo">
-			<a href="versat/customer/welcome">Carnegie Financial Service</a>
+			<a href="versat/index">Carnegie Financial Service</a>
 		</h1>
 		<!--header right-->
 		<div class="headerbg_right"></div>
