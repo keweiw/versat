@@ -127,8 +127,8 @@ public class TransitionDay {
 						FundPriceHistory fundPriceHistoryCur = getCurHistory(commitFund
 								.getId());
 						fundPriceHistoryCur.setPriceDate(date);
-						fundPriceHistoryCur.setPrice((long) (commitFund
-								.getCur() * 100));
+						fundPriceHistoryCur.setPrice(Math.round((commitFund
+								.getCur() * 100)));
 						FundPriceHistoryDao.getInstance().update(
 								fundPriceHistoryCur);
 					} catch (Exception e1) {
