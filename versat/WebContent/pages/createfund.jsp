@@ -29,7 +29,7 @@ $(document).ready(function() {
 <body>
 <!--header begin-->
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/employee/welcome">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->
@@ -45,7 +45,7 @@ $(document).ready(function() {
 <div class="content">
 <!--content feature-->
 <div class="content_right2">
-<s:form action="create" namespace="/versat/employee/fund" method="post" id="form">
+<s:form action="create" namespace="/versat/index" method="post" id="form">
 <div class="mail_tab_nav">
 	<div class="straight_line_nav"><div class="new_user_title">Create New Fund</div></div>
 </div>

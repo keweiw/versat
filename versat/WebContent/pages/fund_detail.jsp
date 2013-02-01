@@ -22,7 +22,7 @@ $(document).ready(function() {
 <body>
 <!--header begin-->
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/index">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->

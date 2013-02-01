@@ -30,7 +30,7 @@
 	<!--header begin-->
 	<div class="header_container">
 		<h1 class="header_logo">
-			<a href="versat/employee/welcome">Carnegie Financial Service</a>
+			<a href="/versat/index">Carnegie Financial Service</a>
 		</h1>
 		<!--header right-->
 		<div class="headerbg_right"></div>
@@ -107,6 +107,7 @@
 								<tr align="center"> <s:if test='#transaction.status == 0'> <td>Pending</td></s:if>
 								<s:if test='#transaction.status == 1'><td>Processed</td></s:if>
 								<s:if test='#transaction.status == 2'><td>Failed</td></s:if>
+								<s:if test='#transaction.status == 3'><td>Rejected</td></s:if>
 								<s:if test='#transaction.transactionType == 0'><td>Buy fund</td></s:if> 
 								<s:if test='#transaction.transactionType == 1'><td>Sell fund</td></s:if>
 								<s:if test='#transaction.transactionType == 2'><td>Deposit check</td></s:if>

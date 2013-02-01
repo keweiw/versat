@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<title>Carnegie Financial Service | Request Check</title>
+<title>Carnegie Financial Service | Deposit Check</title>
 <link href="../../css/common.css" rel="stylesheet" type="text/css" />
 <link href="../../css/detail.css" rel="stylesheet" type="text/css" />
 <link href="../../css/display.css" rel="stylesheet" type="text/css" />
@@ -31,7 +31,7 @@ $(document).ready(
 
 <body>
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/index">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->
@@ -60,7 +60,6 @@ $(document).ready(
 <!--Deposit start-->
 <div class="new_user"><br/>
 <input type="hidden" name="userId" value=${userId} />
-</table>
 <table cellspacing="0" cellpadding="0" class="http_content_detail">
   <tbody>
   	<tr>
@@ -86,7 +85,9 @@ $(document).ready(
   <tr>
     <td class="detail_left">Deposit Amount:</td>
     <td class="detail_right">$ <input name="amountString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
-		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amountString}  ></td>
+		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${amountString}  >
+		 <span id="guide"> (Maximum $1,000,000,000.00) </span>
+	</td>
   </tr>
   </tbody>
 </table>

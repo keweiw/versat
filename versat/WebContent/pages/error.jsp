@@ -15,11 +15,13 @@
 <body>
 <!--header start-->
  <div class="header_container">
-<h1 class="header_logo"><a href="./" title="welcome to">Carnegie Financial Services</a></h1>
+<h1 class="header_logo"><a href="/versat/index" title="welcome to">Carnegie Financial Services</a></h1>
 <div class="headerbg_right">
 </div>
 </div><!--header end-->
-  <div class="content"><!--content功能展现-->
+  <div class="content">
+ 
+<!--content-->
    <center>
     <div class="login_area_content">
         </div>

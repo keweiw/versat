@@ -28,7 +28,7 @@ $(document).ready(function() {
 <body>
 <!--header begin-->
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/index">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->
@@ -81,8 +81,9 @@ $(document).ready(function() {
 	</tr>
 	<tr>
 		<td class="detail_left">Amount:</td>
-		<td class="detail_right">$ <input name="amount" value="${amount}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false"> 
-</td>
+		<td class="detail_right">$ <input name="amount" value="${amount}" class="list_text_width_normal" onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" /> 
+		 		                   <span id="guide"> (Maximum $1,000,000,000.00) </span>
+	    </td>
 	</tr>
   </tbody>
 </table>
