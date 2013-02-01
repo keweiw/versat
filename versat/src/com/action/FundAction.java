@@ -417,6 +417,11 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		name = name.trim();
+		if (name.matches("[a-zA-Z]*") == false) {
+			this.addActionError("The name should be all letters!");
+			isSuccess = -1;
+			return ERROR;
+		}
 		symbol = symbol.trim();
 		if (symbol.matches("[a-zA-Z]*") == false) {
 			this.addActionError("The symbol should be all letters!");
@@ -763,7 +768,13 @@ public class FundAction extends ActionSupport {
 		}
 		// -- input amount should not more than 1,000,000,000--//
 		amount = amount.replaceFirst("^0*", "");
-		if (amount.length() > 10) {
+		String[] na = amount.split(".");
+		if(na[0].startsWith("1")==false && na[0].length()==10){
+			this.addActionError("You can not buy more than 1,000,000,000.");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if (na[0].length() > 10) {
 			this.addActionError("You can not buy more than 1,000,000,000.");
 			isSuccess = -1;
 			return ERROR;
