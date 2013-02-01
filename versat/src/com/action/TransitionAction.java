@@ -49,8 +49,7 @@ public class TransitionAction extends ActionSupport {
 
 	public String transition() {
 		this.isSuccess = 0;
-		this.lastTradingDate = TransitionDay.getInstance()
-				.getLastTransitionDay();
+		this.lastTradingDate = TransitionDay.getInstance().getLastTransitionDay();
 
 		if (lastTradingDate != null) {
 			this.lastTradingDateString = df2.format(this.lastTradingDate);
@@ -70,7 +69,6 @@ public class TransitionAction extends ActionSupport {
 				Fund fund = funds.get(i);
 				if (idmaps.containsKey(fund.getId())) {
 					int index = idmaps.get(fund.getId());
-					boolean why = closingPriceString.get(index).equals(0);
 					if (index >= closingPriceString.size()
 							|| closingPriceString.get(index) == null
 							|| closingPriceString.get(index) == "") {
@@ -78,16 +76,15 @@ public class TransitionAction extends ActionSupport {
 						isSuccess = -1;
 					} else {
 						if (Double.parseDouble(closingPriceString.get(index)) == 0
-								|| Double.parseDouble(closingPriceString
-										.get(index)) < 0.01) {
+								|| Double.parseDouble(closingPriceString.get(index)) < 0.01) {
 							this.addActionError("Fund value can not be empty or zero, and it should be larger than $0.01!");
 							isSuccess = -1;
 						}  else if (!checkCashFormat(closingPriceString.get(index), 15, 2)) {
 							this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be larger than 1,0,000.00; 2.Must be a number with no more than 2 decimals");
 							isSuccess = -1;
 						} else if (Double.parseDouble(closingPriceString
-								.get(index)) >= 100000) {
-							this.addActionError("UnitPrice can not larger than 10,0000");
+								.get(index)) >= 10000) {
+							this.addActionError("Fund unit price should less than $10,000");
 							isSuccess = -1;
 						} else
 							fund.setCur(Double.parseDouble(closingPriceString
@@ -110,12 +107,12 @@ public class TransitionAction extends ActionSupport {
 				// System.out.println(lastTradingDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				this.addActionError("Current closing date is illegal, please choose another date!");
+				this.addActionError("The choosen date passed, please choose a future date!");
 				this.setIsSuccess(-1);
 				return ERROR;
 			}
 			if (this.lastTradingDate.getTime() >= this.closingDate.getTime()) {
-				this.addActionError("Current closing date is illegal, please choose another date!");
+				this.addActionError("The choosen date passed, please choose a future date!");
 				this.setIsSuccess(-1);
 				return ERROR;
 			} /*
