@@ -768,12 +768,12 @@ public class FundAction extends ActionSupport {
 		// -- input amount should not more than 1,000,000,000--//
 		amount = amount.replaceFirst("^0*", "");
 		if (amount.length() > 13) {
-			this.addActionError("You can not buy more than 1,000,000,000.");
+			this.addActionError("You can not buy more than 999,999,999.");
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (Double.valueOf(amount) > 1000000000) {
-			this.addActionError("You can not buy more than 1,000,000,000.");
+		if (Double.valueOf(amount) >= 1000000000) {
+			this.addActionError("You can not buy more than 999,999,999.");
 			isSuccess = -1;
 			return ERROR;
 		}
