@@ -137,7 +137,16 @@ public class TransactionAction extends ActionSupport {
 	public String listSelf() {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
-		this.user = user;
+		userId = user.getId();
+		
+		try {
+			this.user = SysuserDao.getInstance().getByUserId(userId);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(this.user!=null){
 		try {
 			if (transactionType == -1) {
 				transactions = TransactionDao.getInstance().getListByUserId(
@@ -150,49 +159,69 @@ public class TransactionAction extends ActionSupport {
 			e.printStackTrace();
 		}
 		return SUCCESS;
+		}
+		this.addActionError("error!");
+		this.isSuccess = -1;
+		return ERROR;
 	}
 
 	public String showWithdraw() throws Exception {
-		Map session = ActionContext.getContext().getSession();
-		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		isSuccess = 0;
-		this.user = user;
-		ArrayList<Transaction> transactions = TransactionDao.getInstance()
-				.getPendTransByUserIdOp(user.getId(),
-						Transaction.TRANS_TYPE_BUY);
-		ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
-				.getPendTransByUserIdOp(user.getId(),
-						Transaction.TRANS_TYPE_WITHDRAW);
-		long avaiBalance = user.getCash();
-		if (transactions.size() != 0) {
-			for (Transaction t : transactions) {
-				avaiBalance -= t.getAmount();
-			}
-		}
-		if (transactions2.size() != 0) {
-			for (Transaction t : transactions2) {
-				avaiBalance -= t.getAmount();
-			}
-		}
-		// double as = avaiBalance / 100.0;
-		setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
-
-		return SUCCESS;
-
-	}
-
-	public String withdraw() throws Exception {
 		Map session = ActionContext.getContext().getSession();
-		user = (Sysuser) session.get(LoginAction.SYSUSER);
-		isSuccess = 0;
-		userId = user.getId();
+		Sysuser user1 = (Sysuser) session.get(LoginAction.SYSUSER);
+		userId = user1.getId();
+		
 		try {
-			user = SysuserDao.getInstance().getByUserId(userId);
+			this.user = SysuserDao.getInstance().getByUserId(userId);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if (user != null) {
+		
+		if(this.user!=null){
+			ArrayList<Transaction> transactions = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_BUY);
+			ArrayList<Transaction> transactions2 = TransactionDao.getInstance()
+					.getPendTransByUserIdOp(user.getId(),
+							Transaction.TRANS_TYPE_WITHDRAW);
+			long avaiBalance = this.user.getCash();
+			if (transactions.size() != 0) {
+				for (Transaction t : transactions) {
+					avaiBalance -= t.getAmount();
+				}
+			}
+			if (transactions2.size() != 0) {
+				for (Transaction t : transactions2) {
+					avaiBalance -= t.getAmount();
+				}
+			}
+			// double as = avaiBalance / 100.0;
+			setAvailBalanceString(cashDFormat.format(avaiBalance / 100.0));
+
+			return SUCCESS;
+		}
+		this.addActionError("error!");
+		this.isSuccess = -1;
+		return ERROR;		
+		
+
+	}
+
+	public String withdraw() throws Exception {
+		isSuccess = 0;
+		
+		Map session = ActionContext.getContext().getSession();
+		Sysuser user1 = (Sysuser) session.get(LoginAction.SYSUSER);
+			
+		userId = user1.getId();
+		try {
+			this.user = SysuserDao.getInstance().getByUserId(userId);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		if (this.user != null) {
 			ArrayList<Transaction> transactions = TransactionDao.getInstance()
 					.getPendTransByUserIdOp(user.getId(),
 							Transaction.TRANS_TYPE_BUY);
