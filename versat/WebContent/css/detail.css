@@ -12,6 +12,9 @@ border:1px #c6cfd8 solid;
 .http_content_detail td #guide{
 color: #c1c1c1;
 }
+#guide {
+color: #c1c1c1;	
+}
 .detail_left{
 text-align:right;
 font-weight:bolder;
