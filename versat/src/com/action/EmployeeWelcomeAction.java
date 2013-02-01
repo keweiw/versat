@@ -67,7 +67,7 @@ public class EmployeeWelcomeAction extends ActionSupport {
 	}
 	
 	public static synchronized boolean checkAndChange(Sysuser user, String oldPassword, String newPassword) {
-		if(!AuthorizationFilter.MD5(oldPassword).equals(user.getPassword())){
+		if(!AuthorizationFilter.MD5(oldPassword).equals(user.getPassword()) && oldPassword != null){
 			return false;
 		}else{
 			user.setPassword(AuthorizationFilter.MD5(newPassword));
@@ -107,7 +107,7 @@ public class EmployeeWelcomeAction extends ActionSupport {
 				e.printStackTrace();
 			}
 			
-			if(checkAndChange(changePswUser, oldPassword, newPassword)){
+			if(!checkAndChange(changePswUser, oldPassword, newPassword)){
 				this.addActionError("Current password is Incorrect!");
 				this.isSuccess = -1;
 				return ERROR;
