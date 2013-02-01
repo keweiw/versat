@@ -233,12 +233,12 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		user = (Sysuser) session.get(LoginAction.SYSUSER);
 		try {
-			ArrayList <Fund> fs = TransitionDay.getInstance().getFundList();
-			HashMap priceMap = new HashMap <Integer,Double>();
-			for(Fund f:fs){
+			ArrayList<Fund> fs = TransitionDay.getInstance().getFundList();
+			HashMap priceMap = new HashMap<Integer, Double>();
+			for (Fund f : fs) {
 				priceMap.put(f.getId(), f.getLastDay());
 			}
-			
+
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					user.getId());
 			if (positions.size() == 0) {
@@ -290,12 +290,11 @@ public class FundAction extends ActionSupport {
 	}
 
 	// --search fund by fund name--//
-/*	public String searchFundByName() throws Exception {
-		keyword = keyword.trim();
-		funds = FundDao.getInstance().getByName(keyword, true);
-		return SUCCESS;
-	}
-*/
+	/*
+	 * public String searchFundByName() throws Exception { keyword =
+	 * keyword.trim(); funds = FundDao.getInstance().getByName(keyword, true);
+	 * return SUCCESS; }
+	 */
 	public String searchAllFundByOption() throws Exception {
 		Sysuser user;
 		Map session = ActionContext.getContext().getSession();
@@ -308,7 +307,7 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		keyword = keyword.trim();
-		if(keyword.equals("")){
+		if (keyword.equals("")) {
 			funds = FundDao.getInstance().getAllList();
 			this.addActionError("you must enter the search key!");
 			isSuccess = -1;
@@ -354,7 +353,7 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		keyword = keyword.trim();
-		if(keyword.equals("")){
+		if (keyword.equals("")) {
 			funds = FundDao.getInstance().getAllList();
 			this.addActionError("you must enter the search key!");
 			isSuccess = -1;
@@ -471,7 +470,7 @@ public class FundAction extends ActionSupport {
 				user.getId(), fundId);
 		if (p == null) {
 			this.addActionError("Can not find this fund");
-			isSuccess=-1;
+			isSuccess = -1;
 			return ERROR;
 		}
 		name = p.getFundName();
@@ -502,9 +501,9 @@ public class FundAction extends ActionSupport {
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
-		if(p==null){
+		if (p == null) {
 			this.addActionError("Can not find this fund");
-			isSuccess=-1;
+			isSuccess = -1;
 			return ERROR;
 		}
 		name = p.getFundName();
@@ -545,7 +544,7 @@ public class FundAction extends ActionSupport {
 		}
 		inputShareString = inputShareString.replaceFirst("^0*", "");
 		double ds = Double.valueOf(inputShareString);
-		long ls = (long) (ds * 1000);
+		long ls = Math.round (ds * 1000);
 		if (checkAndSell(fundId, user.getId(), ls) == false) {
 			this.addActionError("You can not over sell!");
 			isSuccess = -1;
@@ -634,9 +633,9 @@ public class FundAction extends ActionSupport {
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
 				user.getId(), fundId);
 		Fund f = FundDao.getInstance().getById(fundId);
-		if(f==null){
+		if (f == null) {
 			this.addActionError("Can not find this fund");
-			isSuccess=-1;
+			isSuccess = -1;
 			return ERROR;
 		}
 		long avaiShares;
@@ -694,9 +693,9 @@ public class FundAction extends ActionSupport {
 		Map session = ActionContext.getContext().getSession();
 		Sysuser user = (Sysuser) session.get(LoginAction.SYSUSER);
 		Fund f = FundDao.getInstance().getById(fundId);
-		if(f==null){
+		if (f == null) {
 			this.addActionError("Can not find this fund");
-			isSuccess=-1;
+			isSuccess = -1;
 			return ERROR;
 		}
 		Position p = PositionDao.getInstance().getByCustomerIdFundId(
@@ -755,7 +754,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		amount=amount.trim();
+		amount = amount.trim();
 		if (amount.equals("")) {
 			this.addActionError("You must enter amount!");
 			isSuccess = -1;
@@ -768,13 +767,12 @@ public class FundAction extends ActionSupport {
 		}
 		// -- input amount should not more than 1,000,000,000--//
 		amount = amount.replaceFirst("^0*", "");
-		String[] na = amount.split(".");
-		if(na[0].startsWith("1")==false && na[0].length()==10){
+		if (amount.length() > 13) {
 			this.addActionError("You can not buy more than 1,000,000,000.");
 			isSuccess = -1;
 			return ERROR;
 		}
-		if (na[0].length() > 10) {
+		if (Double.valueOf(amount) > 1000000000) {
 			this.addActionError("You can not buy more than 1,000,000,000.");
 			isSuccess = -1;
 			return ERROR;
@@ -792,7 +790,7 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
-		long la = (long) (newAmount * 100);
+		long la = Math.round (newAmount * 100);
 
 		if (checkAndBuy(fundId, user.getId(), la) == false) {
 			this.addActionError("You do not have enough balance.");
