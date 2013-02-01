@@ -32,13 +32,13 @@ $(document).ready(
 <body>
 <!--header begin-->
 <div class="header_container">
-<h1 class="header_logo"><a href="#">Carnegie Financial Service</a></h1>
+<h1 class="header_logo"><a href="/versat/index">Carnegie Financial Service</a></h1>
 <!--header right-->
 <div class="headerbg_right"></div>
 <!--header help-->
 <div class="header_help">
 <div class="header_bz"><a href="/versat/logout">Log out</a></div>
-<div class="header_image"><img src="../images/back.gif" title="退出" /></div>
+<div class="header_image"><img src="../images/back.gif" title="log out" /></div>
 <div class="header_ues">Welcome, ${sessionScope.NAME}</div>
 </div>
 </div>

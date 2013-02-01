@@ -18,6 +18,7 @@ public class Transaction implements java.io.Serializable {
 	public static final int TRANS_STATUS_PENDING = 0;
 	public static final int TRANS_STATUS_FINISH = 1;
 	public static final int TRANS_STATUS_FAIL = 2;
+	public static final int TRANS_STATUS_REJECT = 3;
 	private Integer id;
 	private Sysuser sysuser;
 	private FundPriceHistory fundPriceHistory;
