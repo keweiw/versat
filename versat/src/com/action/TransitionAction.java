@@ -73,32 +73,17 @@ public class TransitionAction extends ActionSupport {
 					if (index >= closingPriceString.size()
 							|| closingPriceString.get(index) == null
 							|| closingPriceString.get(index) == "") {
-						this.addActionError("The "
-								+ (index + 1)
-								+ " row's fund value can not be empty or zero, and it can not be less than $0.01!");
+						this.addActionError("The "+ (index + 1) + " row's fund value can not be empty or zero, and it can not be less than $0.01!");
 						isSuccess = -1;
 					} else {
-						if (Double.parseDouble(closingPriceString.get(index)) == 0
-								|| Double.parseDouble(closingPriceString
-										.get(index)) < 0.01) {
-							this.addActionError("The "
-									+ (index + 1)
-									+ " row's fund value can not be empty or zero, and it should be larger than $0.01!");
+						if (!checkCashFormat(closingPriceString.get(index), 4, 2)) {
+							this.addActionError("The " + (index + 1) + " row's cash fomat incorrect! 1.Cash amount can't be larger than 10,000.00; 2.Must be a number with no more than 2 decimals");
 							isSuccess = -1;
-						} else if (!checkCashFormat(
-								closingPriceString.get(index), 4, 2)) {
-							this.addActionError("The "
-									+ (index + 1)
-									+ " row's cash fomat incorrect! 1.Cash amount can't be larger than 10,000.00; 2.Must be a number with no more than 2 decimals");
+						} else if(Double.parseDouble(closingPriceString.get(index)) == 0 || Double.parseDouble(closingPriceString.get(index)) < 0.01) {
+							this.addActionError("The " + (index + 1) + " row's fund value can not be empty or zero, and it should be larger than $0.01!");
 							isSuccess = -1;
-						}/*
-						 * else if (Double.parseDouble(closingPriceString
-						 * .get(index)) >= 10000) { this.addActionError(
-						 * "Fund unit price should less than $10,000");
-						 * isSuccess = -1; }
-						 */else
-							fund.setCur(Double.parseDouble(closingPriceString
-									.get(index)));
+						} else 
+							fund.setCur(Double.parseDouble(closingPriceString.get(index)));
 					}
 
 				}
