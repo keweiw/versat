@@ -29,7 +29,7 @@ public class TransitionAction extends ActionSupport {
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat df2 = new SimpleDateFormat("MM-dd-yyyy");
 
-	//private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
+	// private DecimalFormat cashDFormat = new DecimalFormat("###,##0.00");
 
 	public String showTransition() {
 		// this.isSuccess = 0;
@@ -49,7 +49,8 @@ public class TransitionAction extends ActionSupport {
 
 	public String transition() {
 		this.isSuccess = 0;
-		this.lastTradingDate = TransitionDay.getInstance().getLastTransitionDay();
+		this.lastTradingDate = TransitionDay.getInstance()
+				.getLastTransitionDay();
 
 		if (lastTradingDate != null) {
 			this.lastTradingDateString = df2.format(this.lastTradingDate);
@@ -72,21 +73,30 @@ public class TransitionAction extends ActionSupport {
 					if (index >= closingPriceString.size()
 							|| closingPriceString.get(index) == null
 							|| closingPriceString.get(index) == "") {
-						this.addActionError("The "+(index+1)+" row's fund value can not be empty or zero, and it can not be less than $0.01!");
+						this.addActionError("The "
+								+ (index + 1)
+								+ " row's fund value can not be empty or zero, and it can not be less than $0.01!");
 						isSuccess = -1;
 					} else {
 						if (Double.parseDouble(closingPriceString.get(index)) == 0
-								|| Double.parseDouble(closingPriceString.get(index)) < 0.01) {
-							this.addActionError("The "+(index+1)+" row's fund value can not be empty or zero, and it should be larger than $0.01!");
+								|| Double.parseDouble(closingPriceString
+										.get(index)) < 0.01) {
+							this.addActionError("The "
+									+ (index + 1)
+									+ " row's fund value can not be empty or zero, and it should be larger than $0.01!");
 							isSuccess = -1;
-						}  else if (!checkCashFormat(closingPriceString.get(index), 4, 2)) {
-							this.addActionError("The "+(index+1)+" row's cash fomat Incorrect! 1.Cash amount can't be larger than 10,000.00; 2.Must be a number with no more than 2 decimals");
+						} else if (!checkCashFormat(
+								closingPriceString.get(index), 4, 2)) {
+							this.addActionError("The "
+									+ (index + 1)
+									+ " row's cash fomat incorrect! 1.Cash amount can't be larger than 10,000.00; 2.Must be a number with no more than 2 decimals");
 							isSuccess = -1;
-						}/* else if (Double.parseDouble(closingPriceString
-								.get(index)) >= 10000) {
-							this.addActionError("Fund unit price should less than $10,000");
-							isSuccess = -1;
-						} */else
+						}/*
+						 * else if (Double.parseDouble(closingPriceString
+						 * .get(index)) >= 10000) { this.addActionError(
+						 * "Fund unit price should less than $10,000");
+						 * isSuccess = -1; }
+						 */else
 							fund.setCur(Double.parseDouble(closingPriceString
 									.get(index)));
 					}
@@ -106,7 +116,7 @@ public class TransitionAction extends ActionSupport {
 				// System.out.println(lastTradingDate);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
-				this.addActionError("The choosen date passed, please choose a future date!");
+				this.addActionError("The chosen date passed, please choose a future date!");
 				this.setIsSuccess(-1);
 				return ERROR;
 			}
@@ -114,35 +124,7 @@ public class TransitionAction extends ActionSupport {
 				this.addActionError("The chosen date passed, please choose a future date!");
 				this.setIsSuccess(-1);
 				return ERROR;
-			} /*
-			 * else if(fundid!=null&&closingPriceString!=null){
-			 * 
-			 * HashMap<Integer, Integer> idmaps = new HashMap<Integer,
-			 * Integer>(); for (int j = 0; j < fundid.size(); j++) {
-			 * idmaps.put(fundid.get(j), j); }
-			 * 
-			 * for (int i = 0; i < funds.size(); i++) { Fund fund =
-			 * funds.get(i); if (idmaps.containsKey(fund.getId())) { int index =
-			 * idmaps.get(fund.getId()); if (index >= closingPriceString.size()
-			 * || closingPriceString.get(index) == null ||
-			 * closingPriceString.get(index).equals(0)) {
-			 * this.addActionError("Fund value can not be empty or zero!");
-			 * isSuccess = -1; } else { if
-			 * (closingPriceString.get(index).length() > 16) {
-			 * this.addActionError
-			 * ("The cash number can't be more than 15 digits!"); isSuccess =
-			 * -1; } else if (!checkCashFormat(closingPriceString .get(index)))
-			 * { this.addActionError(
-			 * "The cash format isn't correct. You must input number with no more than 2 decimals!"
-			 * ); isSuccess = -1; } else if
-			 * (Double.parseDouble(closingPriceString .get(index)) >= 100000) {
-			 * this.addActionError("UnitPrice can not larger than 10,000");
-			 * isSuccess = -1; } else
-			 * fund.setCur(Double.parseDouble(closingPriceString.get(index))); }
-			 * 
-			 * } } } else { isSuccess = -1;
-			 * this.addActionError("There is no funds!"); }
-			 */
+			}
 
 			if (isSuccess == -1) {
 				return ERROR;
@@ -230,13 +212,7 @@ public class TransitionAction extends ActionSupport {
 	}
 
 	private String checkStatus(int checkNum) {
-		// if (checkNum == -3) {
-		// isSuccess = -1;
-		// this.addActionError("There is a new fund, please provide its price.");
-		// checkNum = TransitionDay.getInstance().commitTransitionDay(funds,
-		// closingDate);
-		// return ERROR;
-		// }
+
 		if (checkNum == 0) {
 			isSuccess = 1;
 			return SUCCESS;

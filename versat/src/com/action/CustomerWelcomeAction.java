@@ -69,13 +69,22 @@ public class CustomerWelcomeAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public static synchronized boolean checkAndChange(Sysuser user, String oldPassword, String newPassword) {
-		if(!AuthorizationFilter.MD5(oldPassword).equals(user.getPassword()) && oldPassword != null){
+	public static synchronized boolean checkAndChange(int userId, String oldPassword, String newPassword) {
+		Sysuser changePswUser = null;
+		
+		try {
+			changePswUser =SysuserDao.getInstance().getByUserId(userId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		if(!AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword()) && oldPassword != null){
 			return false;
 		}else{
-			user.setPassword(AuthorizationFilter.MD5(newPassword));
+			changePswUser.setPassword(AuthorizationFilter.MD5(newPassword));
 			try {
-				SysuserDao.getInstance().update(user);
+				SysuserDao.getInstance().update(changePswUser);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -101,16 +110,7 @@ public class CustomerWelcomeAction extends ActionSupport {
 				this.isSuccess = -1;
 				return ERROR;
 			}
-			Sysuser changePswUser = null;
-			
-			try {
-				changePswUser =SysuserDao.getInstance().getByUserId(user.getId());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			if(!checkAndChange(changePswUser, oldPassword, newPassword)){
+			if(!checkAndChange(user.getId(), oldPassword, newPassword)){
 				this.addActionError("Current password is Incorrect!");
 				this.isSuccess = -1;
 				return ERROR;

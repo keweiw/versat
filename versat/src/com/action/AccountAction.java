@@ -160,7 +160,7 @@ public class AccountAction extends ActionSupport {
 				}
 				if(!user.getUsername().equals("") && !user.getFirstname().equals("") && !user.getLastname().equals("") && !cashString.equals("")){
 					if (!checkCashFormat(cashString, 9, 2)){
-						this.addActionError("Cahs Fomat Incorrect! 1.Cash amount should less than 1,000,000,000; 2.Must be a number with no more than 2 decimals");
+						this.addActionError("Cash Fomat Incorrect! 1.Cash amount should less than 1,000,000,000; 2.Must be a number with no more than 2 decimals");
 						isSuccess = -1;
 						return ERROR;
 					}else cash = Double.parseDouble(cashString);
@@ -225,7 +225,7 @@ public class AccountAction extends ActionSupport {
 					return ERROR;
 				}
 				if(!user.getUsername().matches("[a-zA-Z0-9]*") || !user.getFirstname().matches("[a-zA-Z]*") || !user.getLastname().matches("[a-zA-Z]*")){
-					this.addActionError("Username must only contain characters a-z and numbers,Firstname and Lastname only contains characters!");
+					this.addActionError("Username must only contain characters a-z and numbers, Firstname and Lastname only contains characters!");
 					isSuccess = -1;
 					return ERROR;
 				}
@@ -322,19 +322,7 @@ public class AccountAction extends ActionSupport {
 	}
 	
 	public String resetPassword(){
-		try {
-			this.user = SysuserDao.getInstance().getByUserId(userId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		user.setPassword(AuthorizationFilter.MD5("111111"));
-		try {
-			SysuserDao.getInstance().update(user);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		CustomerWelcomeAction.checkAndChange(userId, null, "111111");
 		isSuccess = 2;
 		return SUCCESS;
 	}
