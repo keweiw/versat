@@ -89,7 +89,7 @@ $(document).ready(
 	 			<td align ="right"><s:property value="#fund.lastDayString" /></td>
 	 			<td>$ <input name="closingPriceString" type="text"  class="list_text_width_normal"  onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"
 		 onKeyPress="if((event.keyCode<48 || event.keyCode>57) && event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" value=${fund.curString} >
-		 			  <span id="guide"> (Maximum $10,000; Minimum $0.01)</span>
+		 			  <span id="guide"> (Minimum $0.01; Less than $10,000)</span>
 		 		</td>
 	        	<input type="hidden" name="fundid" value=<s:property value="#fund.id" /> />
 	 		</tr>
