@@ -59,9 +59,10 @@ $(document).ready(function() {
   <table class="list_table list_table_choose">
    <thead>
     <tr>
-      <th class="row_4">Fund Name</th>
+     <th class="row_4">Fund Name</th>
       <th class="row_4">Fund Symbol</th>
       <th class="row_4">Shares</th>
+      <th class="row_4">Available Shares</th>
       <th class="row_4">Recent Price</th>
       <th class="row_4">Share Value</th>
     </tr>
@@ -71,9 +72,10 @@ $(document).ready(function() {
 			<tr>
 				<td><s:property value="#position.fundName"/></td>
 				<td><s:property value="#position.fundSymbol"/></td>
-				<td><s:property value="#position.shares"/></td>
-				<td><s:property value="#position.shares"/></td>
-				<td><s:property value="#position.shares"/></td>
+				<td><s:property value="#position.shareString"/></td>
+				<td align="right"><s:property value="#position.avaiShareString"/></td>
+				<td align="right">$ <s:property value="#position.lastPriceString"/></td>
+				<td align="right">$ <s:property value="#position.shareValueString"/></td>
 			</tr>
 			</s:iterator>
    </tbody>

@@ -279,10 +279,44 @@ public class FundAction extends ActionSupport {
 
 	public String employeeListFundByUserId() {
 		try {
-			Sysuser user = SysuserDao.getInstance().getByUserId(userId);
-			name = user.getFirstname();
+			ArrayList<Fund> fs = TransitionDay.getInstance().getFundList();
+			HashMap priceMap = new HashMap<Integer, Double>();
+			for (Fund f : fs) {
+				priceMap.put(f.getId(), f.getLastDay());
+			}
+			name = SysuserDao.getInstance().getByUserId(userId).getFirstname();
 			positions = PositionDao.getInstance().getPositionByCostomerId(
 					userId);
+			if (positions.size() == 0) {
+				return SUCCESS;
+			}
+			for (Position p : positions) {
+				Integer fId = p.getFund().getId();
+				double priceInDouble = (Double) priceMap.get(fId);
+				double shareInDouble = p.getShares() / 1000.0;
+				double shareValue = priceInDouble * shareInDouble;
+
+				// -- calculate shares here --//
+				long avaiShares = p.getShares();
+				ArrayList<Transaction> transactions = TransactionDao
+						.getInstance().getPendTransByUserIdOp(userId,
+								Transaction.TRANS_TYPE_SELL);
+				if (transactions.size() != 0) {
+					for (Transaction t : transactions) {
+
+						if (t.getFundPriceHistory().getFund().getId() == fId) {
+							avaiShares -= t.getShares();
+						}
+					}
+				}
+				double newAvaiShares = avaiShares / 1000.0;
+
+				p.setLastPriceString(cashDFormat.format(priceInDouble));
+				p.setShareString(shareDFormat.format(shareInDouble));
+				p.setAvaiShareString(shareDFormat.format(newAvaiShares));
+				p.setShareValueString(cashDFormat.format(shareValue));
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
