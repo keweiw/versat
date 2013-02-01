@@ -322,19 +322,7 @@ public class AccountAction extends ActionSupport {
 	}
 	
 	public String resetPassword(){
-		try {
-			this.user = SysuserDao.getInstance().getByUserId(userId);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		user.setPassword(AuthorizationFilter.MD5("111111"));
-		try {
-			SysuserDao.getInstance().update(user);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		CustomerWelcomeAction.checkAndChange(userId, null, "111111");
 		isSuccess = 2;
 		return SUCCESS;
 	}
