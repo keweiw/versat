@@ -503,7 +503,7 @@ public class FundAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String createFund() throws Exception {
+	public String createFund() {
 		if (name == null || name.equals("")) {
 			this.addActionError("The fund can not be empty!");
 			isSuccess = -1;
@@ -532,24 +532,30 @@ public class FundAction extends ActionSupport {
 			return ERROR;
 		}
 		// --check if the fund name or symbol is duplicate --//
-		ArrayList<Fund> fs = FundDao.getInstance().getByName(name, false);
-		if (fs.size() != 0) {
-			this.addActionError("The fund name is already exist!");
+		try{
+			ArrayList<Fund> fs = FundDao.getInstance().getByName(name, false);
+			if (fs.size() != 0) {
+				this.addActionError("The fund name is already exist!");
+				isSuccess = -1;
+				return ERROR;
+			}
+			fs = FundDao.getInstance().getBySymbol(symbol, false);
+			if (fs.size() != 0) {
+				this.addActionError("The fund symbol is already exist!");
+				isSuccess = -1;
+				return ERROR;
+			}
+	
+			FundDao.getInstance().createFund(name, symbol);
+			ArrayList<Fund> f = FundDao.getInstance().getByName(name, false);
+			FundPriceHistory fph = new FundPriceHistory();
+			fph.setFund(f.get(0));
+			FundPriceHistoryDao.getInstance().create(fph);
+		}catch(Exception e){
+			this.addActionError("The fund is already exist!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		fs = FundDao.getInstance().getBySymbol(symbol, false);
-		if (fs.size() != 0) {
-			this.addActionError("The fund symbol is already exist!");
-			isSuccess = -1;
-			return ERROR;
-		}
-
-		FundDao.getInstance().createFund(name, symbol);
-		ArrayList<Fund> f = FundDao.getInstance().getByName(name, false);
-		FundPriceHistory fph = new FundPriceHistory();
-		fph.setFund(f.get(0));
-		FundPriceHistoryDao.getInstance().create(fph);
 		isSuccess = 1;
 		return SUCCESS;
 	}
