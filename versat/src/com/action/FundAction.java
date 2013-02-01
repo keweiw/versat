@@ -505,7 +505,7 @@ public class FundAction extends ActionSupport {
 
 	public String createFund() {
 		if (name == null || name.equals("")) {
-			this.addActionError("The fund can not be empty!");
+			this.addActionError("The fund name can not be empty!");
 			isSuccess = -1;
 			return ERROR;
 		}
@@ -514,12 +514,29 @@ public class FundAction extends ActionSupport {
 			isSuccess = -1;
 			return ERROR;
 		}
+		
+		name = name.trim();
+		symbol=symbol.trim();
+		if(name ==null || name.equals("") ){
+			this.addActionError("The fund name can not be empty!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if(symbol ==null || symbol.equals("")){
+			this.addActionError("The fund symbol can not be empty!");
+			isSuccess = -1;
+			return ERROR;
+		}
+		if(name.length()>18){
+			this.addActionError("The fund name can not be more than 18 letters!");
+			isSuccess = -1;
+			return ERROR;
+		}
 		if (symbol.length() > 5) {
 			this.addActionError("The symbol can not be over five letters!");
 			isSuccess = -1;
 			return ERROR;
 		}
-		name = name.trim();
 		if (name.matches("[a-zA-Z]*") == false) {
 			this.addActionError("The name should be all letters!");
 			isSuccess = -1;
