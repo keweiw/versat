@@ -72,15 +72,15 @@ public class TransitionAction extends ActionSupport {
 					if (index >= closingPriceString.size()
 							|| closingPriceString.get(index) == null
 							|| closingPriceString.get(index) == "") {
-						this.addActionError("Fund value can not be empty or zero, and it should be larger than $0.01!");
+						this.addActionError("The "+(index+1)+" row's fund value can not be empty or zero, and it can not be less than $0.01!");
 						isSuccess = -1;
 					} else {
 						if (Double.parseDouble(closingPriceString.get(index)) == 0
 								|| Double.parseDouble(closingPriceString.get(index)) < 0.01) {
-							this.addActionError("Fund value can not be empty or zero, and it should be larger than $0.01!");
+							this.addActionError("The "+(index+1)+" row's fund value can not be empty or zero, and it should be larger than $0.01!");
 							isSuccess = -1;
 						}  else if (!checkCashFormat(closingPriceString.get(index), 4, 2)) {
-							this.addActionError("Cahs Fomat Incorrect! 1.Cash amount can't be larger than 10,000.00; 2.Must be a number with no more than 2 decimals");
+							this.addActionError("The "+(index+1)+" row's cash fomat Incorrect! 1.Cash amount can't be larger than 10,000.00; 2.Must be a number with no more than 2 decimals");
 							isSuccess = -1;
 						}/* else if (Double.parseDouble(closingPriceString
 								.get(index)) >= 10000) {
