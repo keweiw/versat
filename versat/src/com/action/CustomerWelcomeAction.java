@@ -73,13 +73,16 @@ public class CustomerWelcomeAction extends ActionSupport {
 		Sysuser changePswUser = null;
 		
 		try {
-			changePswUser =SysuserDao.getInstance().getByUserId(userId);
+			changePswUser = SysuserDao.getInstance().getByUserId(userId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
-		if(!AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword()) && oldPassword != null){
+		if (changePswUser == null) {
+			return false;
+		}
+		if(oldPassword != null && !AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword())){
 			return false;
 		}else{
 			changePswUser.setPassword(AuthorizationFilter.MD5(newPassword));

@@ -38,6 +38,7 @@ public class TransitionDao extends BaseDao {
 				break;
 			case OPERATION_DELETE:
 				session.delete(p);
+				break;
 			}
 			session.update(user);
 			session.update(tran);

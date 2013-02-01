@@ -341,7 +341,7 @@ public class TransitionDay {
 						&& MAX_VALUE - money > user.getCash()) {
 					user.setCash(user.getCash() + money);
 					tran.setAmount(money);
-					if (p.getShares() == tran.getShares()) {
+					if (p.getShares().equals(tran.getShares())) {
 						operation = TransitionDao.OPERATION_DELETE;
 					} else {
 						p.setShares(p.getShares() - tran.getShares());

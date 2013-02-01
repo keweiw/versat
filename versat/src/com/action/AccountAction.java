@@ -322,6 +322,9 @@ public class AccountAction extends ActionSupport {
 	}
 	
 	public String resetPassword(){
+		if (this.userId == null) {
+			this.userId = 0;
+		}
 		CustomerWelcomeAction.checkAndChange(userId, null, "111111");
 		isSuccess = 2;
 		return SUCCESS;

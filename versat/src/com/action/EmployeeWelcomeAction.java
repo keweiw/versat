@@ -76,7 +76,10 @@ public class EmployeeWelcomeAction extends ActionSupport {
 			e.printStackTrace();
 			return false;
 		}
-		if(!AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword()) && oldPassword != null){
+		if (changePswUser == null) {
+			return false;
+		}
+		if(oldPassword != null && !AuthorizationFilter.MD5(oldPassword).equals(changePswUser.getPassword())){
 			return false;
 		}else{
 			changePswUser.setPassword(AuthorizationFilter.MD5(newPassword));

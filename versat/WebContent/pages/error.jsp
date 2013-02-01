@@ -26,7 +26,7 @@
     <div class="login_area_content">
         </div>
         <div class="login_notice">
-             Error happens!
+             Unexpected input will cause error, please do not try to pretend to be a normal user.
         </div>
     </center>
     </div>
